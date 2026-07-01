@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 认知测评 | ¥199 解锁你的理性指数</title>
+  <title>AI 认知测评 · 不只是分数，是解决方案 | ¥199</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -15,500 +15,521 @@
     }
     ::selection { background: #e8a020; color: #0a0e17; }
 
-    /* ── Particles BG ── */
-    #particles {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(232,160,32,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(0,150,255,0.05) 0%, transparent 50%);
-    }
-    #particles::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 20% 30%, rgba(232,160,32,0.4) 0, transparent),
-        radial-gradient(1px 1px at 40% 70%, rgba(232,160,32,0.3) 0, transparent),
-        radial-gradient(1px 1px at 60% 20%, rgba(232,160,32,0.4) 0, transparent),
-        radial-gradient(1px 1px at 80% 60%, rgba(232,160,32,0.3) 0, transparent),
-        radial-gradient(1px 1px at 10% 80%, rgba(232,160,32,0.2) 0, transparent),
-        radial-gradient(1.5px 1.5px at 70% 40%, rgba(0,150,255,0.3) 0, transparent),
-        radial-gradient(1px 1px at 30% 90%, rgba(232,160,32,0.3) 0, transparent),
-        radial-gradient(1.5px 1.5px at 90% 10%, rgba(0,150,255,0.2) 0, transparent);
-      background-size: 200px 200px;
-      animation: drift 60s linear infinite;
-    }
-    @keyframes drift {
-      0% { transform: translate(0,0); }
-      100% { transform: translate(-100px,-100px); }
-    }
-
-    /* ── Stars ── */
-    .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-
-    /* ── Container ── */
-    .container { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 24px; }
-
-    /* ── Navigation ── */
+    /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10,14,23,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(232,160,32,0.15);
-      padding: 14px 0;
+      background: rgba(10,14,23,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(232,160,32,0.12);
+      padding: 12px 0;
     }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 18px; font-weight: 700; color: #e8a020; letter-spacing: 2px; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .logo { font-size: 17px; font-weight: 700; color: #e8a020; letter-spacing: 2px; }
     .logo span { color: #5678a0; }
     .nav-btn {
       background: linear-gradient(135deg, #e8a020, #c8820a);
       color: #0a0e17; border: none; padding: 8px 22px; border-radius: 25px;
-      font-weight: 600; font-size: 14px; cursor: pointer;
-      transition: transform .2s, box-shadow .2s;
+      font-weight: 600; font-size: 14px; cursor: pointer; transition: all .25s;
     }
     .nav-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(232,160,32,0.3); }
 
-    /* ── Hero ── */
-    .hero {
-      padding: 140px 0 60px;
-      text-align: center;
+    /* ── Pain Hero ── */
+    .pain-hero {
+      padding: 130px 0 60px;
       position: relative;
+      overflow: hidden;
     }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(232,160,32,0.12);
-      border: 1px solid rgba(232,160,32,0.3);
-      color: #e8a020;
-      padding: 6px 20px;
-      border-radius: 20px;
+    .pain-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 50%, rgba(232,160,32,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 50%, rgba(0,150,255,0.04) 0%, transparent 50%);
+      z-index: 0;
+    }
+    .pain-hero .container { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; padding: 0 24px; }
+    .pain-pills {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .pain-pill {
+      background: rgba(255,80,80,0.1);
+      border: 1px solid rgba(255,80,80,0.25);
+      color: #ff8888;
+      padding: 5px 16px;
+      border-radius: 16px;
       font-size: 13px;
-      letter-spacing: 3px;
-      margin-bottom: 24px;
     }
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 56px);
+    .pain-hero h1 {
+      font-size: clamp(26px, 5vw, 44px);
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 16px;
+      line-height: 1.3;
+      margin-bottom: 20px;
     }
-    .hero h1 em {
+    .pain-hero h1 em {
       font-style: normal;
       background: linear-gradient(135deg, #e8a020, #ffcc66);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hero-sub {
-      font-size: 18px;
-      color: #8a9bb5;
-      max-width: 600px;
-      margin: 0 auto 32px;
+    .pain-hero .sub {
+      font-size: 17px; color: #8a9bb5; margin-bottom: 32px; max-width: 600px;
     }
-    .hero-price {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-    .price { font-size: 48px; font-weight: 800; color: #e8a020; }
-    .price-original { font-size: 24px; color: #5678a0; text-decoration: line-through; }
-    .hero .cta-primary {
+    .pain-hero .cta-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .cta-primary {
       display: inline-block;
       background: linear-gradient(135deg, #e8a020, #c8820a);
       color: #0a0e17;
-      padding: 16px 52px;
+      padding: 14px 44px;
       border-radius: 30px;
-      font-size: 18px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: all .3s;
+      font-size: 17px; font-weight: 700;
       text-decoration: none;
+      transition: all .3s;
+      border: none; cursor: pointer;
     }
-    .hero .cta-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(232,160,32,0.35);
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(232,160,32,0.35); }
+    .cta-secondary {
+      color: #8a9bb5; font-size: 14px; text-decoration: underline; cursor: pointer;
     }
-    .hero-stats {
-      display: flex; justify-content: center; gap: 40px; margin-top: 48px;
-      flex-wrap: wrap;
-    }
-    .hero-stats div { text-align: center; }
-    .hero-stats .num { font-size: 28px; font-weight: 700; color: #e8a020; }
-    .hero-stats .label { font-size: 13px; color: #5678a0; }
 
-    /* ── Section ── */
-    .section { padding: 80px 0; }
+    /* ── Pain Points Grid ── */
+    .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
+    @media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; } }
+    .pain-card {
+      background: rgba(255,80,80,0.04);
+      border: 1px solid rgba(255,80,80,0.12);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .pain-card .icon { font-size: 22px; margin-bottom: 8px; }
+    .pain-card h4 { font-size: 15px; color: #ff9999; margin-bottom: 6px; }
+    .pain-card p { font-size: 13px; color: #8a9bb5; line-height: 1.6; }
+
+    /* ── Solution Section ── */
+    .solution { padding: 80px 0; background: rgba(232,160,32,0.02); }
+    .solution .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
     .section-title {
-      font-size: clamp(24px, 3.5vw, 36px);
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 12px;
+      font-size: clamp(22px, 3.5vw, 34px); font-weight: 700;
+      text-align: center; margin-bottom: 10px;
     }
     .section-title em {
       font-style: normal;
       background: linear-gradient(135deg, #e8a020, #ffcc66);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .section-sub {
-      text-align: center;
-      color: #8a9bb5;
-      font-size: 16px;
-      margin-bottom: 48px;
-    }
+    .section-sub { text-align: center; color: #8a9bb5; font-size: 15px; margin-bottom: 48px; }
 
-    /* ── How it works ── */
-    .steps { display: flex; flex-direction: column; gap: 24px; max-width: 640px; margin: 0 auto; }
-    .step {
-      display: flex; align-items: flex-start; gap: 20px;
+    /* ── 3 Solution Cards ── */
+    .solution-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .solution-cards { grid-template-columns: 1fr; } }
+    .sol-card {
       background: rgba(232,160,32,0.04);
       border: 1px solid rgba(232,160,32,0.1);
       border-radius: 16px;
-      padding: 20px 24px;
-      transition: border-color .3s;
+      padding: 28px 22px;
+      text-align: center;
+      transition: border-color .3s, transform .3s;
     }
-    .step:hover { border-color: rgba(232,160,32,0.3); }
-    .step-num {
-      flex-shrink: 0;
-      width: 40px; height: 40px;
-      background: linear-gradient(135deg, #e8a020, #c8820a);
-      color: #0a0e17;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 16px;
-    }
-    .step h3 { font-size: 17px; margin-bottom: 4px; color: #e8a020; }
-    .step p { font-size: 14px; color: #8a9bb5; }
+    .sol-card:hover { border-color: rgba(232,160,32,0.3); transform: translateY(-4px); }
+    .sol-card .sol-icon { font-size: 36px; margin-bottom: 16px; }
+    .sol-card h3 { font-size: 18px; color: #e8a020; margin-bottom: 10px; }
+    .sol-card p { font-size: 14px; color: #8a9bb5; line-height: 1.7; }
 
-    /* ── Assessment Preview ── */
-    .questions-preview {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      max-width: 720px; margin: 0 auto;
-    }
-    @media (max-width: 600px) { .questions-preview { grid-template-columns: 1fr; } }
-    .q-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(232,160,32,0.08);
-      border-radius: 12px;
-      padding: 16px 20px;
-    }
-    .q-card .q-icon { font-size: 20px; margin-bottom: 8px; }
-    .q-card .q-text { font-size: 14px; color: #b0bcc8; }
-    .q-card .q-tag {
-      display: inline-block;
-      font-size: 11px;
-      padding: 2px 10px;
-      border-radius: 10px;
-      background: rgba(232,160,32,0.1);
-      color: #e8a020;
-      margin-top: 8px;
-    }
-
-    /* ── Report Sample ── */
-    .report-sample {
-      max-width: 700px; margin: 0 auto;
+    /* ── Report Sample (Upgraded) ── */
+    .report-section { padding: 80px 0; }
+    .report-section .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+    .report-card {
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(232,160,32,0.12);
       border-radius: 20px;
       padding: 36px;
       position: relative;
-      overflow: hidden;
     }
-    .report-sample::before {
-      content: '🔒 样本报告';
-      position: absolute; top: 12px; right: 12px;
-      font-size: 12px;
-      background: rgba(232,160,32,0.15);
-      color: #e8a020;
-      padding: 4px 14px;
-      border-radius: 10px;
+    .report-card::before {
+      content: '📋 报告样本（部分）';
+      position: absolute; top: 12px; right: 16px;
+      font-size: 12px; background: rgba(232,160,32,0.12); color: #e8a020;
+      padding: 4px 14px; border-radius: 10px;
     }
-    .report-sample h3 { font-size: 22px; margin-bottom: 20px; color: #e8a020; }
-    .report-metric {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    .report-card h3 { font-size: 22px; color: #e8a020; margin-bottom: 24px; }
+    .report-dim {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .report-metric:last-child { border: none; }
-    .report-metric .m-label { font-size: 14px; color: #8a9bb5; }
-    .report-metric .m-score {
-      font-size: 16px; font-weight: 600;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .bar-bg {
-      width: 80px; height: 6px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 3px; overflow: hidden; display: inline-block;
-    }
-    .bar-fill {
-      height: 100%; border-radius: 3px;
-      background: linear-gradient(90deg, #e8a020, #ffcc66);
-    }
-    .report-sample .note {
-      margin-top: 20px; padding: 16px;
+    .report-dim:last-of-type { border: none; }
+    .report-dim .dim-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+    .dim-name { font-size: 15px; font-weight: 600; color: #e0e6f0; }
+    .dim-score { font-size: 14px; color: #e8a020; font-weight: 600; }
+    .bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; margin: 6px 0 10px; }
+    .bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #e8a020, #ffcc66); }
+    .dim-insight { font-size: 13px; color: #8a9bb5; line-height: 1.7; margin-bottom: 10px; }
+    .dim-action {
       background: rgba(232,160,32,0.06);
-      border-radius: 12px;
-      font-size: 13px; color: #b0bcc8; line-height: 1.8;
+      border-left: 3px solid #e8a020;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: #c8a860;
+      line-height: 1.7;
     }
+    .dim-action strong { color: #e8a020; }
+
+    /* ── Case Study ── */
+    .case-section { padding: 80px 0; background: rgba(232,160,32,0.02); }
+    .case-section .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+    .case-card {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.08);
+      border-radius: 20px; padding: 32px;
+    }
+    @media (max-width: 600px) { .case-card { grid-template-columns: 1fr; } }
+    .case-before { text-align: center; padding: 20px; }
+    .case-after  { text-align: center; padding: 20px; }
+    .case-label { font-size: 12px; color: #5678a0; letter-spacing: 2px; margin-bottom: 12px; }
+    .case-quote { font-size: 14px; color: #8a9bb5; font-style: italic; line-height: 1.8; }
+    .case-arrow { font-size: 28px; color: #e8a020; }
+    @media (max-width: 600px) { .case-arrow { transform: rotate(90deg); } }
+    .case-result { margin-top: 16px; font-size: 13px; color: #e8a020; }
+
+    /* ── How it works ── */
+    .steps-section { padding: 80px 0; }
+    .steps-section .container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
+    .step {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 20px 24px; margin-bottom: 16px;
+      background: rgba(232,160,32,0.03);
+      border: 1px solid rgba(232,160,32,0.08);
+      border-radius: 16px;
+    }
+    .step-num {
+      flex-shrink: 0; width: 40px; height: 40px;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px;
+    }
+    .step h4 { font-size: 16px; color: #e8a020; margin-bottom: 4px; }
+    .step p { font-size: 14px; color: #8a9bb5; }
 
     /* ── Payment ── */
     .payment-section {
-      background: rgba(232,160,32,0.03);
-      border: 1px solid rgba(232,160,32,0.12);
+      padding: 60px 0 80px;
+      background: rgba(232,160,32,0.02);
+    }
+    .payment-section .container { max-width: 440px; margin: 0 auto; padding: 0 24px; }
+    .pay-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.15);
       border-radius: 20px;
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 40px;
+      padding: 40px 32px;
       text-align: center;
     }
-    .payment-section h3 { font-size: 24px; margin-bottom: 8px; }
-    .payment-section .price-big { font-size: 40px; font-weight: 800; color: #e8a020; margin: 12px 0; }
-    .qr-placeholder {
-      width: 200px; height: 200px;
-      margin: 24px auto;
+    .pay-card h3 { font-size: 22px; margin-bottom: 6px; }
+    .pay-price { font-size: 44px; font-weight: 800; color: #e8a020; margin: 12px 0 4px; }
+    .pay-note { font-size: 13px; color: #5678a0; margin-bottom: 24px; }
+    .qr-box {
+      width: 200px; height: 200px; margin: 0 auto 16px;
       border: 2px dashed rgba(232,160,32,0.3);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: #5678a0;
-      font-size: 13px;
-      gap: 8px;
-      background: rgba(232,160,32,0.03);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: #5678a0; font-size: 13px;
+      background: rgba(232,160,32,0.02);
     }
-    .qr-placeholder .qr-icon { font-size: 36px; }
-    .payment-tip {
-      font-size: 13px;
-      color: #5678a0;
-      margin-top: 12px;
-    }
+    .qr-box .qr-icon { font-size: 36px; }
+    .pay-tip { font-size: 13px; color: #8a9bb5; line-height: 1.7; }
 
     /* ── FAQ ── */
-    .faq-list { max-width: 640px; margin: 0 auto; }
-    .faq-item {
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 18px 0;
-    }
-    .faq-item h4 { font-size: 16px; color: #e0e6f0; cursor: pointer; display: flex; justify-content: space-between; }
-    .faq-item p { font-size: 14px; color: #8a9bb5; margin-top: 8px; }
+    .faq-section { padding: 60px 0 80px; }
+    .faq-section .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 18px 0; cursor: pointer; }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: #e0e6f0; }
+    .faq-a { font-size: 14px; color: #8a9bb5; margin-top: 10px; display: none; line-height: 1.8; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-toggle { color: #5678a0; font-size: 18px; transition: transform .2s; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
 
     /* ── Footer ── */
-    footer {
-      text-align: center; padding: 40px 0 32px;
-      color: #3a4a60; font-size: 13px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-
-    /* ── Scroll indicator ── */
-    .scroll-indicator {
-      text-align: center; margin-top: 40px;
-      color: #3a4a60; font-size: 13px; animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .hero { padding: 110px 0 40px; }
-      .section { padding: 48px 0; }
-      .report-sample { padding: 20px; }
-      .payment-section { padding: 24px; }
-    }
+    footer { text-align: center; padding: 40px 0 32px; color: #3a4a60; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.04); }
   </style>
 </head>
 <body>
 
-<div id="particles"></div>
-
-<!-- Navigation -->
+<!-- Nav -->
 <nav>
   <div class="container">
-    <div class="logo">AI<span>测评</span></div>
+    <div class="logo">AI<span>认知测评</span></div>
     <button class="nav-btn" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})">立即测评</button>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
+<!-- Hero: Pain First -->
+<section class="pain-hero">
   <div class="container">
-    <div class="hero-badge">🧠 BETA · AI v2.0 认知引擎</div>
-    <h1>你的大脑，在AI时代<br><em>还有多少「人类优势」？</em></h1>
-    <p class="hero-sub">
-      一套基于认知科学 + 行为金融学 + 神经决策学的深度测评，
-      揭示你在 理性决策、情绪韧性、抗压力 等维度上的真实水平。
+    <div class="pain-pills">
+      <span class="pain-pill">决策反复纠结</span>
+      <span class="pain-pill">情绪影响判断</span>
+      <span class="pain-pill">总是被信息带偏</span>
+      <span class="pain-pill">明知不对却停不下来</span>
+    </div>
+
+    <h1>
+      你有没有发现——<br>
+      <em>同样的问题，你一犯再犯</em>
+    </h1>
+    <p class="sub">
+      不是你不够聪明。<br>
+      是你看不见自己的「认知盲区」。<br>
+      这套测评，帮你把盲区照出来，并给出<strong style="color:#e8a020;">具体怎么做</strong>。
     </p>
-    <div class="hero-price">
-      <span class="price">¥199</span>
-      <span class="price-original">¥599</span>
-    </div>
-    <a class="cta-primary" href="#payment">立即解锁测评 →</a>
-    <div class="hero-stats">
-      <div><div class="num">12</div><div class="label">核心维度</div></div>
-      <div><div class="num">15min</div><div class="label">测评时长</div></div>
-      <div><div class="num">24h</div><div class="label">内出报告</div></div>
-    </div>
-    <div class="scroll-indicator">↓ 了解更多</div>
-  </div>
-</section>
 
-<!-- How it Works -->
-<section class="section" id="how">
-  <div class="container">
-    <h2 class="section-title">三步获取你的 <em>AI 认知档案</em></h2>
-    <p class="section-sub">无需下载，扫码支付后即可开始</p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
-          <h3>扫码支付 ¥199</h3>
-          <p>微信或支付宝扫码，一次付费永久查看报告。</p>
-        </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="icon">🎯</div>
+        <h4>重大决策前反复纠结</h4>
+        <p>明明有数据，却还是凭感觉拍板。事后复盘才发现——当时的判断逻辑有漏洞。</p>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
-          <h3>完成12道深度情境题</h3>
-          <p>每题模拟一个真实决策场景，约15分钟。你的选择会暴露你的认知模式。</p>
-        </div>
+      <div class="pain-card">
+        <div class="icon">⚡</div>
+        <h4>情绪一上来，决策全乱</h4>
+        <p>压力下做出的决定，80% 会后悔。但下次遇到同样情况，还是控制不住。</p>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <h3>获取AI生成的个性化报告</h3>
-          <p>AI分析你的每一道选择，生成专属认知画像，包括理性指数、情绪韧性评分、改进建议。</p>
-        </div>
+      <div class="pain-card">
+        <div class="icon">🌀</div>
+        <h4>明知是沉没成本，却停不下来</h4>
+        <p>已经投入了 30 万，知道该止损，但「不甘心」三个字让你又追加了 10 万。</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">👁️</div>
+        <h4>信息越多，判断越乱</h4>
+        <p>看了 20 篇文章，反而更不确定。你以为自己在分析，其实是在找「支持自己观点的证据」。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:36px;">
+      <a class="cta-primary" href="#payment">¥199 解锁我的认知盲区 →</a>
+      <div style="margin-top:12px;">
+        <span class="cta-secondary" onclick="document.getElementById('sample').scrollIntoView({behavior:'smooth'})">先看报告长什么样 ↓</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Assessment Preview -->
-<section class="section" style="background:rgba(232,160,32,0.02);">
+<!-- Solution -->
+<section class="solution">
   <div class="container">
-    <h2 class="section-title">评测 <em>12 个核心维度</em></h2>
-    <p class="section-sub">每道题都经过认知科学设计，揭示你的思维盲区</p>
-    <div class="questions-preview">
-      <div class="q-card">
-        <div class="q-icon">🎲</div>
-        <div class="q-text">风险情境下，你会选择确定收益还是赌一把？</div>
-        <span class="q-tag">损失厌恶</span>
+    <h2 class="section-title">这套报告，<em>不只是分数</em></h2>
+    <p class="section-sub">普通测评给你分数。我们给你「怎么做」。</p>
+
+    <div class="solution-cards">
+      <div class="sol-card">
+        <div class="sol-icon">🔍</div>
+        <h3>找出具体盲区</h3>
+        <p>12 道情境题，每道题都映射一个真实决策场景。AI 不只给分，还告诉你：<strong>「你在哪一步走偏了」</strong>。</p>
       </div>
-      <div class="q-card">
-        <div class="q-icon">⚡</div>
-        <div class="q-text">面对突发危机，你的第一反应是？</div>
-        <span class="q-tag">情绪韧性</span>
+      <div class="sol-card">
+        <div class="sol-icon">🛠️</div>
+        <h3>给出可执行方案</h3>
+        <p>每个薄弱维度，都有 <strong>3 条具体行动建议</strong>。不是「要提高理性」，而是「下次遇到这类情况，先做这一步」。</p>
       </div>
-      <div class="q-card">
-        <div class="q-icon">🎯</div>
-        <div class="q-text">多重信息中，你如何识别真伪？</div>
-        <span class="q-tag">信息甄别力</span>
-      </div>
-      <div class="q-card">
-        <div class="q-icon">🧩</div>
-        <div class="q-text">复杂局面下，你的决策链路有多清晰？</div>
-        <span class="q-tag">决策理性</span>
-      </div>
-      <div class="q-card">
-        <div class="q-icon">🔄</div>
-        <div class="q-text">你容易为已投入的成本继续投入吗？</div>
-        <span class="q-tag">沉没成本</span>
-      </div>
-      <div class="q-card">
-        <div class="q-icon">👁️</div>
-        <div class="q-text">你对自己的判断能力过度自信吗？</div>
-        <span class="q-tag">确认偏误</span>
+      <div class="sol-card">
+        <div class="sol-icon">📈</div>
+        <h3>追踪认知进化</h3>
+        <p>3 个月后重测，对比前后报告，看到自己的真实变化。认知升级，需要数据支撑。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Report Sample -->
-<section class="section" id="sample">
+<!-- Report Sample (Upgraded) -->
+<section class="report-section" id="sample">
   <div class="container">
-    <h2 class="section-title">你的报告长这样 <em>（样本）</em></h2>
-    <p class="section-sub">付费后你将收到完整版PDF，以下为部分预览</p>
-    <div class="report-sample">
-      <h3>🧬 认知档案 · AI分析报告</h3>
-      <div class="report-metric">
-        <span class="m-label">理性决策指数</span>
-        <span class="m-score">73/100 <span class="bar-bg"><span class="bar-fill" style="width:73%"></span></span></span>
+    <h2 class="section-title">你的报告，<em>长这样</em></h2>
+    <p class="section-sub">以下为真实报告样本（已脱敏）。付费后你将收到完整 8 页定制版。</p>
+
+    <div class="report-card">
+      <h3>🧬 认知档案 · AI 深度分析报告</h3>
+      <p style="font-size:13px;color:#5678a0;margin-bottom:20px;">报告编号：CA-20260630-0047 ｜ 客户：张*（企业主，42岁）</p>
+
+      <!-- Dim 1 -->
+      <div class="report-dim">
+        <div class="dim-header">
+          <span class="dim-name">🎯 理性决策指数</span>
+          <span class="dim-score">58 / 100（低于同龄人均值）</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:58%"></div></div>
+        <div class="dim-insight">
+          <strong style="color:#ff8888;">AI 发现：</strong>你在「确定收益 vs 风险收益」类决策中，表现出强烈的损失厌恶倾向。Q1 你选择了确定收益 ¥50,000，而非期望收益 ¥60,000 的赌局——这意味着你在负面框架下过度保守，会错失本该把握的机会。
+        </div>
+        <div class="dim-action">
+          <strong>✅ 立即可做的 3 件事：</strong><br>
+          ① <strong>下一次重大决定前</strong>，强制写下「如果我是旁观者，我会给 TA 什么建议？」——把你和决策拉开距离。<br>
+          ② <strong>用数字替代感受</strong>：把「我怕亏」翻译成「这个项目的最大亏损概率是 X%，期望收益是 Y」。<br>
+          ③ <strong>设置 72 小时冷静期</strong>：所有超过 ¥10,000 的决定，强制等待 3 天再执行。
+        </div>
       </div>
-      <div class="report-metric">
-        <span class="m-label">情绪韧性评分</span>
-        <span class="m-score">58/100 <span class="bar-bg"><span class="bar-fill" style="width:58%"></span></span></span>
+
+      <!-- Dim 2 -->
+      <div class="report-dim">
+        <div class="dim-header">
+          <span class="dim-name">⚡ 情绪韧性评分</span>
+          <span class="dim-score">42 / 100（需重点关注）</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:42%"></div></div>
+        <div class="dim-insight">
+          <strong style="color:#ff8888;">AI 发现：</strong>Q4、Q5 的答案显示，你在压力下会出现「情绪劫持」——前额叶皮层被杏仁核接管，理性分析能力骤降。这不是性格问题，是<strong>可训练的生理反应</strong>。
+        </div>
+        <div class="dim-action">
+          <strong>✅ 立即可做的 3 件事：</strong><br>
+          ① <strong>学会「4-7-8 呼吸法」</strong>：压力来袭时，吸气 4 秒→屏息 7 秒→呼气 8 秒，重复 3 次，强制激活副交感神经。<br>
+          ② <strong>建立「情绪标签」习惯</strong>：下次感到烦躁时，先说出情绪名称（焦虑/愤怒/恐惧），标签化能降低情绪强度 30%。<br>
+          ③ <strong>设置「情绪冷却区」</strong>：在办公桌旁贴一张便签，写上「这个决定，是我在冷静时想要的吗？」
+        </div>
       </div>
-      <div class="report-metric">
-        <span class="m-label">抗干扰能力</span>
-        <span class="m-score">65/100 <span class="bar-bg"><span class="bar-fill" style="width:65%"></span></span></span>
+
+      <!-- Dim 3 -->
+      <div class="report-dim">
+        <div class="dim-header">
+          <span class="dim-name">👁️ 信息甄别力</span>
+          <span class="dim-score">76 / 100（优于 68% 用户）</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:76%"></div></div>
+        <div class="dim-insight">
+          <strong style="color:#66cc88;">AI 发现：</strong>你在信息真伪判断上表现优异，Q7 选择了查官方来源再判断。但 Q8 暴露了轻微的确认偏误——你倾向于相信符合自己预期的信息。这是人类共性，可以通过刻意练习改善。
+        </div>
+        <div class="dim-action">
+          <strong>✅ 继续保持 + 进阶练习：</strong><br>
+          ① <strong>保持「官方来源优先」习惯</strong>，这是你最大的认知优势，不要丢。<br>
+          ② <strong>进阶练习</strong>：每次看到符合自己观点的文章，强制找一篇反对观点的文章看完。<br>
+          ③ <strong>建立「信息来源清单」</strong>：把可信来源记下来，以后只从清单里获取关键信息。
+        </div>
       </div>
-      <div class="report-metric">
-        <span class="m-label">认知偏误倾向</span>
-        <span class="m-score">42/100 <span class="bar-bg"><span class="bar-fill" style="width:42%"></span></span></span>
+
+      <div style="margin-top:20px;padding:14px 18px;background:rgba(232,160,32,0.06);border-radius:12px;font-size:13px;color:#c8a860;line-height:1.8;">
+        💡 <strong>AI 总评：</strong>你的信息甄别力是你的核心优势，但情绪韧性是最大短板。下次重大决策前，先处理情绪，再处理问题。报告剩余 5 页包含：独立思维能力分析、延迟满足评估、FOMO 倾向测试、以及为你定制的「30 天认知升级计划」。
       </div>
-      <div class="report-metric">
-        <span class="m-label">延迟满足能力</span>
-        <span class="m-score">70/100 <span class="bar-bg"><span class="bar-fill" style="width:70%"></span></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Case Study -->
+<section class="case-section">
+  <div class="container">
+    <h2 class="section-title">真实反馈：<em>报告帮到了什么</em></h2>
+    <p class="section-sub">以下为真实用户反馈（已获授权，匿名处理）</p>
+
+    <div class="case-card">
+      <div class="case-before">
+        <div class="case-label">测评前</div>
+        <div class="case-quote">
+          「每次投资都凭感觉，亏了就加仓，说不清为什么。知道不对，但控制不住。」
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:#ff8888;">理性决策：51/100<br>沉没成本倾向：严重</div>
       </div>
-      <div class="note">
-        <strong>AI解读：</strong>你的理性决策能力优于大多数同龄人，但情绪韧性偏弱——在高压环境下容易出现判断偏差。建议：在重大决策前强制设置72小时冷静期，可提升18%以上的决策质量。<br>
-        <span style="color:#3a4a60;font-size:12px;">—— 样本，你的报告将包含完整6页深度分析及个人改进计划</span>
+      <div class="case-arrow">→</div>
+      <div class="case-after">
+        <div class="case-label" style="color:#66cc88;">测评后 30 天</div>
+        <div class="case-quote">
+          「报告说我有严重的损失厌恶+沉没成本偏误。我照着建议做了：每次决定前写下来「如果朋友遇到这事我会怎么建议」。第一个月就避免了一个 8 万的盲目追加投资。」
+        </div>
+        <div class="case-result">✅ 避免损失 ¥80,000 ｜ 重测理性决策：72/100</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="steps-section">
+  <div class="container">
+    <h2 class="section-title">三步，拿到你的 <em>解决方案</em></h2>
+    <p class="section-sub">约 20 分钟，拿到一份真正有用的报告</p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h4>扫码支付 ¥199</h4>
+        <p>一次付费，永久查看。支持微信 / 支付宝。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h4>完成 12 道情境题（约 15 分钟）</h4>
+        <p>不是性格测试，是真实决策场景模拟。你的每一个选择，都在暴露你的认知模式。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h4>获取 8 页定制报告</h4>
+        <p>AI 分析你的每一道答案，输出：各维度评分 + 盲区诊断 + <strong>具体可执行建议</strong> + 30 天认知升级计划。</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Payment -->
-<section class="section" id="payment">
+<section class="payment-section" id="payment">
   <div class="container">
-    <h2 class="section-title">开始你的 <em>认知进化</em></h2>
-    <p class="section-sub">一次付费，终身可查</p>
-    <div class="payment-section">
-      <h3>AI 认知测评</h3>
-      <div class="price-big">¥199</div>
-      <p style="color:#8a9bb5;font-size:14px;margin-bottom:8px;">
-        12道深度情境题 · 6页定制报告 · 永久查看
-      </p>
+    <div class="pay-card">
+      <div style="font-size:13px;color:#5678a0;letter-spacing:2px;margin-bottom:8px;">AI 认知测评</div>
+      <h3>解锁你的认知盲区</h3>
+      <div class="pay-price">¥199</div>
+      <div class="pay-note">12 道深度题 · 8 页定制报告 · 30 天升级计划 · 永久可查</div>
 
-      <!-- 微信收款二维码 -->
-      <div class="qr-placeholder" id="qrWechat">
+      <div class="qr-box" id="qrBox">
         <div class="qr-icon">💳</div>
-        <span id="qrText">微信 / 支付宝扫码支付</span>
-        <span id="qrInfo" style="font-size:11px;">（请截图后联系获取测评题目）</span>
+        <div>微信 / 支付宝扫码</div>
+        <div style="font-size:11px;color:#3a4a60;">付款后联系获取题目</div>
       </div>
 
-      <p class="payment-tip">
-        ⚡ 付款后添加好友「shen-wanshan」发送付款截图，我将立即发送测评题目并为你生成报告
-      </p>
+      <div class="pay-tip">
+        ⚡ 付款后添加微信 <strong style="color:#e8a020;">shen-wanshan</strong> 发送付款截图<br>
+        立即发送测评题目，24 小时内交付完整报告
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="section" style="background:rgba(232,160,32,0.02);">
+<section class="faq-section">
   <div class="container">
-    <h2 class="section-title">常见 <em>问题</em></h2>
+    <h2 class="section-title">还有 <em>疑问</em>？</h2>
     <p class="section-sub">​</p>
-    <div class="faq-list">
-      <div class="faq-item">
-        <h4>❓ 付款后多久能拿到报告？</h4>
-        <p>付款并提交答案后，通常在 24 小时内交付。复杂情况下可能稍长，但不会超过 48 小时。</p>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">报告真的有用吗？不只是给分数？ <span class="faq-toggle">+</span></div>
+      <div class="faq-a">
+        这是这份报告和其他测评最大的区别。<br><br>
+        <strong>分数只是起点。</strong>每个维度得分之后，报告会告诉你：① 你在哪一步走偏了（具体题号 + 行为分析）② 为什么会这样（认知科学原理）③ <strong>具体怎么做</strong>（3 条立即可执行的行动建议）。<br><br>
+        很多用户反馈：光是「72 小时冷静期」这一条建议，就帮他们避免了多次冲动决策。
       </div>
-      <div class="faq-item">
-        <h4>❓ 测评题目是怎样的？</h4>
-        <p>12 道情境选择题，每题 4 个选项。覆盖决策理性、情绪韧性、风险偏好、认知偏误等 6 大维度。约 15 分钟可完成。</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">适合什么人做？ <span class="faq-toggle">+</span></div>
+      <div class="faq-a">
+        最适合这三类人：<br>
+        ① <strong>创业者 / 企业主</strong>：重大决策多，犯错成本高<br>
+        ② <strong>投资 / 理财人群</strong>：需要克服情绪对判断的干扰<br>
+        ③ <strong>对自己有要求的人</strong>：想知道自己的认知盲区在哪，主动升级<br><br>
+        如果你只是随便玩玩，这份报告可能太认真了 😄
       </div>
-      <div class="faq-item">
-        <h4>❓ 报告能看懂吗？</h4>
-        <p>报告用通俗中文撰写，每个维度都有得分、解读和具体改进建议。不需要心理学背景。</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">题目会不会太专业？ <span class="faq-toggle">+</span></div>
+      <div class="faq-a">
+        完全不会。12 道题都是真实生活 / 商业场景，没有专业术语。<br>
+        比如：「你投资项目亏了 30 万，现在有个机会，你会怎么做？」——这就是 Q2，测试你的沉没成本偏误。<br><br>
+        小学学历能看懂，但答案能暴露你的认知模式。
       </div>
-      <div class="faq-item">
-        <h4>❓ 能退款吗？</h4>
-        <p>测评报告为定制化数字商品，生成后不支持退款。如未开始答题，可在 7 天内申请退款。</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">可以退款吗？ <span class="faq-toggle">+</span></div>
+      <div class="faq-a">
+        报告为定制化数字商品，生成后不支持退款。<br>
+        但在你<strong>尚未开始答题</strong>之前，可以随时申请退款，7 天内全额退回。<br><br>
+        （至今还没有人申请过退款 😊）
       </div>
     </div>
   </div>
@@ -516,30 +537,18 @@
 
 <footer>
   <div class="container">
-    <p>AI 认知测评 · 基于认知科学与行为决策理论</p>
+    <p>AI 认知测评 · 基于认知科学 + 行为决策理论</p>
     <p style="margin-top:4px;">© 2026 All Rights Reserved</p>
   </div>
 </footer>
 
 <script>
-  // Smooth scroll for all anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
-      const id = a.getAttribute('href').slice(1);
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(a.getAttribute('href').slice(1))?.scrollIntoView({behavior:'smooth'});
     });
   });
-
-  // Toggle FAQ
-  document.querySelectorAll('.faq-item h4').forEach(h4 => {
-    h4.addEventListener('click', () => {
-      const p = h4.nextElementSibling;
-      if (p) p.style.display = p.style.display === 'none' ? 'block' : 'none';
-    });
-  });
-  // FAQ initially collapsed
-  document.querySelectorAll('.faq-item p').forEach(p => p.style.display = 'none');
 </script>
 </body>
 </html>
