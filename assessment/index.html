@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 认知测评 | ¥199 解锁你的理性指数</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0a0e17;
+      color: #e0e6f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::selection { background: #e8a020; color: #0a0e17; }
+
+    /* ── Particles BG ── */
+    #particles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(232,160,32,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(0,150,255,0.05) 0%, transparent 50%);
+    }
+    #particles::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(232,160,32,0.4) 0, transparent),
+        radial-gradient(1px 1px at 40% 70%, rgba(232,160,32,0.3) 0, transparent),
+        radial-gradient(1px 1px at 60% 20%, rgba(232,160,32,0.4) 0, transparent),
+        radial-gradient(1px 1px at 80% 60%, rgba(232,160,32,0.3) 0, transparent),
+        radial-gradient(1px 1px at 10% 80%, rgba(232,160,32,0.2) 0, transparent),
+        radial-gradient(1.5px 1.5px at 70% 40%, rgba(0,150,255,0.3) 0, transparent),
+        radial-gradient(1px 1px at 30% 90%, rgba(232,160,32,0.3) 0, transparent),
+        radial-gradient(1.5px 1.5px at 90% 10%, rgba(0,150,255,0.2) 0, transparent);
+      background-size: 200px 200px;
+      animation: drift 60s linear infinite;
+    }
+    @keyframes drift {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(-100px,-100px); }
+    }
+
+    /* ── Stars ── */
+    .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    /* ── Container ── */
+    .container { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232,160,32,0.15);
+      padding: 14px 0;
+    }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 18px; font-weight: 700; color: #e8a020; letter-spacing: 2px; }
+    .logo span { color: #5678a0; }
+    .nav-btn {
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17; border: none; padding: 8px 22px; border-radius: 25px;
+      font-weight: 600; font-size: 14px; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nav-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(232,160,32,0.3); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 140px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232,160,32,0.12);
+      border: 1px solid rgba(232,160,32,0.3);
+      color: #e8a020;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #e8a020, #ffcc66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: #8a9bb5;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    .hero-price {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .price { font-size: 48px; font-weight: 800; color: #e8a020; }
+    .price-original { font-size: 24px; color: #5678a0; text-decoration: line-through; }
+    .hero .cta-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17;
+      padding: 16px 52px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all .3s;
+      text-decoration: none;
+    }
+    .hero .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(232,160,32,0.35);
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 40px; margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-stats div { text-align: center; }
+    .hero-stats .num { font-size: 28px; font-weight: 700; color: #e8a020; }
+    .hero-stats .label { font-size: 13px; color: #5678a0; }
+
+    /* ── Section ── */
+    .section { padding: 80px 0; }
+    .section-title {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .section-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #e8a020, #ffcc66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-sub {
+      text-align: center;
+      color: #8a9bb5;
+      font-size: 16px;
+      margin-bottom: 48px;
+    }
+
+    /* ── How it works ── */
+    .steps { display: flex; flex-direction: column; gap: 24px; max-width: 640px; margin: 0 auto; }
+    .step {
+      display: flex; align-items: flex-start; gap: 20px;
+      background: rgba(232,160,32,0.04);
+      border: 1px solid rgba(232,160,32,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: border-color .3s;
+    }
+    .step:hover { border-color: rgba(232,160,32,0.3); }
+    .step-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px;
+    }
+    .step h3 { font-size: 17px; margin-bottom: 4px; color: #e8a020; }
+    .step p { font-size: 14px; color: #8a9bb5; }
+
+    /* ── Assessment Preview ── */
+    .questions-preview {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      max-width: 720px; margin: 0 auto;
+    }
+    @media (max-width: 600px) { .questions-preview { grid-template-columns: 1fr; } }
+    .q-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(232,160,32,0.08);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .q-card .q-icon { font-size: 20px; margin-bottom: 8px; }
+    .q-card .q-text { font-size: 14px; color: #b0bcc8; }
+    .q-card .q-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 10px;
+      background: rgba(232,160,32,0.1);
+      color: #e8a020;
+      margin-top: 8px;
+    }
+
+    /* ── Report Sample ── */
+    .report-sample {
+      max-width: 700px; margin: 0 auto;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.12);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .report-sample::before {
+      content: '🔒 样本报告';
+      position: absolute; top: 12px; right: 12px;
+      font-size: 12px;
+      background: rgba(232,160,32,0.15);
+      color: #e8a020;
+      padding: 4px 14px;
+      border-radius: 10px;
+    }
+    .report-sample h3 { font-size: 22px; margin-bottom: 20px; color: #e8a020; }
+    .report-metric {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .report-metric:last-child { border: none; }
+    .report-metric .m-label { font-size: 14px; color: #8a9bb5; }
+    .report-metric .m-score {
+      font-size: 16px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .bar-bg {
+      width: 80px; height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px; overflow: hidden; display: inline-block;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, #e8a020, #ffcc66);
+    }
+    .report-sample .note {
+      margin-top: 20px; padding: 16px;
+      background: rgba(232,160,32,0.06);
+      border-radius: 12px;
+      font-size: 13px; color: #b0bcc8; line-height: 1.8;
+    }
+
+    /* ── Payment ── */
+    .payment-section {
+      background: rgba(232,160,32,0.03);
+      border: 1px solid rgba(232,160,32,0.12);
+      border-radius: 20px;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 40px;
+      text-align: center;
+    }
+    .payment-section h3 { font-size: 24px; margin-bottom: 8px; }
+    .payment-section .price-big { font-size: 40px; font-weight: 800; color: #e8a020; margin: 12px 0; }
+    .qr-placeholder {
+      width: 200px; height: 200px;
+      margin: 24px auto;
+      border: 2px dashed rgba(232,160,32,0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #5678a0;
+      font-size: 13px;
+      gap: 8px;
+      background: rgba(232,160,32,0.03);
+    }
+    .qr-placeholder .qr-icon { font-size: 36px; }
+    .payment-tip {
+      font-size: 13px;
+      color: #5678a0;
+      margin-top: 12px;
+    }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 640px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 0;
+    }
+    .faq-item h4 { font-size: 16px; color: #e0e6f0; cursor: pointer; display: flex; justify-content: space-between; }
+    .faq-item p { font-size: 14px; color: #8a9bb5; margin-top: 8px; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 40px 0 32px;
+      color: #3a4a60; font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ── Scroll indicator ── */
+    .scroll-indicator {
+      text-align: center; margin-top: 40px;
+      color: #3a4a60; font-size: 13px; animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero { padding: 110px 0 40px; }
+      .section { padding: 48px 0; }
+      .report-sample { padding: 20px; }
+      .payment-section { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <div class="logo">AI<span>测评</span></div>
+    <button class="nav-btn" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})">立即测评</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">🧠 BETA · AI v2.0 认知引擎</div>
+    <h1>你的大脑，在AI时代<br><em>还有多少「人类优势」？</em></h1>
+    <p class="hero-sub">
+      一套基于认知科学 + 行为金融学 + 神经决策学的深度测评，
+      揭示你在 理性决策、情绪韧性、抗压力 等维度上的真实水平。
+    </p>
+    <div class="hero-price">
+      <span class="price">¥199</span>
+      <span class="price-original">¥599</span>
+    </div>
+    <a class="cta-primary" href="#payment">立即解锁测评 →</a>
+    <div class="hero-stats">
+      <div><div class="num">12</div><div class="label">核心维度</div></div>
+      <div><div class="num">15min</div><div class="label">测评时长</div></div>
+      <div><div class="num">24h</div><div class="label">内出报告</div></div>
+    </div>
+    <div class="scroll-indicator">↓ 了解更多</div>
+  </div>
+</section>
+
+<!-- How it Works -->
+<section class="section" id="how">
+  <div class="container">
+    <h2 class="section-title">三步获取你的 <em>AI 认知档案</em></h2>
+    <p class="section-sub">无需下载，扫码支付后即可开始</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>扫码支付 ¥199</h3>
+          <p>微信或支付宝扫码，一次付费永久查看报告。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>完成12道深度情境题</h3>
+          <p>每题模拟一个真实决策场景，约15分钟。你的选择会暴露你的认知模式。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>获取AI生成的个性化报告</h3>
+          <p>AI分析你的每一道选择，生成专属认知画像，包括理性指数、情绪韧性评分、改进建议。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Assessment Preview -->
+<section class="section" style="background:rgba(232,160,32,0.02);">
+  <div class="container">
+    <h2 class="section-title">评测 <em>12 个核心维度</em></h2>
+    <p class="section-sub">每道题都经过认知科学设计，揭示你的思维盲区</p>
+    <div class="questions-preview">
+      <div class="q-card">
+        <div class="q-icon">🎲</div>
+        <div class="q-text">风险情境下，你会选择确定收益还是赌一把？</div>
+        <span class="q-tag">损失厌恶</span>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">⚡</div>
+        <div class="q-text">面对突发危机，你的第一反应是？</div>
+        <span class="q-tag">情绪韧性</span>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">🎯</div>
+        <div class="q-text">多重信息中，你如何识别真伪？</div>
+        <span class="q-tag">信息甄别力</span>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">🧩</div>
+        <div class="q-text">复杂局面下，你的决策链路有多清晰？</div>
+        <span class="q-tag">决策理性</span>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">🔄</div>
+        <div class="q-text">你容易为已投入的成本继续投入吗？</div>
+        <span class="q-tag">沉没成本</span>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">👁️</div>
+        <div class="q-text">你对自己的判断能力过度自信吗？</div>
+        <span class="q-tag">确认偏误</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Report Sample -->
+<section class="section" id="sample">
+  <div class="container">
+    <h2 class="section-title">你的报告长这样 <em>（样本）</em></h2>
+    <p class="section-sub">付费后你将收到完整版PDF，以下为部分预览</p>
+    <div class="report-sample">
+      <h3>🧬 认知档案 · AI分析报告</h3>
+      <div class="report-metric">
+        <span class="m-label">理性决策指数</span>
+        <span class="m-score">73/100 <span class="bar-bg"><span class="bar-fill" style="width:73%"></span></span></span>
+      </div>
+      <div class="report-metric">
+        <span class="m-label">情绪韧性评分</span>
+        <span class="m-score">58/100 <span class="bar-bg"><span class="bar-fill" style="width:58%"></span></span></span>
+      </div>
+      <div class="report-metric">
+        <span class="m-label">抗干扰能力</span>
+        <span class="m-score">65/100 <span class="bar-bg"><span class="bar-fill" style="width:65%"></span></span></span>
+      </div>
+      <div class="report-metric">
+        <span class="m-label">认知偏误倾向</span>
+        <span class="m-score">42/100 <span class="bar-bg"><span class="bar-fill" style="width:42%"></span></span></span>
+      </div>
+      <div class="report-metric">
+        <span class="m-label">延迟满足能力</span>
+        <span class="m-score">70/100 <span class="bar-bg"><span class="bar-fill" style="width:70%"></span></span></span>
+      </div>
+      <div class="note">
+        <strong>AI解读：</strong>你的理性决策能力优于大多数同龄人，但情绪韧性偏弱——在高压环境下容易出现判断偏差。建议：在重大决策前强制设置72小时冷静期，可提升18%以上的决策质量。<br>
+        <span style="color:#3a4a60;font-size:12px;">—— 样本，你的报告将包含完整6页深度分析及个人改进计划</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Payment -->
+<section class="section" id="payment">
+  <div class="container">
+    <h2 class="section-title">开始你的 <em>认知进化</em></h2>
+    <p class="section-sub">一次付费，终身可查</p>
+    <div class="payment-section">
+      <h3>AI 认知测评</h3>
+      <div class="price-big">¥199</div>
+      <p style="color:#8a9bb5;font-size:14px;margin-bottom:8px;">
+        12道深度情境题 · 6页定制报告 · 永久查看
+      </p>
+
+      <!-- 微信收款二维码 -->
+      <div class="qr-placeholder" id="qrWechat">
+        <div class="qr-icon">💳</div>
+        <span id="qrText">微信 / 支付宝扫码支付</span>
+        <span id="qrInfo" style="font-size:11px;">（请截图后联系获取测评题目）</span>
+      </div>
+
+      <p class="payment-tip">
+        ⚡ 付款后添加好友「shen-wanshan」发送付款截图，我将立即发送测评题目并为你生成报告
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:rgba(232,160,32,0.02);">
+  <div class="container">
+    <h2 class="section-title">常见 <em>问题</em></h2>
+    <p class="section-sub">​</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>❓ 付款后多久能拿到报告？</h4>
+        <p>付款并提交答案后，通常在 24 小时内交付。复杂情况下可能稍长，但不会超过 48 小时。</p>
+      </div>
+      <div class="faq-item">
+        <h4>❓ 测评题目是怎样的？</h4>
+        <p>12 道情境选择题，每题 4 个选项。覆盖决策理性、情绪韧性、风险偏好、认知偏误等 6 大维度。约 15 分钟可完成。</p>
+      </div>
+      <div class="faq-item">
+        <h4>❓ 报告能看懂吗？</h4>
+        <p>报告用通俗中文撰写，每个维度都有得分、解读和具体改进建议。不需要心理学背景。</p>
+      </div>
+      <div class="faq-item">
+        <h4>❓ 能退款吗？</h4>
+        <p>测评报告为定制化数字商品，生成后不支持退款。如未开始答题，可在 7 天内申请退款。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>AI 认知测评 · 基于认知科学与行为决策理论</p>
+    <p style="margin-top:4px;">© 2026 All Rights Reserved</p>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Toggle FAQ
+  document.querySelectorAll('.faq-item h4').forEach(h4 => {
+    h4.addEventListener('click', () => {
+      const p = h4.nextElementSibling;
+      if (p) p.style.display = p.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+  // FAQ initially collapsed
+  document.querySelectorAll('.faq-item p').forEach(p => p.style.display = 'none');
+</script>
+</body>
+</html>
