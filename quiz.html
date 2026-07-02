@@ -494,7 +494,7 @@
     formData.append('_subject', `AI决策体检新答题 - ${email}`);
     formData.append('_captcha', 'false');
 
-    fetch('https://formsubmit.co/ajax/shenwanshan@qq.com', {
+    fetch('https://formsubmit.co/ajax/774071052@qq.com', {
       method: 'POST',
       body: formData
     })
@@ -508,7 +508,7 @@
     .catch(err => {
       // Fallback: use mailto
       const mailtoBody = encodeURIComponent(answerText);
-      window.location.href = `mailto:shenwanshan@qq.com?subject=AI决策体检答题结果&body=${mailtoBody}`;
+      window.location.href = `mailto:774071052@qq.com?subject=AI决策体检答题结果&body=${mailtoBody}`;
       document.getElementById('resultSection').classList.remove('active');
       document.getElementById('successMsg').classList.add('active');
       btn.disabled = false;
