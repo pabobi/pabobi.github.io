@@ -710,98 +710,54 @@
     return lines.join('<br><br>');
   }
 
-  // ========== 三阶段成长计划 ==========
-  function buildGrowthPlan(scores) {
-    const weakDims = [];
-    if (scores.rational < 70) weakDims.push('决策理性');
-    if (scores.resilience < 70) weakDims.push('情绪韧性');
-    if (scores.info < 70) weakDims.push('信息判断');
-    if (scores.social < 70) weakDims.push('社会独立性');
-
-    const plans = {
-      '决策理性': {
-        phase1: ['执行「48小时冷静期」——超过 ¥500 的非必要消费，强制等待 48 小时再决定',
-                 '建立「决策日志」：每天记录一个重要决定，写下理由和预期结果',
-                 '练习「10-10-10 法则」：每个决定放在 10 分钟/10 个月/10 年后评判'],
-        phase2: ['学习概率思维——把每个决策看成概率问题，而不是黑白判断',
-                 '练习「归零思维」：每次想到「已经投入很多」时，问如果今天第一次接触会怎么选',
-                 '阅读《思考，快与慢》，重点读第 4-6 章关于前景理论的部分'],
-        phase3: ['建立自己的决策框架（如 WRAP 模型），形成系统化决策流程',
-                 '每周复盘一次决策日志，识别自己的偏误模式',
-                 '把这个框架分享给身边的人，教学相长']
-      },
-      '情绪韧性': {
-        phase1: ['晨间 5 分钟「心理预演」——想象今天可能遇到的突发状况，提前想好应对方案',
-                 '建立「情绪日志」：每次情绪波动后记录触发点和自己的反应',
-                 '每天主动做一件让你有点不舒服的小事（如主动承认一个错误）'],
-        phase2: ['练习「10 秒法则」：遇到突发状况时强制沉默 10 秒再开口',
-                 '学习认知重构：把「为什么偏偏是我」变成「这件事在教我什么」',
-                 '阅读《抗压力：逆境重生法则》，实践书中的「思维反刍阻断法」'],
-        phase3: ['设计「压力测试周」——主动把自放在高强度环境中连续锻炼',
-                 '建立个人「反脆弱系统」：每个重大决策都有 Plan B',
-                 '担任团队危机处理的负责人，在实际场景中锻炼韧性']
-      },
-      '信息判断': {
-        phase1: ['建立「信息核查三步法」：来源→原始证据→利益相关',
-                 '每次转发/分享前，强制自己先查三个来源再决定',
-                 '关注 2-3 个事实核查公众号，培养证据意识'],
-        phase2: ['练习「魔鬼代言人」：读完赞扬你的观点的文章，主动找一篇反对的',
-                 '学习识别统计陷阱（样本偏差、相关 vs 因果、幸存者偏差）',
-                 '阅读《超越感觉：批判性思考指南》第 7-10 章'],
-        phase3: ['建立自己的「信息来源白名单」和「警惕名单」',
-                 '在专业领域内，学会追踪原始论文和一手数据',
-                 '每周写一篇「信息审核笔记」，公开分享']
-      },
-      '社会独立性': {
-        phase1: ['坚持「逆向练习」：当大家都看多时，列出 3 个做空的理由',
-                 '建立「原则清单」：写下 5 条你绝对不会违反的决策原则',
-                 '在生活中练习说「我理解你的观点，但我的想法不同」'],
-        phase2: ['学习区分「独立」和「反叛」——不是所有反对都正确，要基于证据',
-                 '阅读《影响力》和《乌合之众》，理解群体心理机制',
-                 '练习「沉默观察」：在群体讨论中先听 10 分钟再发言'],
-        phase3: ['建立「决策董事会」——找 3 个不同背景的人做你的决策顾问',
-                 '在关键决策中使用「事前验尸法」：假设决定是错的，分析为什么',
-                 '把你的决策原则分享出去，接受别人的质疑和反馈']
-      }
-    };
-
-    // 如果有多个弱项，取最弱的两个
-    const targetDims = weakDims.length > 0 ? weakDims : ['决策理性', '情绪韧性'];
-    const primary = targetDims.slice(0, 2);
-
+  // ========== 个性化成长计划（基于具体答题表现） ==========
+  function buildGrowthPlan(scores, ans) {
+    // 分析具体答题模式，识别用户的具体偏误
+    const patterns = analyzePatterns(ans);
+    
+    // 根据得分和答题模式，生成针对性任务
+    const tasks = generatePersonalizedTasks(scores, patterns, ans);
+    
     let html = '';
-
-    const phases = [
-      { badge: '第一阶段', title: '认知觉醒期', days: '第 1-30 天', desc: '建立基础习惯，提升自我觉察' },
-      { badge: '第二阶段', title: '刻意练习期', days: '第 31-60 天', desc: '将方法应用到真实场景中' },
-      { badge: '第三阶段', title: '内化突破期', days: '第 61-90 天', desc: '形成系统化的决策能力' },
-    ];
-
-    for (let p = 0; p < 3; p++) {
-      let tasks = [];
-      for (const dim of primary) {
-        const dimPlans = plans[dim];
-        if (dimPlans) {
-          tasks = tasks.concat(dimPlans[`phase${p+1}`]);
-        }
-      }
-      // 去重（取前4条）
-      tasks = [...new Set(tasks)].slice(0, 4);
-
-      html += `
-        <div class="plan-phase">
-          <span class="phase-badge">${phases[p].badge}</span>
-          <div class="phase-title">${phases[p].title}</div>
-          <div class="phase-days">${phases[p].days} · ${phases[p].desc}</div>
-          <ul class="task-list">
-            ${tasks.map(t => `<li>${t}</li>`).join('')}
-          </ul>
-        </div>
-      `;
-    }
-
-    // 如果所有维度都很强，生成进阶计划
-    if (weakDims.length === 0) {
+    
+    // 阶段1：针对性突破（基于最突出的1-2个问题）
+    html += `
+      <div class="plan-phase">
+        <span class="phase-badge">第一阶段</span>
+        <div class="phase-title">针对性突破期</div>
+        <div class="phase-days">第 1-30 天 · 聚焦你最突出的问题</div>
+        <ul class="task-list">
+          ${tasks.phase1.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+    
+    // 阶段2：系统强化（基于维度得分）
+    html += `
+      <div class="plan-phase">
+        <span class="phase-badge">第二阶段</span>
+        <div class="phase-title">系统强化期</div>
+        <div class="phase-days">第 31-60 天 · 全面提升决策能力</div>
+        <ul class="task-list">
+          ${tasks.phase2.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+    
+    // 阶段3：实战应用（基于用户场景）
+    html += `
+      <div class="plan-phase">
+        <span class="phase-badge">第三阶段</span>
+        <div class="phase-title">实战固化期</div>
+        <div class="phase-days">第 61-90 天 · 把方法变成习惯</div>
+        <ul class="task-list">
+          ${tasks.phase3.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+    
+    // 如果所有维度都很强
+    if (scores.rational >= 75 && scores.resilience >= 75 && scores.info >= 75 && scores.social >= 75) {
       html = `
         <div class="plan-phase">
           <span class="phase-badge">✨ 进阶挑战</span>
@@ -816,8 +772,179 @@
         </div>
       `;
     }
-
+    
     return html;
+  }
+  
+  // 分析用户的具体答题模式
+  function analyzePatterns(ans) {
+    const patterns = {
+      // 冲动消费倾向（限时优惠、稀缺性）
+      impulsive: (ans[1] === 'A' || ans[4] === 'A'),
+      
+      // 沉没成本陷阱（已经投入很多，舍不得放弃）
+      sunkCost: (ans[3] === 'B' || ans[5] === 'B'),
+      
+      // 延迟满足弱（选即时满足而非长期收益）
+      delayGratification: (ans[1] === 'C' || ans[2] === 'A' || ans[24] === 'C'),
+      
+      // 情绪失控倾向（压力下崩溃、被批评后很久走不出）
+      emotionalBreakdown: (ans[7] === 'A' || ans[8] === 'A'),
+      
+      // 习得性无助（连续失败后放弃）
+      learnedHelplessness: (ans[10] === 'C' || ans[10] === 'D'),
+      
+      // 确认偏误（只看支持自己观点的信息）
+      confirmationBias: (ans[13] === 'B' || ans[13] === 'C'),
+      
+      // 轻信信息（不查证就转发）
+      gullible: (ans[13] === 'A' || ans[16] === 'A'),
+      
+      // 统计思维弱（相信个案胜过数据）
+      weakStatistical: (ans[14] === 'A' || ans[17] === 'C'),
+      
+      // 从众倾向（别人做什么就跟着做）
+      conformity: (ans[6] === 'B' || ans[19] === 'B' || ans[22] === 'A'),
+      
+      // FOMO（害怕错过，焦虑驱动决策）
+      fomo: (ans[6] === 'B' || ans[23] === 'C'),
+      
+      // 权威盲从（专家说什么就信什么）
+      authorityWorship: (ans[22] === 'A'),
+      
+      // 逆向后悔（别人赚钱就后悔自己没跟）
+      reverseRegret: (ans[23] === 'C' || ans[23] === 'D')
+    };
+    
+    return patterns;
+  }
+  
+  // 生成个性化任务
+  function generatePersonalizedTasks(scores, patterns, ans) {
+    const tasks = { phase1: [], phase2: [], phase3: [] };
+    
+    // ========== 阶段1：针对性突破（基于最突出的2-3个问题） ==========
+    
+    // 如果冲动消费是最突出问题
+    if (patterns.impulsive && scores.rational < 70) {
+      tasks.phase1.push('📱 <b>手机设置「消费锁」</b>：把支付宝/微信的付款码从首页移除，每次付款需要多点击3次，增加冲动成本');
+      tasks.phase1.push('🛒 <b>建立「购物车冷静期」</b>：任何超过 ¥200 的非必需品，强制加入购物车后等待 72 小时才能购买');
+    }
+    
+    // 如果沉没成本严重
+    if (patterns.sunkCost && scores.rational < 70) {
+      tasks.phase1.push('📝 <b>写「沉没成本清单」</b>：列出你目前因为「已经投入了」而不愿放弃的三件事，问自己「如果今天是第一次接触，我还会选择吗？」');
+      tasks.phase1.push('⏰ <b>设置「止损闹钟」</b>：在股票/基金 APP 里设置止损提醒，触发时无条件执行，不给自己犹豫的机会');
+    }
+    
+    // 如果延迟满足弱
+    if (patterns.delayGratification && scores.rational < 70) {
+      tasks.phase1.push('🎯 <b>启动「5分钟法则」</b>：每次想刷手机/吃零食时，先告诉自己「我只做5分钟正事，然后再玩」，通常5分钟后就不想停了');
+      tasks.phase1.push('💰 <b>开「未来账户」</b>：工资到账立即转 20% 到另一张卡，这张卡不绑定任何支付 APP，物理隔离才能强制储蓄');
+    }
+    
+    // 如果情绪容易失控
+    if (patterns.emotionalBreakdown && scores.resilience < 70) {
+      tasks.phase1.push('🧘 <b>安装「情绪暂停键」</b>：手机设置一个快捷指令，生气时一键启动 3 分钟呼吸练习（推荐 APP：潮汐/小睡眠）');
+      tasks.phase1.push('📔 <b>建立「情绪日记」</b>：每次情绪爆发后，记录触发事件、身体感受、反应方式，寻找你的「情绪导火索」模式');
+    }
+    
+    // 如果习得性无助
+    if (patterns.learnedHelplessness && scores.resilience < 70) {
+      tasks.phase1.push('✅ <b>每天完成一件「小确赢」</b>：刻意做一些 100% 能成功的小事（整理桌面、做 10 个俯卧撑），重建「我能行」的感觉');
+      tasks.phase1.push('🔄 <b>改写失败叙事</b>：每次失败后，强制写出 3 个「这件事教会我什么」，把失败重新定义为数据收集');
+    }
+    
+    // 如果确认偏误严重
+    if (patterns.confirmationBias && scores.info < 70) {
+      tasks.phase1.push('🔍 <b>做「魔鬼代言人」</b>：这周读一篇你认同的观点文章后，强制找一篇持相反观点的，列出对方 3 个合理之处');
+      tasks.phase1.push('📰 <b>关注「异见信源」</b>：关注 2 个和你立场不同的公众号/博主，每周读一篇他们的文章');
+    }
+    
+    // 如果轻信信息
+    if (patterns.gullible && scores.info < 70) {
+      tasks.phase1.push('🔎 <b>建立「转发前三问」</b>：在便签里写下「来源是谁？有原始证据吗？对方有利益驱动吗？」贴在手机背面，转发前强制过一遍');
+      tasks.phase1.push('🚫 <b>退出 3 个「谣言温床」群</b>：那些经常转发未经证实消息的微信群，这周退出 3 个，减少信息污染');
+    }
+    
+    // 如果从众倾向严重
+    if (patterns.conformity && scores.social < 70) {
+      tasks.phase1.push('🎭 <b>练习「延迟表态」</b>：这周在群体讨论中，强迫自己先听 5 分钟再发言，观察别人的反应和论据');
+      tasks.phase1.push('📝 <b>写「逆向理由清单」</b>：当身边 80% 的人都同意某个观点时，强制自己写出 3 个反对理由，不管你是否认同');
+    }
+    
+    // 如果FOMO严重
+    if (patterns.fomo && scores.social < 70) {
+      tasks.phase1.push('📵 <b>设置「FOMO 隔离时段」</b>：每天 20:00-22:00 关闭朋友圈/抖音，物理阻断让你焦虑的信息流');
+      tasks.phase1.push('🎯 <b>建立「机会过滤器」</b>：写下你的 3 个核心目标，任何新机会出现时先问「这和我目标相关吗？」，不相关的直接忽略');
+    }
+    
+    // 如果阶段1任务不足4条，补充通用任务
+    while (tasks.phase1.length < 4) {
+      tasks.phase1.push(getGenericTask('phase1', tasks.phase1.length));
+    }
+    
+    // ========== 阶段2：系统强化 ==========
+    
+    // 基于最弱的维度
+    const weakDims = [];
+    if (scores.rational < 70) weakDims.push('rational');
+    if (scores.resilience < 70) weakDims.push('resilience');
+    if (scores.info < 70) weakDims.push('info');
+    if (scores.social < 70) weakDims.push('social');
+    
+    if (weakDims.includes('rational')) {
+      tasks.phase2.push('📊 <b>建立「决策日志」</b>：每天记录一个重要决定，写下你的理由、预期结果，30 天后复盘准确率');
+      tasks.phase2.push('🎲 <b>学习基础概率</b>：读完《简单统计学》前 5 章，理解「回归均值」「幸存者偏差」等概念');
+    }
+    
+    if (weakDims.includes('resilience')) {
+      tasks.phase2.push('🧠 <b>练习认知重构</b>：把「为什么偏偏是我」改成「这件事想教会我什么」，坚持一周记录变化');
+      tasks.phase2.push('💪 <b>主动寻求「小挫折」</b>：每周做一件让你有点不舒服的事（公开演讲、主动求助、承认错误），逐步扩展舒适区');
+    }
+    
+    if (weakDims.includes('info')) {
+      tasks.phase2.push('🔬 <b>追踪一条信息的源头</b>：这周选一条热门消息，花 30 分钟追溯原始出处，体验「信息考古」过程');
+      tasks.phase2.push('📚 <b>读《学会提问》</b>：重点练习识别「滑坡谬误」「虚假两难」等常见论证陷阱');
+    }
+    
+    if (weakDims.includes('social')) {
+      tasks.phase2.push('👥 <b>建立「决策董事会」</b>：找 3 个不同背景的朋友，重大决定前先分别听听他们的意见，再自己做判断');
+      tasks.phase2.push('📖 <b>读《影响力》</b>：理解「社会认同」「权威服从」等心理机制，识别别人如何用这些影响你');
+    }
+    
+    // 补充通用任务
+    while (tasks.phase2.length < 4) {
+      tasks.phase2.push(getGenericTask('phase2', tasks.phase2.length));
+    }
+    
+    // ========== 阶段3：实战应用 ==========
+    
+    tasks.phase3.push('🎯 <b>设计「个人决策流程」</b>：基于前 60 天的练习，写出你的标准化决策 SOP（如：重大决定→72小时冷静期→咨询3人→书面记录→执行）');
+    tasks.phase3.push('🔄 <b>做一次「事前验尸」</b>：选一个即将做的重大决定，假设它是错的，分析可能失败的原因，调整方案');
+    tasks.phase3.push('📊 <b>复盘 90 天决策日志</b>：统计你的决策准确率变化，识别还有哪些场景容易出错');
+    tasks.phase3.push('🎓 <b>教别人你的方法</b>：找一个朋友，把你这 90 天学到的东西讲给他听，教学是最好的学习');
+    
+    return tasks;
+  }
+  
+  // 通用任务（当个性化任务不足时补充）
+  function getGenericTask(phase, index) {
+    const generics = {
+      phase1: [
+        '每天睡前花 5 分钟回顾今天的决定，识别一个可以改进的地方',
+        '设置手机壁纸为「暂停 10 秒」，提醒自己冲动时先冷静',
+        '关注一个批判性思维的公众号，每天读一篇文章',
+        '这周拒绝一个你其实不想去的社交邀约，练习说「不」'
+      ],
+      phase2: [
+        '读完一本关于决策或心理学的书，写下 3 个可以实践的点',
+        '找一个你信任的朋友，分享你的一个决策偏误，请他监督你',
+        '这周刻意做一次「反直觉」的决定，观察结果',
+        '建立「决策检查清单」，重大决定前强制过一遍'
+      ]
+    };
+    return generics[phase][index] || '继续练习前阶段的任务，直到形成习惯';
   }
 
   // ========== 报告生成 ==========
@@ -852,7 +979,7 @@
     document.getElementById('dimensionCards').innerHTML = cardsHTML;
 
     // 成长计划
-    document.getElementById('growthPlan').innerHTML = buildGrowthPlan(scores);
+    document.getElementById('growthPlan').innerHTML = buildGrowthPlan(scores, answers);
 
     // 显示报告
     document.getElementById('reportSection').classList.add('active');
