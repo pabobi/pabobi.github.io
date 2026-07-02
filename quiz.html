@@ -20,206 +20,146 @@
       border-bottom: 1px solid rgba(232,160,32,0.12);
       padding: 16px 24px;
       text-align: center;
+      position: sticky; top: 0; z-index: 100;
     }
-    .header h2 {
-      font-size: 18px;
-      color: #e8a020;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-    .header p {
-      font-size: 12px;
-      color: #5678a0;
-      margin-top: 4px;
-    }
+    .header h2 { font-size: 18px; color: #e8a020; font-weight: 700; letter-spacing: 2px; }
+    .header p { font-size: 12px; color: #5678a0; margin-top: 4px; }
 
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 32px 24px 100px;
-    }
+    .container { max-width: 720px; margin: 0 auto; padding: 32px 24px 100px; }
 
+    .progress-text { text-align: right; font-size: 12px; color: #5678a0; margin-bottom: 6px; }
     .progress-bar {
-      width: 100%;
-      height: 4px;
+      width: 100%; height: 4px;
       background: rgba(255,255,255,0.06);
-      border-radius: 2px;
-      margin-bottom: 32px;
-      overflow: hidden;
+      border-radius: 2px; margin-bottom: 32px; overflow: hidden;
     }
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, #e8a020, #ffcc66);
-      border-radius: 2px;
-      width: 0%;
-      transition: width 0.4s ease;
-    }
-    .progress-text {
-      text-align: right;
-      font-size: 12px;
-      color: #5678a0;
-      margin-bottom: 6px;
+      border-radius: 2px; width: 0%; transition: width 0.4s ease;
     }
 
     .question-card {
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(232,160,32,0.1);
-      border-radius: 16px;
-      padding: 28px 24px;
-      margin-bottom: 24px;
-      display: none;
+      border-radius: 16px; padding: 28px 24px;
+      margin-bottom: 24px; display: none;
     }
     .question-card.active { display: block; }
 
-    .q-number {
-      font-size: 12px;
-      color: #e8a020;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
+    .q-number { font-size: 12px; color: #e8a020; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
     .q-tag {
-      display: inline-block;
-      font-size: 11px;
-      background: rgba(232,160,32,0.1);
-      border: 1px solid rgba(232,160,32,0.2);
-      color: #e8a020;
-      padding: 2px 10px;
-      border-radius: 8px;
-      margin-bottom: 12px;
+      display: inline-block; font-size: 11px;
+      background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2);
+      color: #e8a020; padding: 2px 10px; border-radius: 8px; margin-bottom: 12px;
     }
-    .q-text {
-      font-size: 16px;
-      font-weight: 600;
-      color: #e0e6f0;
-      margin-bottom: 20px;
-      line-height: 1.7;
-    }
+    .q-text { font-size: 16px; font-weight: 600; color: #e0e6f0; margin-bottom: 20px; line-height: 1.7; }
 
     .option {
-      display: block;
-      width: 100%;
-      text-align: left;
+      display: block; width: 100%; text-align: left;
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      color: #c0cce0;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.25s;
-      line-height: 1.6;
+      border-radius: 12px; padding: 14px 18px;
+      margin-bottom: 10px; color: #c0cce0; font-size: 14px;
+      cursor: pointer; transition: all 0.25s; line-height: 1.6;
     }
-    .option:hover {
-      border-color: rgba(232,160,32,0.3);
-      background: rgba(232,160,32,0.04);
-      color: #e0e6f0;
-    }
-    .option.selected {
-      border-color: #e8a020;
-      background: rgba(232,160,32,0.08);
-      color: #e8a020;
-    }
-    .option input { display: none; }
+    .option:hover { border-color: rgba(232,160,32,0.3); background: rgba(232,160,32,0.04); color: #e0e6f0; }
+    .option.selected { border-color: #e8a020; background: rgba(232,160,32,0.08); color: #e8a020; }
 
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 32px;
-    }
+    .nav-buttons { display: flex; justify-content: space-between; gap: 16px; margin-top: 32px; }
     .btn-prev, .btn-next {
-      flex: 1;
-      padding: 14px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s;
-      border: none;
+      flex: 1; padding: 14px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.25s; border: none;
     }
-    .btn-prev {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #8a9bb5;
-    }
+    .btn-prev { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #8a9bb5; }
     .btn-prev:hover { background: rgba(255,255,255,0.08); }
-    .btn-next {
-      background: linear-gradient(135deg, #e8a020, #c8820a);
-      color: #0a0e17;
-    }
+    .btn-next { background: linear-gradient(135deg, #e8a020, #c8820a); color: #0a0e17; }
     .btn-next:hover { box-shadow: 0 0 30px rgba(232,160,32,0.3); }
 
-    /* Result Form */
-    .result-section {
-      display: none;
-    }
-    .result-section.active { display: block; }
+    /* ---------- 报告页样式 ---------- */
+    .report-section { display: none; }
+    .report-section.active { display: block; }
 
-    .result-box {
-      background: rgba(232,160,32,0.04);
-      border: 1px solid rgba(232,160,32,0.15);
-      border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
+    .report-header {
+      text-align: center; margin-bottom: 36px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(232,160,32,0.12);
     }
-    .result-box .check-icon { font-size: 48px; margin-bottom: 16px; }
-    .result-box h3 { font-size: 22px; color: #e8a020; margin-bottom: 12px; }
-    .result-box p { font-size: 14px; color: #8a9bb5; line-height: 1.8; margin-bottom: 24px; }
+    .report-header h2 { font-size: 26px; color: #e8a020; margin-bottom: 8px; }
+    .report-header .subtitle { font-size: 14px; color: #8a9bb5; }
+    .report-header .score-overall {
+      font-size: 48px; font-weight: 800; color: #e8a020;
+      margin: 20px 0 8px;
+    }
+    .report-header .score-label { font-size: 13px; color: #5678a0; letter-spacing: 2px; }
 
-    .email-input {
-      width: 100%;
-      max-width: 360px;
-      padding: 14px 18px;
-      border-radius: 12px;
+    .dimension-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.1);
+      border-radius: 16px; padding: 24px;
+      margin-bottom: 20px;
+    }
+    .dimension-card h3 {
+      font-size: 16px; color: #e8a020;
+      margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+    }
+    .dimension-card .dim-tag {
+      font-size: 11px; background: rgba(232,160,32,0.1);
       border: 1px solid rgba(232,160,32,0.2);
-      background: rgba(255,255,255,0.04);
-      color: #e0e6f0;
-      font-size: 15px;
-      text-align: center;
-      margin-bottom: 16px;
+      color: #e8a020; padding: 2px 10px; border-radius: 8px;
     }
-    .email-input::placeholder { color: #3a4a60; }
-    .email-input:focus { outline: none; border-color: #e8a020; }
+    .dimension-card .score-bar {
+      height: 8px; background: rgba(255,255,255,0.06);
+      border-radius: 4px; margin: 14px 0; overflow: hidden;
+    }
+    .dimension-card .score-bar-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg, #e8a020, #ffcc66);
+      transition: width 1s ease;
+    }
+    .dimension-card .score-num {
+      font-size: 13px; color: #8a9bb5;
+      display: flex; justify-content: space-between;
+    }
+    .dimension-card .analysis {
+      font-size: 14px; color: #c0cce0; line-height: 1.8;
+      margin-top: 14px;
+    }
+    .dimension-card .suggestion {
+      background: rgba(232,160,32,0.04);
+      border-left: 3px solid #e8a020;
+      padding: 12px 16px; border-radius: 0 8px 8px 0;
+      margin-top: 14px; font-size: 13px; color: #e0e6f0; line-height: 1.7;
+    }
+    .dimension-card .suggestion strong { color: #e8a020; }
 
-    .submit-btn {
+    .report-footer {
+      text-align: center; margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(232,160,32,0.12);
+    }
+    .report-footer p { font-size: 13px; color: #5678a0; line-height: 1.8; }
+    .report-footer .highlight { color: #e8a020; font-weight: 600; }
+
+    .btn-download {
+      display: inline-block; margin-top: 20px;
       background: linear-gradient(135deg, #e8a020, #c8820a);
-      color: #0a0e17;
-      border: none;
-      padding: 14px 48px;
-      border-radius: 25px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
+      color: #0a0e17; border: none;
+      padding: 14px 40px; border-radius: 25px;
+      font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+      text-decoration: none;
     }
-    .submit-btn:hover { box-shadow: 0 0 30px rgba(232,160,32,0.4); }
-    .submit-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    .btn-download:hover { box-shadow: 0 0 30px rgba(232,160,32,0.4); }
 
-    .note {
-      font-size: 12px;
-      color: #5678a0;
-      margin-top: 16px;
-      line-height: 1.7;
+    /* 打印样式 */
+    @media print {
+      body { background: #fff; color: #222; }
+      .header { display: none; }
+      .btn-download { display: none; }
+      .dimension-card { border: 1px solid #ddd; background: #fff; break-inside: avoid; }
+      .dimension-card h3 { color: #c8820a; }
+      .report-header h2 { color: #c8820a; }
     }
-
-    .success-msg {
-      display: none;
-      background: rgba(102,204,136,0.06);
-      border: 1px solid rgba(102,204,136,0.2);
-      border-radius: 16px;
-      padding: 40px 24px;
-      text-align: center;
-    }
-    .success-msg.active { display: block; }
-    .success-msg .ok-icon { font-size: 48px; margin-bottom: 16px; }
-    .success-msg h3 { font-size: 20px; color: #66cc88; margin-bottom: 12px; }
-    .success-msg p { font-size: 14px; color: #8a9bb5; line-height: 1.8; }
   </style>
 </head>
 <body>
@@ -243,8 +183,8 @@
       <strong>B</strong>：抛硬币，正面得 ¥120,000，反面得 ¥0<br><br>
       你会怎么选？
     </div>
-    <label class="option" onclick="selectOption(1, 'A', this)"><input type="radio" name="q1" value="A"> <strong>A.</strong> 直接拿走 ¥50,000（确定收益）</label>
-    <label class="option" onclick="selectOption(1, 'B', this)"><input type="radio" name="q1" value="B"> <strong>B.</strong> 抛硬币赌一把（期望收益更高）</label>
+    <label class="option" onclick="selectOption(1,'A',this)"><input type="radio" name="q1" value="A"> <strong>A.</strong> 直接拿走 ¥50,000（确定收益）</label>
+    <label class="option" onclick="selectOption(1,'B',this)"><input type="radio" name="q1" value="B"> <strong>B.</strong> 抛硬币赌一把（期望收益更高）</label>
   </div>
 
   <!-- Q2 -->
@@ -256,8 +196,8 @@
       <strong>B</strong>：再投 ¥200,000，有 40% 机会回本并盈利 ¥100,000，60% 机会全部亏完<br><br>
       你会怎么选？
     </div>
-    <label class="option" onclick="selectOption(2, 'A', this)"><input type="radio" name="q2" value="A"> <strong>A.</strong> 立即止损</label>
-    <label class="option" onclick="selectOption(2, 'B', this)"><input type="radio" name="q2" value="B"> <strong>B.</strong> 再投 ¥200,000，赌一把</label>
+    <label class="option" onclick="selectOption(2,'A',this)"><input type="radio" name="q2" value="A"> <strong>A.</strong> 立即止损</label>
+    <label class="option" onclick="selectOption(2,'B',this)"><input type="radio" name="q2" value="B"> <strong>B.</strong> 再投 ¥200,000，赌一把</label>
   </div>
 
   <!-- Q3 -->
@@ -269,8 +209,8 @@
       <strong>B</strong>：等 6 个月，存够钱再买<br><br>
       你会怎么选？
     </div>
-    <label class="option" onclick="selectOption(3, 'A', this)"><input type="radio" name="q3" value="A"> <strong>A.</strong> 立刻买，分期付款</label>
-    <label class="option" onclick="selectOption(3, 'B', this)"><input type="radio" name="q3" value="B"> <strong>B.</strong> 等 6 个月，存够钱再买</label>
+    <label class="option" onclick="selectOption(3,'A',this)"><input type="radio" name="q3" value="A"> <strong>A.</strong> 立刻买，分期付款</label>
+    <label class="option" onclick="selectOption(3,'B',this)"><input type="radio" name="q3" value="B"> <strong>B.</strong> 等 6 个月，存够钱再买</label>
   </div>
 
   <!-- Q4 -->
@@ -278,10 +218,10 @@
     <div class="q-number">Q4 / 12</div>
     <div class="q-tag">情绪韧性</div>
     <div class="q-text">你在主持一个重要会议时，突然收到消息——核心项目被叫停了。所有人都在看着你。你会：</div>
-    <label class="option" onclick="selectOption(4, 'A', this)"><input type="radio" name="q4" value="A"> <strong>A.</strong> 立刻宣布会议暂停，独自冷静 10 分钟</label>
-    <label class="option" onclick="selectOption(4, 'B', this)"><input type="radio" name="q4" value="B"> <strong>B.</strong> 压下情绪，继续主持并当场制定调整方案</label>
-    <label class="option" onclick="selectOption(4, 'C', this)"><input type="radio" name="q4" value="C"> <strong>C.</strong> 情绪明显受影响，草草结束会议</label>
-    <label class="option" onclick="selectOption(4, 'D', this)"><input type="radio" name="q4" value="D"> <strong>D.</strong> 立即打电话问责相关人员</label>
+    <label class="option" onclick="selectOption(4,'A',this)"><input type="radio" name="q4" value="A"> <strong>A.</strong> 立刻宣布会议暂停，独自冷静 10 分钟</label>
+    <label class="option" onclick="selectOption(4,'B',this)"><input type="radio" name="q4" value="B"> <strong>B.</strong> 压下情绪，继续主持并当场制定调整方案</label>
+    <label class="option" onclick="selectOption(4,'C',this)"><input type="radio" name="q4" value="C"> <strong>C.</strong> 情绪明显受影响，草草结束会议</label>
+    <label class="option" onclick="selectOption(4,'D',this)"><input type="radio" name="q4" value="D"> <strong>D.</strong> 立即打电话问责相关人员</label>
   </div>
 
   <!-- Q5 -->
@@ -289,10 +229,10 @@
     <div class="q-number">Q5 / 12</div>
     <div class="q-tag">情绪韧性 · 抗压</div>
     <div class="q-text">你在团队会议上提出一个方案，被上级当众严厉批评：「这完全不可行」。你的第一反应是：</div>
-    <label class="option" onclick="selectOption(5, 'A', this)"><input type="radio" name="q5" value="A"> <strong>A.</strong> 内心受挫，但表面上记录意见，会后反思</label>
-    <label class="option" onclick="selectOption(5, 'B', this)"><input type="radio" name="q5" value="B"> <strong>B.</strong> 当场反驳，逐条论证方案可行性</label>
-    <label class="option" onclick="selectOption(5, 'C', this)"><input type="radio" name="q5" value="C"> <strong>C.</strong> 沉默接受，之后几天情绪低落</label>
-    <label class="option" onclick="selectOption(5, 'D', this)"><input type="radio" name="q5" value="D"> <strong>D.</strong> 把批评当成信息来源，客观评估对方说的有没有道理</label>
+    <label class="option" onclick="selectOption(5,'A',this)"><input type="radio" name="q5" value="A"> <strong>A.</strong> 内心受挫，但表面上记录意见，会后反思</label>
+    <label class="option" onclick="selectOption(5,'B',this)"><input type="radio" name="q5" value="B"> <strong>B.</strong> 当场反驳，逐条论证方案可行性</label>
+    <label class="option" onclick="selectOption(5,'C',this)"><input type="radio" name="q5" value="C"> <strong>C.</strong> 沉默接受，之后几天情绪低落</label>
+    <label class="option" onclick="selectOption(5,'D',this)"><input type="radio" name="q5" value="D"> <strong>D.</strong> 把批评当成信息来源，客观评估对方说的有没有道理</label>
   </div>
 
   <!-- Q6 -->
@@ -300,10 +240,10 @@
     <div class="q-number">Q6 / 12</div>
     <div class="q-tag">情绪韧性 · 习得性无助倾向</div>
     <div class="q-text">你连续三次面试/竞标失败。第四次机会出现时，你会：</div>
-    <label class="option" onclick="selectOption(6, 'A', this)"><input type="radio" name="q6" value="A"> <strong>A.</strong> 仍然全力准备，不受前三次影响</label>
-    <label class="option" onclick="selectOption(6, 'B', this)"><input type="radio" name="q6" value="B"> <strong>B.</strong> 有些退缩，但还是去了</label>
-    <label class="option" onclick="selectOption(6, 'C', this)"><input type="radio" name="q6" value="C"> <strong>C.</strong> 觉得自己运气不好，没那么用心准备</label>
-    <label class="option" onclick="selectOption(6, 'D', this)"><input type="radio" name="q6" value="D"> <strong>D.</strong> 放弃这次机会，等更好的</label>
+    <label class="option" onclick="selectOption(6,'A',this)"><input type="radio" name="q6" value="A"> <strong>A.</strong> 仍然全力准备，不受前三次影响</label>
+    <label class="option" onclick="selectOption(6,'B',this)"><input type="radio" name="q6" value="B"> <strong>B.</strong> 有些退缩，但还是去了</label>
+    <label class="option" onclick="selectOption(6,'C',this)"><input type="radio" name="q6" value="C"> <strong>C.</strong> 觉得自己运气不好，没那么用心准备</label>
+    <label class="option" onclick="selectOption(6,'D',this)"><input type="radio" name="q6" value="D"> <strong>D.</strong> 放弃这次机会，等更好的</label>
   </div>
 
   <!-- Q7 -->
@@ -311,10 +251,10 @@
     <div class="q-number">Q7 / 12</div>
     <div class="q-tag">信息处理 · 轻信倾向</div>
     <div class="q-text">你的微信群里疯狂传播一条消息：「XX 政策即将出台，房价要暴跌 30%」。你会：</div>
-    <label class="option" onclick="selectOption(7, 'A', this)"><input type="radio" name="q7" value="A"> <strong>A.</strong> 立刻转发到家庭群，提醒家人注意</label>
-    <label class="option" onclick="selectOption(7, 'B', this)"><input type="radio" name="q7" value="B"> <strong>B.</strong> 先查官方来源，确认后再决定是否相信</label>
-    <label class="option" onclick="selectOption(7, 'C', this)"><input type="radio" name="q7" value="C"> <strong>C.</strong> 半信半疑，但会开始关注相关新闻</label>
-    <label class="option" onclick="selectOption(7, 'D', this)"><input type="radio" name="q7" value="D"> <strong>D.</strong> 不理会，等官方通知</label>
+    <label class="option" onclick="selectOption(7,'A',this)"><input type="radio" name="q7" value="A"> <strong>A.</strong> 立刻转发到家庭群，提醒家人注意</label>
+    <label class="option" onclick="selectOption(7,'B',this)"><input type="radio" name="q7" value="B"> <strong>B.</strong> 先查官方来源，确认后再决定是否相信</label>
+    <label class="option" onclick="selectOption(7,'C',this)"><input type="radio" name="q7" value="C"> <strong>C.</strong> 半信半疑，但会开始关注相关新闻</label>
+    <label class="option" onclick="selectOption(7,'D',this)"><input type="radio" name="q7" value="D"> <strong>D.</strong> 不理会，等官方通知</label>
   </div>
 
   <!-- Q8 -->
@@ -322,10 +262,10 @@
     <div class="q-number">Q8 / 12</div>
     <div class="q-tag">信息处理 · 确认偏误</div>
     <div class="q-text">你一直认为「考研是年轻人最好的出路」。现在看到一篇数据详实的文章，论证「考研回报率正在大幅下降」。你会：</div>
-    <label class="option" onclick="selectOption(8, 'A', this)"><input type="radio" name="q8" value="A"> <strong>A.</strong> 仔细读完，评估论证的可信度</label>
-    <label class="option" onclick="selectOption(8, 'B', this)"><input type="radio" name="q8" value="B"> <strong>B.</strong> 直接划走，「这篇文章肯定有问题」</label>
-    <label class="option" onclick="selectOption(8, 'C', this)"><input type="radio" name="q8" value="C"> <strong>C.</strong> 看了开头结论就关掉</label>
-    <label class="option" onclick="selectOption(8, 'D', this)"><input type="radio" name="q8" value="D"> <strong>D.</strong> 看完后开始重新思考自己的观点</label>
+    <label class="option" onclick="selectOption(8,'A',this)"><input type="radio" name="q8" value="A"> <strong>A.</strong> 仔细读完，评估论证的可信度</label>
+    <label class="option" onclick="selectOption(8,'B',this)"><input type="radio" name="q8" value="B"> <strong>B.</strong> 直接划走，「这篇文章肯定有问题」</label>
+    <label class="option" onclick="selectOption(8,'C',this)"><input type="radio" name="q8" value="C"> <strong>C.</strong> 看了开头结论就关掉</label>
+    <label class="option" onclick="selectOption(8,'D',this)"><input type="radio" name="q8" value="D"> <strong>D.</strong> 看完后开始重新思考自己的观点</label>
   </div>
 
   <!-- Q9 -->
@@ -333,10 +273,10 @@
     <div class="q-number">Q9 / 12</div>
     <div class="q-tag">决策理性 · 信息权重</div>
     <div class="q-text">你要在一座新城市买房，以下哪些信息对你做决策最有价值？（选一项）</div>
-    <label class="option" onclick="selectOption(9, 'A', this)"><input type="radio" name="q9" value="A"> <strong>A.</strong> 房产中介说「这个片区肯定涨」</label>
-    <label class="option" onclick="selectOption(9, 'B', this)"><input type="radio" name="q9" value="B"> <strong>B.</strong> 该片区过去 3 年房价走势 + 人口流入数据 + 规划文件</label>
-    <label class="option" onclick="selectOption(9, 'C', this)"><input type="radio" name="q9" value="C"> <strong>C.</strong> 朋友说「我买在这了，挺好的」</label>
-    <label class="option" onclick="selectOption(9, 'D', this)"><input type="radio" name="q9" value="D"> <strong>D.</strong> 开发商宣传材料</label>
+    <label class="option" onclick="selectOption(9,'A',this)"><input type="radio" name="q9" value="A"> <strong>A.</strong> 房产中介说「这个片区肯定涨」</label>
+    <label class="option" onclick="selectOption(9,'B',this)"><input type="radio" name="q9" value="B"> <strong>B.</strong> 该片区过去 3 年房价走势 + 人口流入数据 + 规划文件</label>
+    <label class="option" onclick="selectOption(9,'C',this)"><input type="radio" name="q9" value="C"> <strong>C.</strong> 朋友说「我买在这了，挺好的」</label>
+    <label class="option" onclick="selectOption(9,'D',this)"><input type="radio" name="q9" value="D"> <strong>D.</strong> 开发商宣传材料</label>
   </div>
 
   <!-- Q10 -->
@@ -344,10 +284,10 @@
     <div class="q-number">Q10 / 12</div>
     <div class="q-tag">社会比较 · FOMO（错失恐惧）</div>
     <div class="q-text">你朋友去年买了一只股票，赚了 80%。你一直觉得这只股票风险太大没买。现在你会：</div>
-    <label class="option" onclick="selectOption(10, 'A', this)"><input type="radio" name="q10" value="A"> <strong>A.</strong> 坚持自己的判断，不碰</label>
-    <label class="option" onclick="selectOption(10, 'B', this)"><input type="radio" name="q10" value="B"> <strong>B.</strong> 有点后悔，开始研究这只股票</label>
-    <label class="option" onclick="selectOption(10, 'C', this)"><input type="radio" name="q10" value="C"> <strong>C.</strong> 立刻买入一些，「不能再错过了」</label>
-    <label class="option" onclick="selectOption(10, 'D', this)"><input type="radio" name="q10" value="D"> <strong>D.</strong> 说服自己「他运气好而已，我不羡慕」</label>
+    <label class="option" onclick="selectOption(10,'A',this)"><input type="radio" name="q10" value="A"> <strong>A.</strong> 坚持自己的判断，不碰</label>
+    <label class="option" onclick="selectOption(10,'B',this)"><input type="radio" name="q10" value="B"> <strong>B.</strong> 有点后悔，开始研究这只股票</label>
+    <label class="option" onclick="selectOption(10,'C',this)"><input type="radio" name="q10" value="C"> <strong>C.</strong> 立刻买入一些，「不能再错过了」</label>
+    <label class="option" onclick="selectOption(10,'D',this)"><input type="radio" name="q10" value="D"> <strong>D.</strong> 说服自己「他运气好而已，我不羡慕」</label>
   </div>
 
   <!-- Q11 -->
@@ -355,10 +295,10 @@
     <div class="q-number">Q11 / 12</div>
     <div class="q-tag">独立思考 · 从众倾向</div>
     <div class="q-text">你做了一个决定，身边所有人都反对。但你内心非常确信这是对的。你会：</div>
-    <label class="option" onclick="selectOption(11, 'A', this)"><input type="radio" name="q11" value="A"> <strong>A.</strong> 坚持己见，但不辩解</label>
-    <label class="option" onclick="selectOption(11, 'B', this)"><input type="radio" name="q11" value="B"> <strong>B.</strong> 重新考虑，大众可能有道理</label>
-    <label class="option" onclick="selectOption(11, 'C', this)"><input type="radio" name="q11" value="C"> <strong>C.</strong> 坚持并试图说服所有人</label>
-    <label class="option" onclick="selectOption(11, 'D', this)"><input type="radio" name="q11" value="D"> <strong>D.</strong> 放弃，「这么多人反对，肯定是我错了」</label>
+    <label class="option" onclick="selectOption(11,'A',this)"><input type="radio" name="q11" value="A"> <strong>A.</strong> 坚持己见，但不辩解</label>
+    <label class="option" onclick="selectOption(11,'B',this)"><input type="radio" name="q11" value="B"> <strong>B.</strong> 重新考虑，大众可能有道理</label>
+    <label class="option" onclick="selectOption(11,'C',this)"><input type="radio" name="q11" value="C"> <strong>C.</strong> 坚持并试图说服所有人</label>
+    <label class="option" onclick="selectOption(11,'D',this)"><input type="radio" name="q11" value="D"> <strong>D.</strong> 放弃，「这么多人反对，肯定是我错了」</label>
   </div>
 
   <!-- Q12 -->
@@ -370,43 +310,33 @@
       <strong>B</strong>：保持现状，带着所有经验和智慧继续前行<br><br>
       你会怎么选？
     </div>
-    <label class="option" onclick="selectOption(12, 'A', this)"><input type="radio" name="q12" value="A"> <strong>A.</strong> 回到过去，修正错误决定</label>
-    <label class="option" onclick="selectOption(12, 'B', this)"><input type="radio" name="q12" value="B"> <strong>B.</strong> 保持现状，带着经验继续前行</label>
+    <label class="option" onclick="selectOption(12,'A',this)"><input type="radio" name="q12" value="A"> <strong>A.</strong> 回到过去，修正错误决定</label>
+    <label class="option" onclick="selectOption(12,'B',this)"><input type="radio" name="q12" value="B"> <strong>B.</strong> 保持现状，带着经验继续前行</label>
   </div>
 
   <!-- Navigation -->
   <div class="nav-buttons" id="navButtons">
-    <button class="btn-prev" onclick="prevQ()" id="btnPrev">← 上一题</button>
+    <button class="btn-prev" onclick="prevQ()" id="btnPrev" style="display:none;">← 上一题</button>
     <button class="btn-next" onclick="nextQ()" id="btnNext">下一题 →</button>
   </div>
 
-  <!-- Result Section -->
-  <div class="result-section" id="resultSection">
-    <div class="result-box">
-      <div class="check-icon">✅</div>
-      <h3>12 题全部完成！</h3>
-      <p>请填写你的邮箱，报告完成后将发送至你的邮箱。<br>也可以填写微信ID，方便联系。</p>
-
-      <input type="email" class="email-input" id="userEmail" placeholder="你的邮箱（用于接收报告）" style="display:block;margin:0 auto 12px;">
-      <input type="text" class="email-input" id="userWechat" placeholder="微信ID（选填）" style="display:block;margin:0 auto 16px;">
-
-      <button class="submit-btn" onclick="submitAnswers()">提交答案，获取报告 →</button>
-
-      <div class="note">
-        🔒 你的答案仅用于生成个人报告，不会被分享给任何人<br>
-        ⏱️ 报告将在 24 小时内发送至你的邮箱
-      </div>
+  <!-- ========== 报告页 ========== -->
+  <div class="report-section" id="reportSection">
+    <div class="report-header">
+      <h2>🧠 你的 AI 决策体检报告</h2>
+      <p class="subtitle">基于你的答题结果，AI 为你生成了这份专属决策能力分析</p>
+      <div class="score-overall" id="overallScore">--</div>
+      <div class="score-label">综合决策力得分（满分 100）</div>
     </div>
-  </div>
 
-  <!-- Success Message -->
-  <div class="success-msg" id="successMsg">
-    <div class="ok-icon">🎉</div>
-    <h3>答案提交成功！</h3>
-    <p>你的答题结果已成功提交，报告将在 <strong style="color:#e8a020;">24 小时内</strong>发送至你的邮箱。<br><br>
-      如有疑问，可添加微信 <strong style="color:#e8a020;">shen-wanshan</strong> 联系。<br><br>
-      <span style="font-size:12px;color:#5678a0;">页面将在 5 秒后自动关闭……</span>
-    </p>
+    <!-- 四个维度卡片由 JS 动态插入 -->
+    <div id="dimensionCards"></div>
+
+    <div class="report-footer">
+      <p>这份报告由 <span class="highlight">AI 决策体检系统</span> 自动生成，<br>仅供参考，不构成专业建议。</p>
+      <p style="margin-top:8px;">如有疑问，请联系微信：<span class="highlight">shen-wanshan</span></p>
+      <button class="btn-download" onclick="window.print()">🖨️ 打印 / 保存为 PDF</button>
+    </div>
   </div>
 
 </div>
@@ -416,107 +346,182 @@
   const totalQ = 12;
   const answers = {};
 
+  // ========== 答题逻辑 ==========
   function selectOption(qNum, value, el) {
     answers[qNum] = value;
-    // Remove selected from siblings
-    const parent = el.closest('.question-card');
-    parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.closest('.question-card').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
   }
 
   function updateProgress() {
-    const pct = ((currentQ - 1) / totalQ) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressFill').style.width = ((currentQ - 1) / totalQ * 100) + '%';
     document.getElementById('progressText').textContent = `第 ${currentQ} / ${totalQ} 题`;
   }
 
   function showQ(qNum) {
     document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
-    const card = document.querySelector(`.question-card[data-q="${qNum}"]`);
-    if (card) card.classList.add('active');
-
-    // Update nav buttons
+    document.querySelector(`.question-card[data-q="${qNum}"]`)?.classList.add('active');
     document.getElementById('btnPrev').style.display = qNum === 1 ? 'none' : '';
-    document.getElementById('btnNext').textContent = qNum === totalQ ? '查看结果 →' : '下一题 →';
+    document.getElementById('btnNext').textContent = qNum === totalQ ? '查看我的报告 →' : '下一题 →';
     currentQ = qNum;
     updateProgress();
   }
 
   function nextQ() {
-    if (!answers[currentQ]) {
-      alert('请先选择一个答案再继续 🙂');
-      return;
-    }
+    if (!answers[currentQ]) { alert('请先选择一个答案再继续 🙂'); return; }
     if (currentQ === totalQ) {
-      // Show result section
+      // 隐藏答题界面，生成报告
       document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
       document.getElementById('navButtons').style.display = 'none';
-      document.getElementById('resultSection').classList.add('active');
       document.getElementById('progressFill').style.width = '100%';
-      document.getElementById('progressText').textContent = '答题完成 ✓';
+      document.getElementById('progressText').textContent = '正在生成报告...';
+      generateReport();
       return;
     }
     showQ(currentQ + 1);
   }
 
-  function prevQ() {
-    if (currentQ > 1) showQ(currentQ - 1);
+  function prevQ() { if (currentQ > 1) showQ(currentQ - 1); }
+
+  // ========== 报告生成逻辑 ==========
+
+  function generateReport() {
+    // 1. 计算各维度得分（0-100）
+    const scores = calcScores();
+
+    // 2. 综合得分（加权平均）
+    const overall = Math.round(scores.rational * 0.3 + scores.resilience * 0.25 + scores.info * 0.25 + scores.social * 0.2);
+
+    // 3. 显示综合得分
+    document.getElementById('overallScore').textContent = overall;
+
+    // 4. 生成各维度卡片
+    const cardsHTML = buildDimensionCards(scores);
+    document.getElementById('dimensionCards').innerHTML = cardsHTML;
+
+    // 5. 显示报告区域
+    document.getElementById('reportSection').classList.add('active');
+    document.getElementById('progressText').textContent = '报告生成完成 ✓';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Submit answers - uses formsubmit.co (free, no signup)
-  function submitAnswers() {
-    const email = document.getElementById('userEmail').value.trim();
-    if (!email || !email.includes('@')) {
-      alert('请填写有效的邮箱地址，报告将发送至该邮箱 🙂');
-      return;
-    }
+  function calcScores() {
+    // 每题评分逻辑（A/B/C/D 对应不同得分，越高越好）
+    // rational: Q1,Q2,Q3,Q9
+    let rational = 0;
+    if (answers[1] === 'A') rational += 25; else rational += 5;  // 损失厌恶低 = 好
+    if (answers[2] === 'A') rational += 25; else rational += 5;  // 及时止损 = 好
+    if (answers[3] === 'B') rational += 25; else rational += 5;  // 延迟满足 = 好
+    if (answers[9] === 'B') rational += 25; else if (answers[9] === 'A') rational += 5; else rational += 10;
 
-    const wechat = document.getElementById('userWechat').value.trim();
-    const btn = document.querySelector('.submit-btn');
-    btn.disabled = true;
-    btn.textContent = '提交中...';
+    // resilience: Q4,Q5,Q6
+    let resilience = 0;
+    if (answers[4] === 'B') resilience += 34; else if (answers[4] === 'A') resilience += 20; else resilience += 5;
+    if (answers[5] === 'D') resilience += 33; else if (answers[5] === 'A') resilience += 25; else if (answers[5] === 'B') resilience += 15; else resilience += 5;
+    if (answers[6] === 'A') resilience += 33; else if (answers[6] === 'B') resilience += 20; else resilience += 5;
 
-    // Build answer text
-    let answerText = 'AI决策体检答题结果\n';
-    answerText += '==================\n\n';
-    for (let i = 1; i <= totalQ; i++) {
-      answerText += `Q${i}: ${answers[i] || '未答'}\n`;
-    }
-    answerText += `\n邮箱: ${email}\n`;
-    answerText += `微信: ${wechat || '未填'}\n`;
-    answerText += `\n提交时间: ${new Date().toLocaleString('zh-CN')}\n`;
+    // info processing: Q7,Q8
+    let info = 0;
+    if (answers[7] === 'B') info += 50; else if (answers[7] === 'D') info += 40; else if (answers[7] === 'C') info += 20; else info += 5;
+    if (answers[8] === 'A' || answers[8] === 'D') info += 50; else if (answers[8] === 'B') info += 5; else info += 15;
 
-    // Use formsubmit.co to send email (free service)
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('wechat', wechat);
-    formData.append('answers', answerText);
-    formData.append('_subject', `AI决策体检新答题 - ${email}`);
-    formData.append('_captcha', 'false');
+    // social/comparsion: Q10,Q11,Q12
+    let social = 0;
+    if (answers[10] === 'A' || answers[10] === 'D') social += 34; else if (answers[10] === 'B') social += 20; else social += 5;
+    if (answers[11] === 'A' || answers[11] === 'C') social += 33; else if (answers[11] === 'B') social += 15; else social += 5;
+    if (answers[12] === 'B') social += 33; else social += 10;
 
-    fetch('https://formsubmit.co/ajax/774071052@qq.com', {
-      method: 'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('resultSection').classList.remove('active');
-      document.getElementById('successMsg').classList.add('active');
-      document.getElementById('progressText').textContent = '提交成功 ✓';
-      setTimeout(() => window.close(), 5000);
-    })
-    .catch(err => {
-      // Fallback: use mailto
-      const mailtoBody = encodeURIComponent(answerText);
-      window.location.href = `mailto:774071052@qq.com?subject=AI决策体检答题结果&body=${mailtoBody}`;
-      document.getElementById('resultSection').classList.remove('active');
-      document.getElementById('successMsg').classList.add('active');
-      btn.disabled = false;
-      btn.textContent = '提交答案，获取报告 →';
-    });
+    return { rational, resilience, info, social, overall: 0 };
   }
 
-  // Keyboard navigation
+  function buildDimensionCards(scores) {
+    const dims = [
+      {
+        name: '决策理性',
+        tag: 'Rational Decision Making',
+        score: scores.rational,
+        analysis: getRationalAnalysis(scores.rational, answers),
+        suggestion: getRationalSuggestion(scores.rational, answers)
+      },
+      {
+        name: '情绪韧性',
+        tag: 'Emotional Resilience',
+        score: scores.resilience,
+        analysis: getResilienceAnalysis(scores.resilience, answers),
+        suggestion: getResilienceSuggestion(scores.resilience, answers)
+      },
+      {
+        name: '信息处理',
+        tag: 'Information Processing',
+        score: scores.info,
+        analysis: getInfoAnalysis(scores.info, answers),
+        suggestion: getInfoSuggestion(scores.info, answers)
+      },
+      {
+        name: '社会比较与独立性',
+        tag: 'Social Independence',
+        score: scores.social,
+        analysis: getSocialAnalysis(scores.social, answers),
+        suggestion: getSocialSuggestion(scores.social, answers)
+      }
+    ];
+
+    return dims.map(d => `
+      <div class="dimension-card">
+        <h3>${d.name} <span class="dim-tag">${d.tag}</span></h3>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${d.score}%"></div></div>
+        <div class="score-num"><span>得分</span><span>${d.score} / 100</span></div>
+        <div class="analysis">${d.analysis}</div>
+        <div class="suggestion">💡 <strong>改进建议：</strong>${d.suggestion}</div>
+      </div>
+    `).join('');
+  }
+
+  // ---------- 各维度分析与建议 ----------
+  function getRationalAnalysis(score) {
+    if (score >= 80) return '你在决策中表现出较强的理性思考能力，能够较好地权衡风险与收益，面对沉没成本时能及时止损，且具备一定的延迟满足能力。在信息收集方面，你倾向于依赖数据而非传言。';
+    if (score >= 60) return '你的决策理性处于中等水平。在做决定时，你有时会受情绪或外部压力影响，偶尔会出现"再投一点就能回本"的想法。延迟满足能力有待提升，有时倾向于立即满足而非长期规划。';
+    return '你的决策理性有较大提升空间。你可能经常在"确定收益"和"赌一把"之间纠结，容易受沉没成本束缚，且在面对诱惑时较难坚持长期目标。建议在重要决策前强制自己列一个"利弊清单"。';
+  }
+  function getRationalSuggestion(score) {
+    if (score >= 80) return '你已经具备良好的决策习惯，建议进一步学习"概率思维"——把每个决定都看成概率游戏，而不是非黑即白的判断。推荐阅读《思考，快与慢》。';
+    if (score >= 60) return '下次面对"再投一点"的冲动时，问自己：如果今天是第一天接触这个项目，我还会投吗？用"清零思维"打破沉没成本陷阱。设置"冷静期"——大额消费等待48小时再决定。';
+    return '从今天开始，做一个"决策日志"：每次重要决定前，写下你的理由和预期结果，三个月后回看。这会帮你发现自己的决策偏误模式。推荐先读《错误的行为》这本书。';
+  }
+
+  function getResilienceAnalysis(score) {
+    if (score >= 80) return '你具备很强的情绪韧性。面对危机和批评时，你能保持冷静并快速调整状态，不易被失败打倒。连续挫折后你仍能全力准备下一次机会，这种"反脆弱"能力是你的重要优势。';
+    if (score >= 60) return '你的情绪韧性处于中等水平。面对突发危机时，你可能会短暂受影响，但能逐渐恢复。对于批评，你有时会放在心上好几天。偶尔会因为连续失败而怀疑自己。';
+    return '你的情绪韧性需要重点提升。面对突发状况时，你容易情绪化或选择逃避。被批评后可能会长时间情绪低落，连续失败容易让你产生"我就是运气不好"的想法。这需要刻意练习来改变。';
+  }
+  function getResilienceSuggestion(score) {
+    if (score >= 80) return '你的韧性已经很好，可以进一步提升"压力测试"能力——主动把自放在不舒服的环境里，锻炼应对未知的能力。可以尝试公开演讲或主动承担有挑战的项目。';
+    if (score >= 60) return '练习"10秒法则"：遇到突发状况时，强制自己沉默10秒再说话。建立"情绪日志"，记录每次情绪波动的触发点和你的反应，找出模式。被批评时，先问"这个人说的有没有道理"，而不是"他是不是针对我"。';
+    return '从"小挫折训练"开始：每天主动做一件让你稍微不舒服的事（比如主动承认一个错误）。练习"重构思维"：把每次失败看成"数据收集"而不是"个人否定"。推荐阅读《抗压力》。';
+  }
+
+  function getInfoAnalysis(score) {
+    if (score >= 80) return '你具备优秀的信息甄别能力。面对未经证实的消息，你会主动查找官方来源；面对与自己观点相反的信息，你能保持开放心态并客观评估。这种"认知谦逊"是非常稀缺的能力。';
+    if (score >= 60) return '你的信息甄别能力中等。面对热门消息时，你有时会半信半疑但不去查证；面对挑战自己观点的信息时，你可能会有些抵触。在信息爆炸的时代，这需要刻意提升。';
+    return '你在信息处理方面有较大提升空间。你可能比较容易相信群聊里转发的消息，面对与自己观点相反的信息时容易产生抵触情绪。在"后真相时代"，这种认知习惯可能让你做出错误决定。';
+  }
+  function getInfoSuggestion(score) {
+    if (score >= 80) return '你已经具备很好的信息素养，可以进一步学习"信息溯源"技巧——追踪一条信息的原始来源，而不是看它被转述了多少次。可以关注一些事实核查网站（如Snopes、FactCheck.org）。';
+    if (score >= 60) return '建立一个"信息核查清单"：这条消息的来源是什么？有没有原始数据支撑？对方有没有利益相关？遇到热门消息，强制自己等24小时再转发或做决定。';
+    return '从今天开始，每转发一条消息前，问自己三个问题：来源是谁？有没有证据？有没有可能是假的？关注"科学松鼠会"或"果壳"这类科普账号，培养科学思维。推荐《超越感觉：批判性思考指南》。';
+  }
+
+  function getSocialAnalysis(score) {
+    if (score >= 80) return '你具备很强的独立思考能力。面对大众反对时，你能坚持自己的判断；朋友赚了钱也不会让你盲目跟风；你更倾向于接受现状并从中学习，而不是沉溺于"如果当年……"的后悔中。';
+    if (score >= 60) return '你的独立性中等。当身边人都反对时，你会重新考虑自己的决定；看到别人赚钱时会有点后悔，但通常不会盲目跟风。有时候会因为"大家都这么说"而怀疑自己的判断。';
+    return '你在独立思考和抗社会影响方面需要提升。你可能比较容易受身边人意见的影响，看到别人赚钱会感到焦虑，面对大众反对时容易放弃自己的判断。这种"从众倾向"可能让你错过一些好机会。';
+  }
+  function getSocialSuggestion(score) {
+    if (score >= 80) return '你的独立思考能力很强，可以进一步提升"逆向思维"——当大家都看多时，主动思考做空的理由。可以学习查理·芒格的"多元思维模型"，用多个学科视角分析同一个问题。';
+    if (score >= 60) return '练习"魔鬼代言人"思维：每次做一个决定，强制自己列出3个反对理由。遇到"大家都这么说"的时候，问自己：如果他们都是错的呢？建立自己的"决策原则清单"，用原则代替情绪做决定。';
+    return '从"小决定独立训练"开始：每天做一个大家都没做过的小决定（比如选一条没人走的路回家）。练习说"我理解你的观点，但我的想法是……"。推荐阅读《学会提问》和《影响力》。';
+  }
+
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'Enter') nextQ();
     if (e.key === 'ArrowLeft') prevQ();
