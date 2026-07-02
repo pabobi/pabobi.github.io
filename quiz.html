@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 决策体检 · 开始答题</title>
+  <title>决策力深度体检 · 24题版</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -31,13 +31,19 @@
     .progress-bar {
       width: 100%; height: 4px;
       background: rgba(255,255,255,0.06);
-      border-radius: 2px; margin-bottom: 32px; overflow: hidden;
+      border-radius: 2px; margin-bottom: 24px; overflow: hidden;
     }
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, #e8a020, #ffcc66);
       border-radius: 2px; width: 0%; transition: width 0.4s ease;
     }
+
+    .section-indicator {
+      text-align: center; font-size: 12px; color: #5678a0; margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+    .section-indicator span { color: #e8a020; }
 
     .question-card {
       background: rgba(255,255,255,0.02);
@@ -47,13 +53,9 @@
     }
     .question-card.active { display: block; }
 
-    .q-number { font-size: 12px; color: #e8a020; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
-    .q-tag {
-      display: inline-block; font-size: 11px;
-      background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2);
-      color: #e8a020; padding: 2px 10px; border-radius: 8px; margin-bottom: 12px;
-    }
-    .q-text { font-size: 16px; font-weight: 600; color: #e0e6f0; margin-bottom: 20px; line-height: 1.7; }
+    .q-number { font-size: 12px; color: #5678a0; font-weight: 400; letter-spacing: 1px; margin-bottom: 8px; }
+    .q-text { font-size: 15px; font-weight: 500; color: #e0e6f0; margin-bottom: 20px; line-height: 1.8; }
+    .q-text .highlight { color: #e8a020; }
 
     .option {
       display: block; width: 100%; text-align: left;
@@ -76,22 +78,27 @@
     .btn-next { background: linear-gradient(135deg, #e8a020, #c8820a); color: #0a0e17; }
     .btn-next:hover { box-shadow: 0 0 30px rgba(232,160,32,0.3); }
 
-    /* ---------- 报告页样式 ---------- */
+    /* ========== 报告区域 ========== */
     .report-section { display: none; }
     .report-section.active { display: block; }
-
     .report-header {
       text-align: center; margin-bottom: 36px;
       padding-bottom: 28px;
       border-bottom: 1px solid rgba(232,160,32,0.12);
     }
-    .report-header h2 { font-size: 26px; color: #e8a020; margin-bottom: 8px; }
-    .report-header .subtitle { font-size: 14px; color: #8a9bb5; }
+    .report-header h2 { font-size: 24px; color: #e8a020; margin-bottom: 8px; }
+    .report-header .subtitle { font-size: 13px; color: #8a9bb5; }
     .report-header .score-overall {
-      font-size: 48px; font-weight: 800; color: #e8a020;
-      margin: 20px 0 8px;
+      font-size: 56px; font-weight: 800; color: #e8a020;
+      margin: 20px 0 4px;
     }
-    .report-header .score-label { font-size: 13px; color: #5678a0; letter-spacing: 2px; }
+    .report-header .score-label { font-size: 12px; color: #5678a0; letter-spacing: 2px; }
+    .report-header .score-level {
+      display: inline-block; margin-top: 12px;
+      background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2);
+      color: #e8a020; padding: 6px 20px; border-radius: 20px;
+      font-size: 13px; letter-spacing: 2px;
+    }
 
     .dimension-card {
       background: rgba(255,255,255,0.02);
@@ -99,48 +106,84 @@
       border-radius: 16px; padding: 24px;
       margin-bottom: 20px;
     }
-    .dimension-card h3 {
-      font-size: 16px; color: #e8a020;
-      margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
-    }
-    .dimension-card .dim-tag {
-      font-size: 11px; background: rgba(232,160,32,0.1);
-      border: 1px solid rgba(232,160,32,0.2);
-      color: #e8a020; padding: 2px 10px; border-radius: 8px;
-    }
+    .dimension-card h3 { font-size: 16px; color: #e8a020; margin-bottom: 10px; }
     .dimension-card .score-bar {
       height: 8px; background: rgba(255,255,255,0.06);
-      border-radius: 4px; margin: 14px 0; overflow: hidden;
+      border-radius: 4px; margin: 12px 0; overflow: hidden;
     }
     .dimension-card .score-bar-fill {
       height: 100%; border-radius: 4px;
       background: linear-gradient(90deg, #e8a020, #ffcc66);
-      transition: width 1s ease;
+      transition: width 1.2s ease;
     }
     .dimension-card .score-num {
       font-size: 13px; color: #8a9bb5;
       display: flex; justify-content: space-between;
     }
     .dimension-card .analysis {
-      font-size: 14px; color: #c0cce0; line-height: 1.8;
+      font-size: 13px; color: #c0cce0; line-height: 1.8;
       margin-top: 14px;
     }
-    .dimension-card .suggestion {
-      background: rgba(232,160,32,0.04);
-      border-left: 3px solid #e8a020;
-      padding: 12px 16px; border-radius: 0 8px 8px 0;
-      margin-top: 14px; font-size: 13px; color: #e0e6f0; line-height: 1.7;
+
+    /* 成长计划 */
+    .plan-section { margin-top: 40px; }
+    .plan-section h3 {
+      font-size: 18px; color: #e8a020;
+      text-align: center; margin-bottom: 24px;
     }
-    .dimension-card .suggestion strong { color: #e8a020; }
+    .plan-phase {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.1);
+      border-radius: 16px; padding: 24px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .plan-phase .phase-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17; padding: 3px 14px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .plan-phase .phase-title {
+      font-size: 15px; color: #e0e6f0; font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .plan-phase .phase-days { font-size: 11px; color: #5678a0; margin-bottom: 12px; }
+    .plan-phase .task-list { list-style: none; }
+    .plan-phase .task-list li {
+      position: relative; padding-left: 22px;
+      font-size: 13px; color: #c0cce0; line-height: 1.8;
+      margin-bottom: 6px;
+    }
+    .plan-phase .task-list li::before {
+      content: '→'; position: absolute; left: 4px; color: #e8a020;
+    }
+
+    /* 追踪再测 */
+    .retest-box {
+      background: rgba(232,160,32,0.03);
+      border: 2px dashed rgba(232,160,32,0.2);
+      border-radius: 16px; padding: 28px 24px;
+      text-align: center; margin-top: 36px;
+    }
+    .retest-box h4 { font-size: 16px; color: #e8a020; margin-bottom: 10px; }
+    .retest-box p { font-size: 13px; color: #8a9bb5; line-height: 1.8; margin-bottom: 16px; }
+    .retest-box .btn-retest {
+      display: inline-block;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17; padding: 12px 36px; border-radius: 25px;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+      border: none; text-decoration: none;
+    }
+    .retest-box .btn-retest:hover { box-shadow: 0 0 30px rgba(232,160,32,0.4); }
 
     .report-footer {
       text-align: center; margin-top: 40px;
       padding-top: 28px;
       border-top: 1px solid rgba(232,160,32,0.12);
     }
-    .report-footer p { font-size: 13px; color: #5678a0; line-height: 1.8; }
-    .report-footer .highlight { color: #e8a020; font-weight: 600; }
-
+    .report-footer p { font-size: 12px; color: #5678a0; line-height: 1.8; }
     .btn-download {
       display: inline-block; margin-top: 20px;
       background: linear-gradient(135deg, #e8a020, #c8820a);
@@ -151,13 +194,12 @@
     }
     .btn-download:hover { box-shadow: 0 0 30px rgba(232,160,32,0.4); }
 
-    /* 打印样式 */
     @media print {
       body { background: #fff; color: #222; }
       .header { display: none; }
-      .btn-download { display: none; }
-      .dimension-card { border: 1px solid #ddd; background: #fff; break-inside: avoid; }
-      .dimension-card h3 { color: #c8820a; }
+      .btn-download, .retest-box .btn-retest { display: none; }
+      .dimension-card, .plan-phase, .retest-box { border: 1px solid #ddd; background: #fff; break-inside: avoid; }
+      .dimension-card h3, .plan-section h3 { color: #c8820a; }
       .report-header h2 { color: #c8820a; }
     }
   </style>
@@ -165,176 +207,298 @@
 <body>
 
 <div class="header">
-  <h2>AI 决策体检</h2>
-  <p>共 12 题 · 约 15 分钟 · 你的答案完全保密</p>
+  <h2>决策力深度体检</h2>
+  <p>24 道实战情境 · 约 20 分钟 · 分析将保留在你的本地设备</p>
 </div>
 
 <div class="container">
 
-  <div class="progress-text" id="progressText">第 1 / 12 题</div>
+  <div class="progress-text" id="progressText">第 1 / 24 题</div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- ======== 第一部分：日常决策习惯（Q1-Q6） ======== -->
+  <div class="section-indicator" id="sectionLabel">▸ <span>日常决策习惯</span>  ·  共 24 题</div>
 
   <!-- Q1 -->
   <div class="question-card active" data-q="1">
-    <div class="q-number">Q1 / 12</div>
-    <div class="q-tag">决策理性 · 损失厌恶倾向</div>
-    <div class="q-text">你面前有两个选择：<br><br>
-      <strong>A</strong>：直接拿走 ¥50,000<br>
-      <strong>B</strong>：抛硬币，正面得 ¥120,000，反面得 ¥0<br><br>
-      你会怎么选？
-    </div>
-    <label class="option" onclick="selectOption(1,'A',this)"><input type="radio" name="q1" value="A"> <strong>A.</strong> 直接拿走 ¥50,000（确定收益）</label>
-    <label class="option" onclick="selectOption(1,'B',this)"><input type="radio" name="q1" value="B"> <strong>B.</strong> 抛硬币赌一把（期望收益更高）</label>
+    <div class="q-number">Q1 / 24</div>
+    <div class="q-text">你周末在商场看到一款新出的智能手表，售价 <span class="highlight">¥2,999</span>。销售说今天下单立减 ¥200，但只能今天。你其实并没打算买。你会：</div>
+    <label class="option" onclick="selectOption(1,'A',this)"><strong>A.</strong> 「限时优惠」让我动心了，先买再说</label>
+    <label class="option" onclick="selectOption(1,'B',this)"><strong>B.</strong> 不买，但拍下来回家对比价格</label>
+    <label class="option" onclick="selectOption(1,'C',this)"><strong>C.</strong> 不买，等双十一再说</label>
+    <label class="option" onclick="selectOption(1,'D',this)"><strong>D.</strong> 加销售微信，说考虑一下再决定</label>
   </div>
 
   <!-- Q2 -->
   <div class="question-card" data-q="2">
-    <div class="q-number">Q2 / 12</div>
-    <div class="q-tag">决策理性 · 沉没成本偏误</div>
-    <div class="q-text">你投资了一个项目，目前亏损 ¥300,000。现在有两个选择：<br><br>
-      <strong>A</strong>：立即止损，亏损确定<br>
-      <strong>B</strong>：再投 ¥200,000，有 40% 机会回本并盈利 ¥100,000，60% 机会全部亏完<br><br>
-      你会怎么选？
-    </div>
-    <label class="option" onclick="selectOption(2,'A',this)"><input type="radio" name="q2" value="A"> <strong>A.</strong> 立即止损</label>
-    <label class="option" onclick="selectOption(2,'B',this)"><input type="radio" name="q2" value="B"> <strong>B.</strong> 再投 ¥200,000，赌一把</label>
+    <div class="q-number">Q2 / 24</div>
+    <div class="q-text">你手里有一张 <span class="highlight">¥5,000</span> 的购物卡，是你最不喜欢的品牌。有个朋友想用 <span class="highlight">¥4,500</span> 现金跟你换。你会：</div>
+    <label class="option" onclick="selectOption(2,'A',this)"><strong>A.</strong> 换了，拿到现金更实在</label>
+    <label class="option" onclick="selectOption(2,'B',this)"><strong>B.</strong> 不换，觉得亏了 ¥500</label>
+    <label class="option" onclick="selectOption(2,'C',this)"><strong>C.</strong> 挂闲鱼，看能不能卖到 ¥4,800</label>
+    <label class="option" onclick="selectOption(2,'D',this)"><strong>D.</strong> 先留着，说不定以后能用到</label>
   </div>
 
   <!-- Q3 -->
   <div class="question-card" data-q="3">
-    <div class="q-number">Q3 / 12</div>
-    <div class="q-tag">决策理性 · 延迟满足能力</div>
-    <div class="q-text">你想要一个价值 ¥50,000 的东西：<br><br>
-      <strong>A</strong>：立刻买，用分期付款（多付 ¥8,000 利息）<br>
-      <strong>B</strong>：等 6 个月，存够钱再买<br><br>
-      你会怎么选？
-    </div>
-    <label class="option" onclick="selectOption(3,'A',this)"><input type="radio" name="q3" value="A"> <strong>A.</strong> 立刻买，分期付款</label>
-    <label class="option" onclick="selectOption(3,'B',this)"><input type="radio" name="q3" value="B"> <strong>B.</strong> 等 6 个月，存够钱再买</label>
+    <div class="q-number">Q3 / 24</div>
+    <div class="q-text">你报名了一个 <span class="highlight">¥9,800</span> 的线上课程，学了3天发现内容质量很差。机构说可以退款，但要扣 <span class="highlight">¥1,200</span> 手续费。你会：</div>
+    <label class="option" onclick="selectOption(3,'A',this)"><strong>A.</strong> 直接退款，损失 ¥1,200 就当交学费</label>
+    <label class="option" onclick="selectOption(3,'B',this)"><strong>B.</strong> 不退款，硬着头皮学完</label>
+    <label class="option" onclick="selectOption(3,'C',this)"><strong>C.</strong> 找机构理论，要求全额退</label>
+    <label class="option" onclick="selectOption(3,'D',this)"><strong>D.</strong> 在差评后继续学完，至少能学一点</label>
   </div>
 
   <!-- Q4 -->
   <div class="question-card" data-q="4">
-    <div class="q-number">Q4 / 12</div>
-    <div class="q-tag">情绪韧性</div>
-    <div class="q-text">你在主持一个重要会议时，突然收到消息——核心项目被叫停了。所有人都在看着你。你会：</div>
-    <label class="option" onclick="selectOption(4,'A',this)"><input type="radio" name="q4" value="A"> <strong>A.</strong> 立刻宣布会议暂停，独自冷静 10 分钟</label>
-    <label class="option" onclick="selectOption(4,'B',this)"><input type="radio" name="q4" value="B"> <strong>B.</strong> 压下情绪，继续主持并当场制定调整方案</label>
-    <label class="option" onclick="selectOption(4,'C',this)"><input type="radio" name="q4" value="C"> <strong>C.</strong> 情绪明显受影响，草草结束会议</label>
-    <label class="option" onclick="selectOption(4,'D',this)"><input type="radio" name="q4" value="D"> <strong>D.</strong> 立即打电话问责相关人员</label>
+    <div class="q-number">Q4 / 24</div>
+    <div class="q-text">你在二手平台看到一个 <span class="highlight">¥2,000</span> 的相机，卖家说原价 ¥5,000，只用过两次。你觉得有点可疑，但价格确实诱人。你会：</div>
+    <label class="option" onclick="selectOption(4,'A',this)"><strong>A.</strong> 直接下单，错过就没了</label>
+    <label class="option" onclick="selectOption(4,'B',this)"><strong>B.</strong> 先查卖家的信用和历史评价</label>
+    <label class="option" onclick="selectOption(4,'C',this)"><strong>C.</strong> 约当面验机，没问题再买</label>
+    <label class="option" onclick="selectOption(4,'D',this)"><strong>D.</strong> 放弃，买新的更有保障</label>
   </div>
 
   <!-- Q5 -->
   <div class="question-card" data-q="5">
-    <div class="q-number">Q5 / 12</div>
-    <div class="q-tag">情绪韧性 · 抗压</div>
-    <div class="q-text">你在团队会议上提出一个方案，被上级当众严厉批评：「这完全不可行」。你的第一反应是：</div>
-    <label class="option" onclick="selectOption(5,'A',this)"><input type="radio" name="q5" value="A"> <strong>A.</strong> 内心受挫，但表面上记录意见，会后反思</label>
-    <label class="option" onclick="selectOption(5,'B',this)"><input type="radio" name="q5" value="B"> <strong>B.</strong> 当场反驳，逐条论证方案可行性</label>
-    <label class="option" onclick="selectOption(5,'C',this)"><input type="radio" name="q5" value="C"> <strong>C.</strong> 沉默接受，之后几天情绪低落</label>
-    <label class="option" onclick="selectOption(5,'D',this)"><input type="radio" name="q5" value="D"> <strong>D.</strong> 把批评当成信息来源，客观评估对方说的有没有道理</label>
+    <div class="q-number">Q5 / 24</div>
+    <div class="q-text">你刚交了一笔 <span class="highlight">¥6,000</span> 的健身房年费。一周后公司楼下开了家更便宜、设备更好的健身房。你会：</div>
+    <label class="option" onclick="selectOption(5,'A',this)"><strong>A.</strong> 直接转去新的，让旧的浪费就浪费了</label>
+    <label class="option" onclick="selectOption(5,'B',this)"><strong>B.</strong> 坚持去旧的，因为已经付钱了</label>
+    <label class="option" onclick="selectOption(5,'C',this)"><strong>C.</strong> 试试旧的能不能转让</label>
+    <label class="option" onclick="selectOption(5,'D',this)"><strong>D.</strong> 两家都去——中午去旧的，下班去新的</label>
   </div>
 
   <!-- Q6 -->
   <div class="question-card" data-q="6">
-    <div class="q-number">Q6 / 12</div>
-    <div class="q-tag">情绪韧性 · 习得性无助倾向</div>
-    <div class="q-text">你连续三次面试/竞标失败。第四次机会出现时，你会：</div>
-    <label class="option" onclick="selectOption(6,'A',this)"><input type="radio" name="q6" value="A"> <strong>A.</strong> 仍然全力准备，不受前三次影响</label>
-    <label class="option" onclick="selectOption(6,'B',this)"><input type="radio" name="q6" value="B"> <strong>B.</strong> 有些退缩，但还是去了</label>
-    <label class="option" onclick="selectOption(6,'C',this)"><input type="radio" name="q6" value="C"> <strong>C.</strong> 觉得自己运气不好，没那么用心准备</label>
-    <label class="option" onclick="selectOption(6,'D',this)"><input type="radio" name="q6" value="D"> <strong>D.</strong> 放弃这次机会，等更好的</label>
+    <div class="q-number">Q6 / 24</div>
+    <div class="q-text">你的朋友跟你推荐一只股票，说他赚了 <span class="highlight">¥50,000</span>。你之前也关注过这只股，但觉得风险太高。现在会：</div>
+    <label class="option" onclick="selectOption(6,'A',this)"><strong>A.</strong> 坚持自己的判断，不碰</label>
+    <label class="option" onclick="selectOption(6,'B',this)"><strong>B.</strong> 买一点试试水</label>
+    <label class="option" onclick="selectOption(6,'C',this)"><strong>C.</strong> 深入研究后，再决定</label>
+    <label class="option" onclick="selectOption(6,'D',this)"><strong>D.</strong> 后悔没早点买</label>
   </div>
 
-  <!-- Q7 -->
+  <!-- ======== 第二部分：压力与应变（Q7-Q12） ======== -->
   <div class="question-card" data-q="7">
-    <div class="q-number">Q7 / 12</div>
-    <div class="q-tag">信息处理 · 轻信倾向</div>
-    <div class="q-text">你的微信群里疯狂传播一条消息：「XX 政策即将出台，房价要暴跌 30%」。你会：</div>
-    <label class="option" onclick="selectOption(7,'A',this)"><input type="radio" name="q7" value="A"> <strong>A.</strong> 立刻转发到家庭群，提醒家人注意</label>
-    <label class="option" onclick="selectOption(7,'B',this)"><input type="radio" name="q7" value="B"> <strong>B.</strong> 先查官方来源，确认后再决定是否相信</label>
-    <label class="option" onclick="selectOption(7,'C',this)"><input type="radio" name="q7" value="C"> <strong>C.</strong> 半信半疑，但会开始关注相关新闻</label>
-    <label class="option" onclick="selectOption(7,'D',this)"><input type="radio" name="q7" value="D"> <strong>D.</strong> 不理会，等官方通知</label>
+    <div class="q-number">Q7 / 24</div>
+    <div class="q-text">你提前一个月准备了一个重要汇报。上台前3分钟，发现U盘打不开了。你会：</div>
+    <label class="option" onclick="selectOption(7,'A',this)"><strong>A.</strong> 慌张，不知道怎么办</label>
+    <label class="option" onclick="selectOption(7,'B',this)"><strong>B.</strong> 先深呼吸，然后找备用方案</label>
+    <label class="option" onclick="selectOption(7,'C',this)"><strong>C.</strong> 跟主办方借电脑，重做PPT</label>
+    <label class="option" onclick="selectOption(7,'D',this)"><strong>D.</strong> 直接口头汇报，凭记忆讲内容</label>
   </div>
 
   <!-- Q8 -->
   <div class="question-card" data-q="8">
-    <div class="q-number">Q8 / 12</div>
-    <div class="q-tag">信息处理 · 确认偏误</div>
-    <div class="q-text">你一直认为「考研是年轻人最好的出路」。现在看到一篇数据详实的文章，论证「考研回报率正在大幅下降」。你会：</div>
-    <label class="option" onclick="selectOption(8,'A',this)"><input type="radio" name="q8" value="A"> <strong>A.</strong> 仔细读完，评估论证的可信度</label>
-    <label class="option" onclick="selectOption(8,'B',this)"><input type="radio" name="q8" value="B"> <strong>B.</strong> 直接划走，「这篇文章肯定有问题」</label>
-    <label class="option" onclick="selectOption(8,'C',this)"><input type="radio" name="q8" value="C"> <strong>C.</strong> 看了开头结论就关掉</label>
-    <label class="option" onclick="selectOption(8,'D',this)"><input type="radio" name="q8" value="D"> <strong>D.</strong> 看完后开始重新思考自己的观点</label>
+    <div class="q-number">Q8 / 24</div>
+    <div class="q-text">你做了半年的一件事，被领导一句话全盘否定了。领导说完就走了，会议室只剩你一个人。接下来1小时内，你最可能做什么？</div>
+    <label class="option" onclick="selectOption(8,'A',this)"><strong>A.</strong> 坐在座位上发呆，觉得很委屈</label>
+    <label class="option" onclick="selectOption(8,'B',this)"><strong>B.</strong> 立马找同事吐槽</label>
+    <label class="option" onclick="selectOption(8,'C',this)"><strong>C.</strong> 出去散步10分钟，回来重新看哪里出了错</label>
+    <label class="option" onclick="selectOption(8,'D',this)"><strong>D.</strong> 把这件事的经过写下来，分析原因</label>
   </div>
 
   <!-- Q9 -->
   <div class="question-card" data-q="9">
-    <div class="q-number">Q9 / 12</div>
-    <div class="q-tag">决策理性 · 信息权重</div>
-    <div class="q-text">你要在一座新城市买房，以下哪些信息对你做决策最有价值？（选一项）</div>
-    <label class="option" onclick="selectOption(9,'A',this)"><input type="radio" name="q9" value="A"> <strong>A.</strong> 房产中介说「这个片区肯定涨」</label>
-    <label class="option" onclick="selectOption(9,'B',this)"><input type="radio" name="q9" value="B"> <strong>B.</strong> 该片区过去 3 年房价走势 + 人口流入数据 + 规划文件</label>
-    <label class="option" onclick="selectOption(9,'C',this)"><input type="radio" name="q9" value="C"> <strong>C.</strong> 朋友说「我买在这了，挺好的」</label>
-    <label class="option" onclick="selectOption(9,'D',this)"><input type="radio" name="q9" value="D"> <strong>D.</strong> 开发商宣传材料</label>
+    <div class="q-number">Q9 / 24</div>
+    <div class="q-text">你通宵做出来的方案，同事在会上直接说「这个我早就做过了，而且更好」。你会：</div>
+    <label class="option" onclick="selectOption(9,'A',this)"><strong>A.</strong> 当场反驳，让他拿出证据</label>
+    <label class="option" onclick="selectOption(9,'B',this)"><strong>B.</strong> 心里不舒服，但什么也不说</label>
+    <label class="option" onclick="selectOption(9,'C',this)"><strong>C.</strong> 会后私下问他具体哪里不同</label>
+    <label class="option" onclick="selectOption(9,'D',this)"><strong>D.</strong> 回工位自己消化，之后几天不想理他</label>
   </div>
 
   <!-- Q10 -->
   <div class="question-card" data-q="10">
-    <div class="q-number">Q10 / 12</div>
-    <div class="q-tag">社会比较 · FOMO（错失恐惧）</div>
-    <div class="q-text">你朋友去年买了一只股票，赚了 80%。你一直觉得这只股票风险太大没买。现在你会：</div>
-    <label class="option" onclick="selectOption(10,'A',this)"><input type="radio" name="q10" value="A"> <strong>A.</strong> 坚持自己的判断，不碰</label>
-    <label class="option" onclick="selectOption(10,'B',this)"><input type="radio" name="q10" value="B"> <strong>B.</strong> 有点后悔，开始研究这只股票</label>
-    <label class="option" onclick="selectOption(10,'C',this)"><input type="radio" name="q10" value="C"> <strong>C.</strong> 立刻买入一些，「不能再错过了」</label>
-    <label class="option" onclick="selectOption(10,'D',this)"><input type="radio" name="q10" value="D"> <strong>D.</strong> 说服自己「他运气好而已，我不羡慕」</label>
+    <div class="q-number">Q10 / 24</div>
+    <div class="q-text">你最近三个月连续参与了3次竞标，全部失败。第4个机会出现了，你会：</div>
+    <label class="option" onclick="selectOption(10,'A',this)"><strong>A.</strong> 这次一定要扳回来，投入更多精力</label>
+    <label class="option" onclick="selectOption(10,'B',this)"><strong>B.</strong> 先分析前三次为什么输，再准备第四次</label>
+    <label class="option" onclick="selectOption(10,'C',this)"><strong>C.</strong> 有点不想参与了，觉得可能还是白费力气</label>
+    <label class="option" onclick="selectOption(10,'D',this)"><strong>D.</strong> 照常准备，不太抱期望</label>
   </div>
 
   <!-- Q11 -->
   <div class="question-card" data-q="11">
-    <div class="q-number">Q11 / 12</div>
-    <div class="q-tag">独立思考 · 从众倾向</div>
-    <div class="q-text">你做了一个决定，身边所有人都反对。但你内心非常确信这是对的。你会：</div>
-    <label class="option" onclick="selectOption(11,'A',this)"><input type="radio" name="q11" value="A"> <strong>A.</strong> 坚持己见，但不辩解</label>
-    <label class="option" onclick="selectOption(11,'B',this)"><input type="radio" name="q11" value="B"> <strong>B.</strong> 重新考虑，大众可能有道理</label>
-    <label class="option" onclick="selectOption(11,'C',this)"><input type="radio" name="q11" value="C"> <strong>C.</strong> 坚持并试图说服所有人</label>
-    <label class="option" onclick="selectOption(11,'D',this)"><input type="radio" name="q11" value="D"> <strong>D.</strong> 放弃，「这么多人反对，肯定是我错了」</label>
+    <div class="q-number">Q11 / 24</div>
+    <div class="q-text">你的手机突然坏了，所有数据都没备份（通讯录、照片、工作文件等）。维修店说数据恢复需要 <span class="highlight">¥2,500</span> 且成功率只有 40%。你会：</div>
+    <label class="option" onclick="selectOption(11,'A',this)"><strong>A.</strong> 不做恢复，从头开始</label>
+    <label class="option" onclick="selectOption(11,'B',this)"><strong>B.</strong> 花 ¥2,500 试一下，40% 也是希望</label>
+    <label class="option" onclick="selectOption(11,'C',this)"><strong>C.</strong> 先自己上网查教程，试试能不能解决</label>
+    <label class="option" onclick="selectOption(11,'D',this)"><strong>D.</strong> 到处发帖问人有没有便宜的办法</label>
   </div>
 
   <!-- Q12 -->
   <div class="question-card" data-q="12">
-    <div class="q-number">Q12 / 12</div>
-    <div class="q-tag">成长型思维 · 后悔倾向</div>
-    <div class="q-text">给你一次重新开始的机会，但必须二选一：<br><br>
-      <strong>A</strong>：回到过去，修正人生中最大的一个错误决定，但会因此失去当前的所有积累<br>
-      <strong>B</strong>：保持现状，带着所有经验和智慧继续前行<br><br>
-      你会怎么选？
-    </div>
-    <label class="option" onclick="selectOption(12,'A',this)"><input type="radio" name="q12" value="A"> <strong>A.</strong> 回到过去，修正错误决定</label>
-    <label class="option" onclick="selectOption(12,'B',this)"><input type="radio" name="q12" value="B"> <strong>B.</strong> 保持现状，带着经验继续前行</label>
+    <div class="q-number">Q12 / 24</div>
+    <div class="q-text">你刚做完一个项目，甲方打来电话说「有问题需要你马上过来一趟」。你手头还有两个项目在催。你会怎么应对？</div>
+    <label class="option" onclick="selectOption(12,'A',this)"><strong>A.</strong> 先放下手头所有事，立刻去甲方那里</label>
+    <label class="option" onclick="selectOption(12,'B',this)"><strong>B.</strong> 问清楚具体问题，评估优先级</label>
+    <label class="option" onclick="selectOption(12,'C',this)"><strong>C.</strong> 先完成手头的，再去甲方</label>
+    <label class="option" onclick="selectOption(12,'D',this)"><strong>D.</strong> 让同事先去，自己处理完再过去</label>
   </div>
 
-  <!-- Navigation -->
+  <!-- ======== 第三部分：信息判断力（Q13-Q18） ======== -->
+  <div class="question-card" data-q="13">
+    <div class="q-number">Q13 / 24</div>
+    <div class="q-text">你在朋友圈看到一条「<span class="highlight">紧急通知：今晚12点起自来水将停水消毒，请囤水</span>」，下面已经有几十个赞和转发。你会：</div>
+    <label class="option" onclick="selectOption(13,'A',this)"><strong>A.</strong> 立刻转发到家人群</label>
+    <label class="option" onclick="selectOption(13,'B',this)"><strong>B.</strong> 上网查水务局有没有官方通知</label>
+    <label class="option" onclick="selectOption(13,'C',this)"><strong>C.</strong> 先转再说，万一是真的也不耽误</label>
+    <label class="option" onclick="selectOption(13,'D',this)"><strong>D.</strong> 感觉是谣言，选择忽略</label>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question-card" data-q="14">
+    <div class="q-number">Q14 / 24</div>
+    <div class="q-text">你一直认为「喝红酒对心脏好」。最近看到一篇论文说「没有任何证据表明红酒对心脏有好处」。你会：</div>
+    <label class="option" onclick="selectOption(14,'A',this)"><strong>A.</strong> 仔细看论文的研究方法和数据来源</label>
+    <label class="option" onclick="selectOption(14,'B',this)"><strong>B.</strong> 觉得这论文肯定有问题</label>
+    <label class="option" onclick="selectOption(14,'C',this)"><strong>C.</strong> 不在意，继续喝红酒</label>
+    <label class="option" onclick="selectOption(14,'D',this)"><strong>D.</strong> 开始重新思考这个观点</label>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question-card" data-q="15">
+    <div class="q-number">Q15 / 24</div>
+    <div class="q-text">你要给孩子选兴趣班。一个机构说他们的学生 90% 都考过了级。另一个机构说他们的学生虽然通过率低，但每个孩子都真正掌握了技能。你会更倾向于哪家？</div>
+    <label class="option" onclick="selectOption(15,'A',this)"><strong>A.</strong> 选通过率高的</label>
+    <label class="option" onclick="selectOption(15,'B',this)"><strong>B.</strong> 选真正掌握技能的</label>
+    <label class="option" onclick="selectOption(15,'C',this)"><strong>C.</strong> 两家都去试听，看自己判断</label>
+    <label class="option" onclick="selectOption(15,'D',this)"><strong>D.</strong> 问问身边家长推荐哪个</label>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question-card" data-q="16">
+    <div class="q-number">Q16 / 24</div>
+    <div class="q-text">一个自媒体发了一篇《震惊！XX 行业即将崩盘》，里面有大量数据图表。你会：</div>
+    <label class="option" onclick="selectOption(16,'A',this)"><strong>A.</strong> 相信数据，转发给相关朋友</label>
+    <label class="option" onclick="selectOption(16,'B',this)"><strong>B.</strong> 找找有没有其他来源的信息</label>
+    <label class="option" onclick="selectOption(16,'C',this)"><strong>C.</strong> 不太信，标题太夸张了</label>
+    <label class="option" onclick="selectOption(16,'D',this)"><strong>D.</strong> 看看自媒体的背景和利益相关</label>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question-card" data-q="17">
+    <div class="q-number">Q17 / 24</div>
+    <div class="q-text">你听说「70% 的新公司在第一年就倒闭了」。但你的亲戚开公司已经活了5年，你觉得这个数据可靠吗？</div>
+    <label class="option" onclick="selectOption(17,'A',this)"><strong>A.</strong> 70% 的统计样本可能有问题</label>
+    <label class="option" onclick="selectOption(17,'B',this)"><strong>B.</strong> 亲戚的例子说明不了什么</label>
+    <label class="option" onclick="selectOption(17,'C',this)"><strong>C.</strong> 数据没错，那就是真的</label>
+    <label class="option" onclick="selectOption(17,'D',this)"><strong>D.</strong> 没必要纠结，反正自己不开公司</label>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question-card" data-q="18">
+    <div class="q-number">Q18 / 24</div>
+    <div class="q-text">你听到两种说法：<br>
+      甲说「这个药效果很好，我亲戚吃了就痊愈了」<br>
+      乙说「临床试验显示，这个药只对 30% 的患者有效」<br>
+      你需要做决定时，会更倾向于相信谁？</div>
+    <label class="option" onclick="selectOption(18,'A',this)"><strong>A.</strong> 甲的亲身经历更有说服力</label>
+    <label class="option" onclick="selectOption(18,'B',this)"><strong>B.</strong> 乙的临床数据更可信</label>
+    <label class="option" onclick="selectOption(18,'C',this)"><strong>C.</strong> 两个都参考，再问问医生</label>
+    <label class="option" onclick="selectOption(18,'D',this)"><strong>D.</strong> 看哪个说法更符合自己的直觉</label>
+  </div>
+
+  <!-- ======== 第四部分：人际与社会影响（Q19-Q24） ======== -->
+  <div class="question-card" data-q="19">
+    <div class="q-number">Q19 / 24</div>
+    <div class="q-text">你身边 80% 的同事都在考一个证，说考了能涨薪。你其实对这个方向不感兴趣。你会：</div>
+    <label class="option" onclick="selectOption(19,'A',this)"><strong>A.</strong> 不考，坚持自己的方向</label>
+    <label class="option" onclick="selectOption(19,'B',this)"><strong>B.</strong> 也去考一个，万一有用呢</label>
+    <label class="option" onclick="selectOption(19,'C',this)"><strong>C.</strong> 先了解一下，再决定</label>
+    <label class="option" onclick="selectOption(19,'D',this)"><strong>D.</strong> 有点焦虑，但暂时不考</label>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question-card" data-q="20">
+    <div class="q-number">Q20 / 24</div>
+    <div class="q-text">你做了一个和别人不一样的决定，身边所有人都说「你疯了」。但你查了很多资料，内心确信是对的。你会：</div>
+    <label class="option" onclick="selectOption(20,'A',this)"><strong>A.</strong> 坚持自己，但不再跟别人讨论</label>
+    <label class="option" onclick="selectOption(20,'B',this)"><strong>B.</strong> 重新考虑，大家都反对可能有问题</label>
+    <label class="option" onclick="selectOption(20,'C',this)"><strong>C.</strong> 坚持自己，并试图说服他们</label>
+    <label class="option" onclick="selectOption(20,'D',this)"><strong>D.</strong> 放弃，「这么多人反对，肯定是我错了」</label>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question-card" data-q="21">
+    <div class="q-number">Q21 / 24</div>
+    <div class="q-text">你在小城市有套房，房价一直没涨。身边朋友都卖掉换到大城市了。但你觉得小城市生活更舒服。你会：</div>
+    <label class="option" onclick="selectOption(21,'A',this)"><strong>A.</strong> 跟风卖掉，去大城市买</label>
+    <label class="option" onclick="selectOption(21,'B',this)"><strong>B.</strong> 留着，自己住得舒服就好</label>
+    <label class="option" onclick="selectOption(21,'C',this)"><strong>C.</strong> 有点纠结，再看看形势</label>
+    <label class="option" onclick="selectOption(21,'D',this)"><strong>D.</strong> 卖掉但不买房，先理财</label>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question-card" data-q="22">
+    <div class="q-number">Q22 / 24</div>
+    <div class="q-text">一个行业公认的专家说「AI 将在5年内取代 50% 的白领工作」。你所在行业目前完全不受影响。你会：</div>
+    <label class="option" onclick="selectOption(22,'A',this)"><strong>A.</strong> 专家说的肯定有道理，开始转行准备</label>
+    <label class="option" onclick="selectOption(22,'B',this)"><strong>B.</strong> 兼听则明，也看看反对者的观点</label>
+    <label class="option" onclick="selectOption(22,'C',this)"><strong>C.</strong> 不太信，这种预测不准</label>
+    <label class="option" onclick="selectOption(22,'D',this)"><strong>D.</strong> 先学点AI知识，有备无患</label>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question-card" data-q="23">
+    <div class="q-number">Q23 / 24</div>
+    <div class="q-text">回想过去10年，如果有机会重来，你最可能的感觉是：</div>
+    <label class="option" onclick="selectOption(23,'A',this)"><strong>A.</strong> 很多决定我都做得不错，没什么好后悔的</label>
+    <label class="option" onclick="selectOption(23,'B',this)"><strong>B.</strong> 有几个决定做错了，但现在的我也挺好</label>
+    <label class="option" onclick="selectOption(23,'C',this)"><strong>C.</strong> 后悔很多决定，觉得自己走了不少弯路</label>
+    <label class="option" onclick="selectOption(23,'D',this)"><strong>D.</strong> 不想回想，想太多没用</label>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question-card" data-q="24">
+    <div class="q-number">Q24 / 24</div>
+    <div class="q-text">你要在一个完全陌生的城市从零开始（工作、住房、社交）。你第一周最可能先做什么？</div>
+    <label class="option" onclick="selectOption(24,'A',this)"><strong>A.</strong> 找到住的地方最重要</label>
+    <label class="option" onclick="selectOption(24,'B',this)"><strong>B.</strong> 先了解这个城市的各个区域</label>
+    <label class="option" onclick="selectOption(24,'C',this)"><strong>C.</strong> 联系当地的人，快速建立社交</label>
+    <label class="option" onclick="selectOption(24,'D',this)"><strong>D.</strong> 先做好预算规划和大方向计划</label>
+  </div>
+
   <div class="nav-buttons" id="navButtons">
     <button class="btn-prev" onclick="prevQ()" id="btnPrev" style="display:none;">← 上一题</button>
     <button class="btn-next" onclick="nextQ()" id="btnNext">下一题 →</button>
   </div>
 
-  <!-- ========== 报告页 ========== -->
+  <!-- ========== 报告区域 ========== -->
   <div class="report-section" id="reportSection">
     <div class="report-header">
-      <h2>🧠 你的 AI 决策体检报告</h2>
-      <p class="subtitle">基于你的答题结果，AI 为你生成了这份专属决策能力分析</p>
+      <h2>🧠 你的决策力体检报告</h2>
+      <p class="subtitle">基于 24 道实战情境的深度分析</p>
       <div class="score-overall" id="overallScore">--</div>
-      <div class="score-label">综合决策力得分（满分 100）</div>
+      <div class="score-label">综合决策力得分</div>
+      <div class="score-level" id="scoreLevel">--</div>
     </div>
 
-    <!-- 四个维度卡片由 JS 动态插入 -->
     <div id="dimensionCards"></div>
 
+    <!-- 三阶段成长计划 -->
+    <div class="plan-section">
+      <h3>📈 你的专属 90 天成长计划</h3>
+      <div id="growthPlan"></div>
+    </div>
+
+    <!-- 再测邀请 -->
+    <div class="retest-box">
+      <h4>🔄 追踪你的成长轨迹</h4>
+      <p>
+        30 天后再次答题，对比两次报告，看看哪些维度进步了。<br>
+        你可以截图保存本次报告，作为下次对比的基线。<br>
+        你的微信 ID（可选，用于后续提醒）：
+      </p>
+      <input type="text" id="retestWechat" placeholder="微信ID（选填）" class="email-input" style="margin-bottom:16px;">
+      <a class="btn-retest" href="javascript:void(0)" onclick="scrollToTop()">📅 设置 30 天提醒</a>
+    </div>
+
     <div class="report-footer">
-      <p>这份报告由 <span class="highlight">AI 决策体检系统</span> 自动生成，<br>仅供参考，不构成专业建议。</p>
-      <p style="margin-top:8px;">如有疑问，请联系微信：<span class="highlight">shen-wanshan</span></p>
+      <p>本报告由决策力体检系统自动生成，仅供参考。<br>如需咨询，请联系微信：<span class="highlight">shen-wanshan</span></p>
       <button class="btn-download" onclick="window.print()">🖨️ 打印 / 保存为 PDF</button>
     </div>
   </div>
@@ -343,8 +507,14 @@
 
 <script>
   let currentQ = 1;
-  const totalQ = 12;
+  const totalQ = 24;
   const answers = {};
+  const sections = [
+    { start: 1, end: 6, name: '日常决策习惯' },
+    { start: 7, end: 12, name: '压力与应变' },
+    { start: 13, end: 18, name: '信息判断力' },
+    { start: 19, end: 24, name: '人际与社会影响' }
+  ];
 
   // ========== 答题逻辑 ==========
   function selectOption(qNum, value, el) {
@@ -354,13 +524,21 @@
   }
 
   function updateProgress() {
-    document.getElementById('progressFill').style.width = ((currentQ - 1) / totalQ * 100) + '%';
+    const pct = ((currentQ - 1) / totalQ * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressText').textContent = `第 ${currentQ} / ${totalQ} 题`;
+
+    // 更新章节指示
+    const sec = sections.find(s => currentQ >= s.start && currentQ <= s.end);
+    if (sec) {
+      document.getElementById('sectionLabel').innerHTML = `▸ <span>${sec.name}</span>  ·  第 ${sec.start}-${sec.end} 题`;
+    }
   }
 
   function showQ(qNum) {
     document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
-    document.querySelector(`.question-card[data-q="${qNum}"]`)?.classList.add('active');
+    const q = document.querySelector(`.question-card[data-q="${qNum}"]`);
+    if (q) q.classList.add('active');
     document.getElementById('btnPrev').style.display = qNum === 1 ? 'none' : '';
     document.getElementById('btnNext').textContent = qNum === totalQ ? '查看我的报告 →' : '下一题 →';
     currentQ = qNum;
@@ -370,12 +548,12 @@
   function nextQ() {
     if (!answers[currentQ]) { alert('请先选择一个答案再继续 🙂'); return; }
     if (currentQ === totalQ) {
-      // 隐藏答题界面，生成报告
       document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
       document.getElementById('navButtons').style.display = 'none';
       document.getElementById('progressFill').style.width = '100%';
       document.getElementById('progressText').textContent = '正在生成报告...';
-      generateReport();
+      document.getElementById('sectionLabel').textContent = '▸ 报告生成中...';
+      setTimeout(generateReport, 800);
       return;
     }
     showQ(currentQ + 1);
@@ -383,143 +561,309 @@
 
   function prevQ() { if (currentQ > 1) showQ(currentQ - 1); }
 
-  // ========== 报告生成逻辑 ==========
+  // ========== 评分逻辑 ==========
+  function scoreQuestion(qNum, ans) {
+    // 每个题目返回两个维度的加权分（主要维度、次要维度）
+    // 评分规则：A=1分 B=3分 C=4分 D=5分 (D通常是最好选择)
+    // 但对于部分题目，好的选择可能是A或B，需要反转
+    const map = { 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+    const s = map[ans];
 
-  function generateReport() {
-    // 1. 计算各维度得分（0-100）
-    const scores = calcScores();
+    // 每道题映射到四个维度
+    const dims = {
+      // 维度: 0=决策理性, 1=情绪韧性, 2=信息判断, 3=社会独立性
+      // 返回 [主维度加分, 次维度加分, 主权重, 次权重]
+      // 得分规则：每个选项0-3分，最优选项3分
+      1:  { d1: 0, d2: 1, w1: 1.0, w2: 0.5, scores: { A:0, B:2, C:3, D:1 } },  // 理性+情绪
+      2:  { d1: 0, d2: 3, w1: 1.0, w2: 0.3, scores: { A:3, B:0, C:2, D:1 } },  // 理性+社会
+      3:  { d1: 0, d2: 1, w1: 1.0, w2: 0.5, scores: { A:3, B:0, C:2, D:1 } },  // 理性+情绪(沉没成本)
+      4:  { d1: 2, d2: 0, w1: 1.0, w2: 0.3, scores: { A:0, B:2, C:3, D:1 } },  // 信息+理性
+      5:  { d1: 0, d2: 1, w1: 1.0, w2: 0.3, scores: { A:2, B:0, C:3, D:1 } },  // 理性+情绪(沉没成本)
+      6:  { d1: 3, d2: 0, w1: 1.0, w2: 0.5, scores: { A:3, B:0, C:2, D:1 } },  // 社会+理性(FOMO)
+      7:  { d1: 1, d2: 0, w1: 1.0, w2: 0.3, scores: { A:0, B:2, C:1, D:3 } },  // 情绪(应变)+理性
+      8:  { d1: 1, d2: 2, w1: 1.0, w2: 0.3, scores: { A:0, B:1, C:2, D:3 } },  // 情绪(受挫)+信息
+      9:  { d1: 1, d2: 3, w1: 1.0, w2: 0.3, scores: { A:1, B:0, C:3, D:2 } },  // 情绪(抗压)+社会
+      10: { d1: 1, d2: 2, w1: 1.0, w2: 0.5, scores: { A:2, B:3, C:0, D:1 } },  // 情绪(无助)+信息
+      11: { d1: 0, d2: 1, w1: 1.0, w2: 0.3, scores: { A:3, B:0, C:2, D:1 } },  // 理性+情绪
+      12: { d1: 1, d2: 0, w1: 1.0, w2: 0.5, scores: { A:1, B:3, C:0, D:2 } },  // 情绪(压力)
+      13: { d1: 2, d2: 3, w1: 1.0, w2: 0.3, scores: { A:0, B:3, C:1, D:2 } },  // 信息(轻信)+社会
+      14: { d1: 2, d2: 0, w1: 1.0, w2: 0.3, scores: { A:3, B:1, C:0, D:2 } },  // 信息(偏见)+理性
+      15: { d1: 2, d2: 0, w1: 1.0, w2: 0.3, scores: { A:1, B:2, C:3, D:0 } },  // 信息(判断)+理性
+      16: { d1: 2, d2: 3, w1: 1.0, w2: 0.5, scores: { A:0, B:2, C:1, D:3 } },  // 信息(溯源)+社会
+      17: { d1: 2, d2: 3, w1: 1.0, w2: 0.3, scores: { A:2, B:3, C:0, D:1 } },  // 信息(统计)+社会
+      18: { d1: 2, d2: 0, w1: 1.0, w2: 0.5, scores: { A:0, B:2, C:3, D:1 } },  // 信息(证据)+理性
+      19: { d1: 3, d2: 2, w1: 1.0, w2: 0.3, scores: { A:3, B:0, C:2, D:1 } },  // 社会(从众)+信息
+      20: { d1: 3, d2: 1, w1: 1.0, w2: 0.3, scores: { A:2, B:1, C:3, D:0 } },  // 社会(独立思考)+情绪
+      21: { d1: 3, d2: 0, w1: 1.0, w2: 0.5, scores: { A:0, B:3, C:1, D:2 } },  // 社会(跟风)+理性
+      22: { d1: 3, d2: 2, w1: 1.0, w2: 0.5, scores: { A:0, B:2, C:1, D:3 } },  // 社会(权威)+信息
+      23: { d1: 3, d2: 1, w1: 1.0, w2: 0.3, scores: { A:3, B:2, C:0, D:1 } },  // 社会(后悔)+情绪
+      24: { d1: 0, d2: 3, w1: 1.0, w2: 0.3, scores: { A:1, B:2, C:0, D:3 } },  // 理性(规划)+社会
+    };
 
-    // 2. 综合得分（加权平均）
-    const overall = Math.round(scores.rational * 0.3 + scores.resilience * 0.25 + scores.info * 0.25 + scores.social * 0.2);
+    const rule = dims[qNum];
+    if (!rule) return [0, 0, 0, 0];
+    const raw = rule.scores[ans] || 1;
+    const scaled = raw / 3 * 100; // 0→0, 1→33, 2→67, 3→100
 
-    // 3. 显示综合得分
-    document.getElementById('overallScore').textContent = overall;
-
-    // 4. 生成各维度卡片
-    const cardsHTML = buildDimensionCards(scores);
-    document.getElementById('dimensionCards').innerHTML = cardsHTML;
-
-    // 5. 显示报告区域
-    document.getElementById('reportSection').classList.add('active');
-    document.getElementById('progressText').textContent = '报告生成完成 ✓';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const result = [0, 0, 0, 0];
+    result[rule.d1] += scaled * rule.w1;
+    result[rule.d2] += scaled * rule.w2;
+    return result; // [理性, 情绪, 信息, 社会]
   }
 
   function calcScores() {
-    // 每题评分逻辑（A/B/C/D 对应不同得分，越高越好）
-    // rational: Q1,Q2,Q3,Q9
-    let rational = 0;
-    if (answers[1] === 'A') rational += 25; else rational += 5;  // 损失厌恶低 = 好
-    if (answers[2] === 'A') rational += 25; else rational += 5;  // 及时止损 = 好
-    if (answers[3] === 'B') rational += 25; else rational += 5;  // 延迟满足 = 好
-    if (answers[9] === 'B') rational += 25; else if (answers[9] === 'A') rational += 5; else rational += 10;
+    const totals = [0, 0, 0, 0];
+    const counts = [0, 0, 0, 0];
 
-    // resilience: Q4,Q5,Q6
-    let resilience = 0;
-    if (answers[4] === 'B') resilience += 34; else if (answers[4] === 'A') resilience += 20; else resilience += 5;
-    if (answers[5] === 'D') resilience += 33; else if (answers[5] === 'A') resilience += 25; else if (answers[5] === 'B') resilience += 15; else resilience += 5;
-    if (answers[6] === 'A') resilience += 33; else if (answers[6] === 'B') resilience += 20; else resilience += 5;
+    for (let i = 1; i <= 24; i++) {
+      if (!answers[i]) continue;
+      const scores = scoreQuestion(i, answers[i]);
+      for (let d = 0; d < 4; d++) {
+        if (scores[d] > 0) {
+          totals[d] += scores[d];
+          counts[d]++;
+        }
+      }
+    }
 
-    // info processing: Q7,Q8
-    let info = 0;
-    if (answers[7] === 'B') info += 50; else if (answers[7] === 'D') info += 40; else if (answers[7] === 'C') info += 20; else info += 5;
-    if (answers[8] === 'A' || answers[8] === 'D') info += 50; else if (answers[8] === 'B') info += 5; else info += 15;
-
-    // social/comparsion: Q10,Q11,Q12
-    let social = 0;
-    if (answers[10] === 'A' || answers[10] === 'D') social += 34; else if (answers[10] === 'B') social += 20; else social += 5;
-    if (answers[11] === 'A' || answers[11] === 'C') social += 33; else if (answers[11] === 'B') social += 15; else social += 5;
-    if (answers[12] === 'B') social += 33; else social += 10;
-
-    return { rational, resilience, info, social, overall: 0 };
+    const avg = counts.map((c, i) => c > 0 ? Math.round(totals[i] / c) : 50);
+    return { rational: avg[0], resilience: avg[1], info: avg[2], social: avg[3] };
   }
 
-  function buildDimensionCards(scores) {
-    const dims = [
-      {
-        name: '决策理性',
-        tag: 'Rational Decision Making',
-        score: scores.rational,
-        analysis: getRationalAnalysis(scores.rational, answers),
-        suggestion: getRationalSuggestion(scores.rational, answers)
+  function getLevel(score) {
+    if (score >= 85) return { label: '🏆 卓越', desc: '你已经具备顶尖的决策水平' };
+    if (score >= 70) return { label: '💪 良好', desc: '大部分决策你很稳，但还有可提升空间' };
+    if (score >= 55) return { label: '🔶 中等', desc: '你的决策水平在平均线附近，有明确的提升空间' };
+    return { label: '🔄 待提升', desc: '你的决策习惯方面存在一些可以优化的模式' };
+  }
+
+  // ========== 分析文本生成 ==========
+  function getRationalAnalysis(score, ans) {
+    const lines = [];
+    const sunkCost = ans[3] === 'B' || ans[5] === 'B';
+    const impulsive = ans[1] === 'A' || ans[4] === 'A';
+    const delay = ans[1] === 'C' || ans[2] === 'A';
+
+    if (score >= 80) {
+      lines.push('你表现出很强的理性决策能力。在消费决策中，你倾向于先评估后行动，能够较好地识别沉没成本陷阱。面对损失时你能做出务实的取舍，不会因为「已经投入了」而继续追加。');
+      if (sunkCost) lines.push('⚠️ 注意：在一些情境下你表现出了沉没成本倾向——明知道投入错了但仍选择了坚持。建议在出现「已经投入很多」的念头时，主动问自己：「如果今天是第一次接触，我还会做同样的选择吗？」');
+    } else if (score >= 60) {
+      lines.push('你的理性决策能力在中等偏上水平。多数情况下你能做出合理判断，但在面对诱惑或损失时偶尔会偏离理性轨道。');
+      if (impulsive) lines.push('你在面对「限时优惠」「稀缺性」时容易冲动消费。建议设置一个消费冷静期——超过 ¥500 的非必需品，强制等 48 小时再决定。');
+      if (sunkCost) lines.push('你对沉没成本比较敏感——已经投入的时间或金钱会影响你后续的判断。练习「清零思维」：把过去看作已经发生的成本，只根据未来收益做决策。');
+      if (delay) lines.push('你的延迟满足能力可以进一步提升。面对即时满足和长期收益的冲突时，你可以尝试用「10-10-10 法则」：10 分钟、10 个月、10 年后，你会怎么看这个决定？');
+    } else {
+      lines.push('你的理性决策能力有较大的提升空间。你在多个情境中表现出了冲动消费、沉没成本偏误和缺乏规划的特征。');
+      lines.push('核心问题在于：面对决策时容易受情绪和外部信号（限时优惠、别人推荐）驱动，而不是基于数据和逻辑判断。好消息是——这些习惯可以通过刻意练习改变。');
+    }
+    return lines.join('<br><br>');
+  }
+
+  function getResilienceAnalysis(score, ans) {
+    const lines = [];
+    if (score >= 80) {
+      lines.push('你的情绪韧性非常出色。面对突发状况和批评时，你能保持冷静并快速找到解决方案。连续挫折后你仍能保持积极心态，这是你最重要的竞争力之一。');
+      lines.push('你不仅仅是在「扛住压力」，而是在压力下依然能做出理性判断——这是比单纯的「抗压」更高层次的能力。');
+    } else if (score >= 60) {
+      lines.push('你的情绪韧性处于中等水平。面对突发危机时你可能会短暂受影响，但能逐渐恢复。面对批评你有时会放在心上好几天，连续失败后可能会怀疑自己。');
+      if (ans[10] === 'C' || ans[10] === 'D') lines.push('你在连续失败后的「习得性无助」倾向值得关注——几次失败后你可能会降低期望值或退缩。建议建立「失败日志」，把每次失败看成数据收集过程。');
+      if (ans[8] === 'A' || ans[8] === 'B') lines.push('面对否定时你的第一反应倾向于被动消化或发泄，而不是结构化分析。试试「10 分钟法则」：负面事件发生后，给自己 10 分钟完全放空，然后花 10 分钟写下三个「下一步可以做的事」。');
+    } else {
+      lines.push('你的情绪韧性是需要重点提升的维度。你在面对突发状况、批评和连续挫折时的反应模式，可能会影响你的长期发展。');
+      lines.push('好消息是：情绪韧性就像肌肉，可以通过训练增强。建议从「小挫折训练」开始——每天主动做一件让你稍微不舒服的事，逐步提升心理承受阈值。');
+    }
+    return lines.join('<br><br>');
+  }
+
+  function getInfoAnalysis(score, ans) {
+    const lines = [];
+    if (score >= 80) {
+      lines.push('你具备优秀的信息甄别能力。面对未经证实的消息，你会主动查找来源；面对与自己观点相反的论证，你能保持开放心态客观评估。');
+      lines.push('在面对「个例 vs 数据」的冲突时，你倾向于相信统计规律而非个案——这是非常稀缺的认知能力。');
+    } else if (score >= 60) {
+      lines.push('你的信息甄别能力中等。面对热门消息，你有时半信半疑但不主动查证；面对挑战自己观点的信息，你会有一定的抵触情绪。');
+      if (ans[13] === 'B' || ans[13] === 'C') lines.push('你表现出了一定的「确认偏误」——当信息挑战你的现有观点时，你倾向于忽略或否定它。试试「主动寻找反对意见」：读完一篇赞同的文章后，刻意找一篇反对的看看。');
+      if (ans[14] === 'A' || ans[16] === 'A') lines.push('在评估信息可信度时，你比较依赖面上的数据或他人的直接经验，可能忽略了来源背后的利益关系和统计偏差。');
+    } else {
+      lines.push('你在信息处理方面有较大的提升空间。你可能比较容易相信群聊里转发的消息，面对与自己观点相反的信息时容易产生抵触。');
+      lines.push('在「后真相时代」，这种认知习惯可能让你做出错误判断。建议从重建「信息过滤习惯」开始：看到任何消息，先问三个问题——来源是谁？有原始证据吗？对方有没有利益驱动？');
+    }
+    return lines.join('<br><br>');
+  }
+
+  function getSocialAnalysis(score, ans) {
+    const lines = [];
+    if (score >= 80) {
+      lines.push('你表现出很强的独立思考能力。面对大众反对时，你能坚持自己的判断；看到别人赚钱也不会盲目跟风；你更倾向于用原则指导决策，而不是被外界声音裹挟。');
+      lines.push('你对权威和专家意见持理性态度——既不完全盲从也不全盘否定。这种「有主见」的品质在从众压力普遍存在的环境中尤为珍贵。');
+    } else if (score >= 60) {
+      lines.push('你的独立性中等。当身边人普遍反对时，你会重新考虑自己的决定；看到别人赚钱时会有些后悔，但通常不会盲目跟风。');
+      if (ans[19] === 'B' || ans[22] === 'A') lines.push('你在「从众倾向」上值得注意——当大多数人都在做某件事时，你容易受到影响而不自觉地跟随。建议定期做「逆向思考练习」：当所有人都在往一个方向走时，主动思考做反方向的人看到了什么。');
+    } else {
+      lines.push('你在独立思考和抗社会影响方面需要提升。你可能比较容易受身边人意见驱动，看到别人赚钱会感到焦虑，面对大众反对时容易放弃自己的判断。');
+      lines.push('这并不是「性格问题」，而是人类的天性。但如果我们能意识到自己什么时候在被从众心理影响，就已经迈出了改变的第一步。');
+    }
+    return lines.join('<br><br>');
+  }
+
+  // ========== 三阶段成长计划 ==========
+  function buildGrowthPlan(scores) {
+    const weakDims = [];
+    if (scores.rational < 70) weakDims.push('决策理性');
+    if (scores.resilience < 70) weakDims.push('情绪韧性');
+    if (scores.info < 70) weakDims.push('信息判断');
+    if (scores.social < 70) weakDims.push('社会独立性');
+
+    const plans = {
+      '决策理性': {
+        phase1: ['执行「48小时冷静期」——超过 ¥500 的非必要消费，强制等待 48 小时再决定',
+                 '建立「决策日志」：每天记录一个重要决定，写下理由和预期结果',
+                 '练习「10-10-10 法则」：每个决定放在 10 分钟/10 个月/10 年后评判'],
+        phase2: ['学习概率思维——把每个决策看成概率问题，而不是黑白判断',
+                 '练习「归零思维」：每次想到「已经投入很多」时，问如果今天第一次接触会怎么选',
+                 '阅读《思考，快与慢》，重点读第 4-6 章关于前景理论的部分'],
+        phase3: ['建立自己的决策框架（如 WRAP 模型），形成系统化决策流程',
+                 '每周复盘一次决策日志，识别自己的偏误模式',
+                 '把这个框架分享给身边的人，教学相长']
       },
-      {
-        name: '情绪韧性',
-        tag: 'Emotional Resilience',
-        score: scores.resilience,
-        analysis: getResilienceAnalysis(scores.resilience, answers),
-        suggestion: getResilienceSuggestion(scores.resilience, answers)
+      '情绪韧性': {
+        phase1: ['晨间 5 分钟「心理预演」——想象今天可能遇到的突发状况，提前想好应对方案',
+                 '建立「情绪日志」：每次情绪波动后记录触发点和自己的反应',
+                 '每天主动做一件让你有点不舒服的小事（如主动承认一个错误）'],
+        phase2: ['练习「10 秒法则」：遇到突发状况时强制沉默 10 秒再开口',
+                 '学习认知重构：把「为什么偏偏是我」变成「这件事在教我什么」',
+                 '阅读《抗压力：逆境重生法则》，实践书中的「思维反刍阻断法」'],
+        phase3: ['设计「压力测试周」——主动把自放在高强度环境中连续锻炼',
+                 '建立个人「反脆弱系统」：每个重大决策都有 Plan B',
+                 '担任团队危机处理的负责人，在实际场景中锻炼韧性']
       },
-      {
-        name: '信息处理',
-        tag: 'Information Processing',
-        score: scores.info,
-        analysis: getInfoAnalysis(scores.info, answers),
-        suggestion: getInfoSuggestion(scores.info, answers)
+      '信息判断': {
+        phase1: ['建立「信息核查三步法」：来源→原始证据→利益相关',
+                 '每次转发/分享前，强制自己先查三个来源再决定',
+                 '关注 2-3 个事实核查公众号，培养证据意识'],
+        phase2: ['练习「魔鬼代言人」：读完赞扬你的观点的文章，主动找一篇反对的',
+                 '学习识别统计陷阱（样本偏差、相关 vs 因果、幸存者偏差）',
+                 '阅读《超越感觉：批判性思考指南》第 7-10 章'],
+        phase3: ['建立自己的「信息来源白名单」和「警惕名单」',
+                 '在专业领域内，学会追踪原始论文和一手数据',
+                 '每周写一篇「信息审核笔记」，公开分享']
       },
-      {
-        name: '社会比较与独立性',
-        tag: 'Social Independence',
-        score: scores.social,
-        analysis: getSocialAnalysis(scores.social, answers),
-        suggestion: getSocialSuggestion(scores.social, answers)
+      '社会独立性': {
+        phase1: ['坚持「逆向练习」：当大家都看多时，列出 3 个做空的理由',
+                 '建立「原则清单」：写下 5 条你绝对不会违反的决策原则',
+                 '在生活中练习说「我理解你的观点，但我的想法不同」'],
+        phase2: ['学习区分「独立」和「反叛」——不是所有反对都正确，要基于证据',
+                 '阅读《影响力》和《乌合之众》，理解群体心理机制',
+                 '练习「沉默观察」：在群体讨论中先听 10 分钟再发言'],
+        phase3: ['建立「决策董事会」——找 3 个不同背景的人做你的决策顾问',
+                 '在关键决策中使用「事前验尸法」：假设决定是错的，分析为什么',
+                 '把你的决策原则分享出去，接受别人的质疑和反馈']
       }
+    };
+
+    // 如果有多个弱项，取最弱的两个
+    const targetDims = weakDims.length > 0 ? weakDims : ['决策理性', '情绪韧性'];
+    const primary = targetDims.slice(0, 2);
+
+    let html = '';
+
+    const phases = [
+      { badge: '第一阶段', title: '认知觉醒期', days: '第 1-30 天', desc: '建立基础习惯，提升自我觉察' },
+      { badge: '第二阶段', title: '刻意练习期', days: '第 31-60 天', desc: '将方法应用到真实场景中' },
+      { badge: '第三阶段', title: '内化突破期', days: '第 61-90 天', desc: '形成系统化的决策能力' },
     ];
 
-    return dims.map(d => `
-      <div class="dimension-card">
-        <h3>${d.name} <span class="dim-tag">${d.tag}</span></h3>
-        <div class="score-bar"><div class="score-bar-fill" style="width:${d.score}%"></div></div>
-        <div class="score-num"><span>得分</span><span>${d.score} / 100</span></div>
-        <div class="analysis">${d.analysis}</div>
-        <div class="suggestion">💡 <strong>改进建议：</strong>${d.suggestion}</div>
-      </div>
-    `).join('');
+    for (let p = 0; p < 3; p++) {
+      let tasks = [];
+      for (const dim of primary) {
+        const dimPlans = plans[dim];
+        if (dimPlans) {
+          tasks = tasks.concat(dimPlans[`phase${p+1}`]);
+        }
+      }
+      // 去重（取前4条）
+      tasks = [...new Set(tasks)].slice(0, 4);
+
+      html += `
+        <div class="plan-phase">
+          <span class="phase-badge">${phases[p].badge}</span>
+          <div class="phase-title">${phases[p].title}</div>
+          <div class="phase-days">${phases[p].days} · ${phases[p].desc}</div>
+          <ul class="task-list">
+            ${tasks.map(t => `<li>${t}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+    }
+
+    // 如果所有维度都很强，生成进阶计划
+    if (weakDims.length === 0) {
+      html = `
+        <div class="plan-phase">
+          <span class="phase-badge">✨ 进阶挑战</span>
+          <div class="phase-title">你已经具备很强的决策能力</div>
+          <div class="phase-days">为你推荐进阶方向</div>
+          <ul class="task-list">
+            <li>把你的决策方法分享给身边的朋友——教是最好的学</li>
+            <li>尝试「逆向决策」：在熟悉的领域故意做一次和平时不同的决定，观察结果</li>
+            <li>寻找一个你完全不了解的领域，从零开始研究，锻炼「空杯心态」</li>
+            <li>30 天后回来复测，看看有没有进步空间</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    return html;
   }
 
-  // ---------- 各维度分析与建议 ----------
-  function getRationalAnalysis(score) {
-    if (score >= 80) return '你在决策中表现出较强的理性思考能力，能够较好地权衡风险与收益，面对沉没成本时能及时止损，且具备一定的延迟满足能力。在信息收集方面，你倾向于依赖数据而非传言。';
-    if (score >= 60) return '你的决策理性处于中等水平。在做决定时，你有时会受情绪或外部压力影响，偶尔会出现"再投一点就能回本"的想法。延迟满足能力有待提升，有时倾向于立即满足而非长期规划。';
-    return '你的决策理性有较大提升空间。你可能经常在"确定收益"和"赌一把"之间纠结，容易受沉没成本束缚，且在面对诱惑时较难坚持长期目标。建议在重要决策前强制自己列一个"利弊清单"。';
-  }
-  function getRationalSuggestion(score) {
-    if (score >= 80) return '你已经具备良好的决策习惯，建议进一步学习"概率思维"——把每个决定都看成概率游戏，而不是非黑即白的判断。推荐阅读《思考，快与慢》。';
-    if (score >= 60) return '下次面对"再投一点"的冲动时，问自己：如果今天是第一天接触这个项目，我还会投吗？用"清零思维"打破沉没成本陷阱。设置"冷静期"——大额消费等待48小时再决定。';
-    return '从今天开始，做一个"决策日志"：每次重要决定前，写下你的理由和预期结果，三个月后回看。这会帮你发现自己的决策偏误模式。推荐先读《错误的行为》这本书。';
+  // ========== 报告生成 ==========
+  function generateReport() {
+    const scores = calcScores();
+    const overall = Math.round(scores.rational * 0.3 + scores.resilience * 0.25 + scores.info * 0.25 + scores.social * 0.2);
+    const level = getLevel(overall);
+
+    document.getElementById('overallScore').textContent = overall;
+    document.getElementById('scoreLevel').textContent = `${level.label} · ${level.desc}`;
+
+    const dimNames = ['决策理性', '情绪韧性', '信息判断力', '社会独立性'];
+    const dimKeys = ['rational', 'resilience', 'info', 'social'];
+    const analyses = [
+      getRationalAnalysis(scores.rational, answers),
+      getResilienceAnalysis(scores.resilience, answers),
+      getInfoAnalysis(scores.info, answers),
+      getSocialAnalysis(scores.social, answers)
+    ];
+
+    let cardsHTML = '';
+    for (let i = 0; i < 4; i++) {
+      cardsHTML += `
+        <div class="dimension-card">
+          <h3>${dimNames[i]}</h3>
+          <div class="score-bar"><div class="score-bar-fill" style="width:${scores[dimKeys[i]]}%"></div></div>
+          <div class="score-num"><span>得分</span><span>${scores[dimKeys[i]]} / 100</span></div>
+          <div class="analysis">${analyses[i]}</div>
+        </div>
+      `;
+    }
+    document.getElementById('dimensionCards').innerHTML = cardsHTML;
+
+    // 成长计划
+    document.getElementById('growthPlan').innerHTML = buildGrowthPlan(scores);
+
+    // 显示报告
+    document.getElementById('reportSection').classList.add('active');
+    document.getElementById('progressText').textContent = '报告生成完成 ✓';
+    document.getElementById('sectionLabel').textContent = '▸ <span>报告已生成</span>';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function getResilienceAnalysis(score) {
-    if (score >= 80) return '你具备很强的情绪韧性。面对危机和批评时，你能保持冷静并快速调整状态，不易被失败打倒。连续挫折后你仍能全力准备下一次机会，这种"反脆弱"能力是你的重要优势。';
-    if (score >= 60) return '你的情绪韧性处于中等水平。面对突发危机时，你可能会短暂受影响，但能逐渐恢复。对于批评，你有时会放在心上好几天。偶尔会因为连续失败而怀疑自己。';
-    return '你的情绪韧性需要重点提升。面对突发状况时，你容易情绪化或选择逃避。被批评后可能会长时间情绪低落，连续失败容易让你产生"我就是运气不好"的想法。这需要刻意练习来改变。';
-  }
-  function getResilienceSuggestion(score) {
-    if (score >= 80) return '你的韧性已经很好，可以进一步提升"压力测试"能力——主动把自放在不舒服的环境里，锻炼应对未知的能力。可以尝试公开演讲或主动承担有挑战的项目。';
-    if (score >= 60) return '练习"10秒法则"：遇到突发状况时，强制自己沉默10秒再说话。建立"情绪日志"，记录每次情绪波动的触发点和你的反应，找出模式。被批评时，先问"这个人说的有没有道理"，而不是"他是不是针对我"。';
-    return '从"小挫折训练"开始：每天主动做一件让你稍微不舒服的事（比如主动承认一个错误）。练习"重构思维"：把每次失败看成"数据收集"而不是"个人否定"。推荐阅读《抗压力》。';
-  }
-
-  function getInfoAnalysis(score) {
-    if (score >= 80) return '你具备优秀的信息甄别能力。面对未经证实的消息，你会主动查找官方来源；面对与自己观点相反的信息，你能保持开放心态并客观评估。这种"认知谦逊"是非常稀缺的能力。';
-    if (score >= 60) return '你的信息甄别能力中等。面对热门消息时，你有时会半信半疑但不去查证；面对挑战自己观点的信息时，你可能会有些抵触。在信息爆炸的时代，这需要刻意提升。';
-    return '你在信息处理方面有较大提升空间。你可能比较容易相信群聊里转发的消息，面对与自己观点相反的信息时容易产生抵触情绪。在"后真相时代"，这种认知习惯可能让你做出错误决定。';
-  }
-  function getInfoSuggestion(score) {
-    if (score >= 80) return '你已经具备很好的信息素养，可以进一步学习"信息溯源"技巧——追踪一条信息的原始来源，而不是看它被转述了多少次。可以关注一些事实核查网站（如Snopes、FactCheck.org）。';
-    if (score >= 60) return '建立一个"信息核查清单"：这条消息的来源是什么？有没有原始数据支撑？对方有没有利益相关？遇到热门消息，强制自己等24小时再转发或做决定。';
-    return '从今天开始，每转发一条消息前，问自己三个问题：来源是谁？有没有证据？有没有可能是假的？关注"科学松鼠会"或"果壳"这类科普账号，培养科学思维。推荐《超越感觉：批判性思考指南》。';
-  }
-
-  function getSocialAnalysis(score) {
-    if (score >= 80) return '你具备很强的独立思考能力。面对大众反对时，你能坚持自己的判断；朋友赚了钱也不会让你盲目跟风；你更倾向于接受现状并从中学习，而不是沉溺于"如果当年……"的后悔中。';
-    if (score >= 60) return '你的独立性中等。当身边人都反对时，你会重新考虑自己的决定；看到别人赚钱时会有点后悔，但通常不会盲目跟风。有时候会因为"大家都这么说"而怀疑自己的判断。';
-    return '你在独立思考和抗社会影响方面需要提升。你可能比较容易受身边人意见的影响，看到别人赚钱会感到焦虑，面对大众反对时容易放弃自己的判断。这种"从众倾向"可能让你错过一些好机会。';
-  }
-  function getSocialSuggestion(score) {
-    if (score >= 80) return '你的独立思考能力很强，可以进一步提升"逆向思维"——当大家都看多时，主动思考做空的理由。可以学习查理·芒格的"多元思维模型"，用多个学科视角分析同一个问题。';
-    if (score >= 60) return '练习"魔鬼代言人"思维：每次做一个决定，强制自己列出3个反对理由。遇到"大家都这么说"的时候，问自己：如果他们都是错的呢？建立自己的"决策原则清单"，用原则代替情绪做决定。';
-    return '从"小决定独立训练"开始：每天做一个大家都没做过的小决定（比如选一条没人走的路回家）。练习说"我理解你的观点，但我的想法是……"。推荐阅读《学会提问》和《影响力》。';
+  function scrollToTop() {
+    const w = document.getElementById('retestWechat').value.trim();
+    if (w) {
+      alert('📅 提醒已记录！建议你现在截图保存本次报告。\n30 天后回到 https://pabobi.github.io/quiz.html 重新答题，\n然后对比两次报告，看看自己的成长。');
+    } else {
+      alert('📅 建议你现在截图保存本次报告，作为基线数据。\n30 天后回到 https://pabobi.github.io/quiz.html 重新答题，\n对比两次报告的得分变化，直观看到自己的进步。');
+    }
   }
 
   document.addEventListener('keydown', e => {
