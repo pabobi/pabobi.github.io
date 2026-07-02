@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 决策体检 · 开始答题</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0a0e17;
+      color: #e0e6f0;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    ::selection { background: #e8a020; color: #0a0e17; }
+
+    .header {
+      background: rgba(10,14,23,0.95);
+      border-bottom: 1px solid rgba(232,160,32,0.12);
+      padding: 16px 24px;
+      text-align: center;
+    }
+    .header h2 {
+      font-size: 18px;
+      color: #e8a020;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .header p {
+      font-size: 12px;
+      color: #5678a0;
+      margin-top: 4px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 24px 100px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #e8a020, #ffcc66);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .progress-text {
+      text-align: right;
+      font-size: 12px;
+      color: #5678a0;
+      margin-bottom: 6px;
+    }
+
+    .question-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.1);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      display: none;
+    }
+    .question-card.active { display: block; }
+
+    .q-number {
+      font-size: 12px;
+      color: #e8a020;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .q-tag {
+      display: inline-block;
+      font-size: 11px;
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.2);
+      color: #e8a020;
+      padding: 2px 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .q-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e0e6f0;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      color: #c0cce0;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.25s;
+      line-height: 1.6;
+    }
+    .option:hover {
+      border-color: rgba(232,160,32,0.3);
+      background: rgba(232,160,32,0.04);
+      color: #e0e6f0;
+    }
+    .option.selected {
+      border-color: #e8a020;
+      background: rgba(232,160,32,0.08);
+      color: #e8a020;
+    }
+    .option input { display: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .btn-prev, .btn-next {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      border: none;
+    }
+    .btn-prev {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #8a9bb5;
+    }
+    .btn-prev:hover { background: rgba(255,255,255,0.08); }
+    .btn-next {
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17;
+    }
+    .btn-next:hover { box-shadow: 0 0 30px rgba(232,160,32,0.3); }
+
+    /* Result Form */
+    .result-section {
+      display: none;
+    }
+    .result-section.active { display: block; }
+
+    .result-box {
+      background: rgba(232,160,32,0.04);
+      border: 1px solid rgba(232,160,32,0.15);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .result-box .check-icon { font-size: 48px; margin-bottom: 16px; }
+    .result-box h3 { font-size: 22px; color: #e8a020; margin-bottom: 12px; }
+    .result-box p { font-size: 14px; color: #8a9bb5; line-height: 1.8; margin-bottom: 24px; }
+
+    .email-input {
+      width: 100%;
+      max-width: 360px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(232,160,32,0.2);
+      background: rgba(255,255,255,0.04);
+      color: #e0e6f0;
+      font-size: 15px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .email-input::placeholder { color: #3a4a60; }
+    .email-input:focus { outline: none; border-color: #e8a020; }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17;
+      border: none;
+      padding: 14px 48px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .submit-btn:hover { box-shadow: 0 0 30px rgba(232,160,32,0.4); }
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #5678a0;
+      margin-top: 16px;
+      line-height: 1.7;
+    }
+
+    .success-msg {
+      display: none;
+      background: rgba(102,204,136,0.06);
+      border: 1px solid rgba(102,204,136,0.2);
+      border-radius: 16px;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .success-msg.active { display: block; }
+    .success-msg .ok-icon { font-size: 48px; margin-bottom: 16px; }
+    .success-msg h3 { font-size: 20px; color: #66cc88; margin-bottom: 12px; }
+    .success-msg p { font-size: 14px; color: #8a9bb5; line-height: 1.8; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h2>AI 决策体检</h2>
+  <p>共 12 题 · 约 15 分钟 · 你的答案完全保密</p>
+</div>
+
+<div class="container">
+
+  <div class="progress-text" id="progressText">第 1 / 12 题</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- Q1 -->
+  <div class="question-card active" data-q="1">
+    <div class="q-number">Q1 / 12</div>
+    <div class="q-tag">决策理性 · 损失厌恶倾向</div>
+    <div class="q-text">你面前有两个选择：<br><br>
+      <strong>A</strong>：直接拿走 ¥50,000<br>
+      <strong>B</strong>：抛硬币，正面得 ¥120,000，反面得 ¥0<br><br>
+      你会怎么选？
+    </div>
+    <label class="option" onclick="selectOption(1, 'A', this)"><input type="radio" name="q1" value="A"> <strong>A.</strong> 直接拿走 ¥50,000（确定收益）</label>
+    <label class="option" onclick="selectOption(1, 'B', this)"><input type="radio" name="q1" value="B"> <strong>B.</strong> 抛硬币赌一把（期望收益更高）</label>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card" data-q="2">
+    <div class="q-number">Q2 / 12</div>
+    <div class="q-tag">决策理性 · 沉没成本偏误</div>
+    <div class="q-text">你投资了一个项目，目前亏损 ¥300,000。现在有两个选择：<br><br>
+      <strong>A</strong>：立即止损，亏损确定<br>
+      <strong>B</strong>：再投 ¥200,000，有 40% 机会回本并盈利 ¥100,000，60% 机会全部亏完<br><br>
+      你会怎么选？
+    </div>
+    <label class="option" onclick="selectOption(2, 'A', this)"><input type="radio" name="q2" value="A"> <strong>A.</strong> 立即止损</label>
+    <label class="option" onclick="selectOption(2, 'B', this)"><input type="radio" name="q2" value="B"> <strong>B.</strong> 再投 ¥200,000，赌一把</label>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card" data-q="3">
+    <div class="q-number">Q3 / 12</div>
+    <div class="q-tag">决策理性 · 延迟满足能力</div>
+    <div class="q-text">你想要一个价值 ¥50,000 的东西：<br><br>
+      <strong>A</strong>：立刻买，用分期付款（多付 ¥8,000 利息）<br>
+      <strong>B</strong>：等 6 个月，存够钱再买<br><br>
+      你会怎么选？
+    </div>
+    <label class="option" onclick="selectOption(3, 'A', this)"><input type="radio" name="q3" value="A"> <strong>A.</strong> 立刻买，分期付款</label>
+    <label class="option" onclick="selectOption(3, 'B', this)"><input type="radio" name="q3" value="B"> <strong>B.</strong> 等 6 个月，存够钱再买</label>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card" data-q="4">
+    <div class="q-number">Q4 / 12</div>
+    <div class="q-tag">情绪韧性</div>
+    <div class="q-text">你在主持一个重要会议时，突然收到消息——核心项目被叫停了。所有人都在看着你。你会：</div>
+    <label class="option" onclick="selectOption(4, 'A', this)"><input type="radio" name="q4" value="A"> <strong>A.</strong> 立刻宣布会议暂停，独自冷静 10 分钟</label>
+    <label class="option" onclick="selectOption(4, 'B', this)"><input type="radio" name="q4" value="B"> <strong>B.</strong> 压下情绪，继续主持并当场制定调整方案</label>
+    <label class="option" onclick="selectOption(4, 'C', this)"><input type="radio" name="q4" value="C"> <strong>C.</strong> 情绪明显受影响，草草结束会议</label>
+    <label class="option" onclick="selectOption(4, 'D', this)"><input type="radio" name="q4" value="D"> <strong>D.</strong> 立即打电话问责相关人员</label>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card" data-q="5">
+    <div class="q-number">Q5 / 12</div>
+    <div class="q-tag">情绪韧性 · 抗压</div>
+    <div class="q-text">你在团队会议上提出一个方案，被上级当众严厉批评：「这完全不可行」。你的第一反应是：</div>
+    <label class="option" onclick="selectOption(5, 'A', this)"><input type="radio" name="q5" value="A"> <strong>A.</strong> 内心受挫，但表面上记录意见，会后反思</label>
+    <label class="option" onclick="selectOption(5, 'B', this)"><input type="radio" name="q5" value="B"> <strong>B.</strong> 当场反驳，逐条论证方案可行性</label>
+    <label class="option" onclick="selectOption(5, 'C', this)"><input type="radio" name="q5" value="C"> <strong>C.</strong> 沉默接受，之后几天情绪低落</label>
+    <label class="option" onclick="selectOption(5, 'D', this)"><input type="radio" name="q5" value="D"> <strong>D.</strong> 把批评当成信息来源，客观评估对方说的有没有道理</label>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card" data-q="6">
+    <div class="q-number">Q6 / 12</div>
+    <div class="q-tag">情绪韧性 · 习得性无助倾向</div>
+    <div class="q-text">你连续三次面试/竞标失败。第四次机会出现时，你会：</div>
+    <label class="option" onclick="selectOption(6, 'A', this)"><input type="radio" name="q6" value="A"> <strong>A.</strong> 仍然全力准备，不受前三次影响</label>
+    <label class="option" onclick="selectOption(6, 'B', this)"><input type="radio" name="q6" value="B"> <strong>B.</strong> 有些退缩，但还是去了</label>
+    <label class="option" onclick="selectOption(6, 'C', this)"><input type="radio" name="q6" value="C"> <strong>C.</strong> 觉得自己运气不好，没那么用心准备</label>
+    <label class="option" onclick="selectOption(6, 'D', this)"><input type="radio" name="q6" value="D"> <strong>D.</strong> 放弃这次机会，等更好的</label>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card" data-q="7">
+    <div class="q-number">Q7 / 12</div>
+    <div class="q-tag">信息处理 · 轻信倾向</div>
+    <div class="q-text">你的微信群里疯狂传播一条消息：「XX 政策即将出台，房价要暴跌 30%」。你会：</div>
+    <label class="option" onclick="selectOption(7, 'A', this)"><input type="radio" name="q7" value="A"> <strong>A.</strong> 立刻转发到家庭群，提醒家人注意</label>
+    <label class="option" onclick="selectOption(7, 'B', this)"><input type="radio" name="q7" value="B"> <strong>B.</strong> 先查官方来源，确认后再决定是否相信</label>
+    <label class="option" onclick="selectOption(7, 'C', this)"><input type="radio" name="q7" value="C"> <strong>C.</strong> 半信半疑，但会开始关注相关新闻</label>
+    <label class="option" onclick="selectOption(7, 'D', this)"><input type="radio" name="q7" value="D"> <strong>D.</strong> 不理会，等官方通知</label>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card" data-q="8">
+    <div class="q-number">Q8 / 12</div>
+    <div class="q-tag">信息处理 · 确认偏误</div>
+    <div class="q-text">你一直认为「考研是年轻人最好的出路」。现在看到一篇数据详实的文章，论证「考研回报率正在大幅下降」。你会：</div>
+    <label class="option" onclick="selectOption(8, 'A', this)"><input type="radio" name="q8" value="A"> <strong>A.</strong> 仔细读完，评估论证的可信度</label>
+    <label class="option" onclick="selectOption(8, 'B', this)"><input type="radio" name="q8" value="B"> <strong>B.</strong> 直接划走，「这篇文章肯定有问题」</label>
+    <label class="option" onclick="selectOption(8, 'C', this)"><input type="radio" name="q8" value="C"> <strong>C.</strong> 看了开头结论就关掉</label>
+    <label class="option" onclick="selectOption(8, 'D', this)"><input type="radio" name="q8" value="D"> <strong>D.</strong> 看完后开始重新思考自己的观点</label>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-card" data-q="9">
+    <div class="q-number">Q9 / 12</div>
+    <div class="q-tag">决策理性 · 信息权重</div>
+    <div class="q-text">你要在一座新城市买房，以下哪些信息对你做决策最有价值？（选一项）</div>
+    <label class="option" onclick="selectOption(9, 'A', this)"><input type="radio" name="q9" value="A"> <strong>A.</strong> 房产中介说「这个片区肯定涨」</label>
+    <label class="option" onclick="selectOption(9, 'B', this)"><input type="radio" name="q9" value="B"> <strong>B.</strong> 该片区过去 3 年房价走势 + 人口流入数据 + 规划文件</label>
+    <label class="option" onclick="selectOption(9, 'C', this)"><input type="radio" name="q9" value="C"> <strong>C.</strong> 朋友说「我买在这了，挺好的」</label>
+    <label class="option" onclick="selectOption(9, 'D', this)"><input type="radio" name="q9" value="D"> <strong>D.</strong> 开发商宣传材料</label>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-card" data-q="10">
+    <div class="q-number">Q10 / 12</div>
+    <div class="q-tag">社会比较 · FOMO（错失恐惧）</div>
+    <div class="q-text">你朋友去年买了一只股票，赚了 80%。你一直觉得这只股票风险太大没买。现在你会：</div>
+    <label class="option" onclick="selectOption(10, 'A', this)"><input type="radio" name="q10" value="A"> <strong>A.</strong> 坚持自己的判断，不碰</label>
+    <label class="option" onclick="selectOption(10, 'B', this)"><input type="radio" name="q10" value="B"> <strong>B.</strong> 有点后悔，开始研究这只股票</label>
+    <label class="option" onclick="selectOption(10, 'C', this)"><input type="radio" name="q10" value="C"> <strong>C.</strong> 立刻买入一些，「不能再错过了」</label>
+    <label class="option" onclick="selectOption(10, 'D', this)"><input type="radio" name="q10" value="D"> <strong>D.</strong> 说服自己「他运气好而已，我不羡慕」</label>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question-card" data-q="11">
+    <div class="q-number">Q11 / 12</div>
+    <div class="q-tag">独立思考 · 从众倾向</div>
+    <div class="q-text">你做了一个决定，身边所有人都反对。但你内心非常确信这是对的。你会：</div>
+    <label class="option" onclick="selectOption(11, 'A', this)"><input type="radio" name="q11" value="A"> <strong>A.</strong> 坚持己见，但不辩解</label>
+    <label class="option" onclick="selectOption(11, 'B', this)"><input type="radio" name="q11" value="B"> <strong>B.</strong> 重新考虑，大众可能有道理</label>
+    <label class="option" onclick="selectOption(11, 'C', this)"><input type="radio" name="q11" value="C"> <strong>C.</strong> 坚持并试图说服所有人</label>
+    <label class="option" onclick="selectOption(11, 'D', this)"><input type="radio" name="q11" value="D"> <strong>D.</strong> 放弃，「这么多人反对，肯定是我错了」</label>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question-card" data-q="12">
+    <div class="q-number">Q12 / 12</div>
+    <div class="q-tag">成长型思维 · 后悔倾向</div>
+    <div class="q-text">给你一次重新开始的机会，但必须二选一：<br><br>
+      <strong>A</strong>：回到过去，修正人生中最大的一个错误决定，但会因此失去当前的所有积累<br>
+      <strong>B</strong>：保持现状，带着所有经验和智慧继续前行<br><br>
+      你会怎么选？
+    </div>
+    <label class="option" onclick="selectOption(12, 'A', this)"><input type="radio" name="q12" value="A"> <strong>A.</strong> 回到过去，修正错误决定</label>
+    <label class="option" onclick="selectOption(12, 'B', this)"><input type="radio" name="q12" value="B"> <strong>B.</strong> 保持现状，带着经验继续前行</label>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-buttons" id="navButtons">
+    <button class="btn-prev" onclick="prevQ()" id="btnPrev">← 上一题</button>
+    <button class="btn-next" onclick="nextQ()" id="btnNext">下一题 →</button>
+  </div>
+
+  <!-- Result Section -->
+  <div class="result-section" id="resultSection">
+    <div class="result-box">
+      <div class="check-icon">✅</div>
+      <h3>12 题全部完成！</h3>
+      <p>请填写你的邮箱，报告完成后将发送至你的邮箱。<br>也可以填写微信ID，方便联系。</p>
+
+      <input type="email" class="email-input" id="userEmail" placeholder="你的邮箱（用于接收报告）" style="display:block;margin:0 auto 12px;">
+      <input type="text" class="email-input" id="userWechat" placeholder="微信ID（选填）" style="display:block;margin:0 auto 16px;">
+
+      <button class="submit-btn" onclick="submitAnswers()">提交答案，获取报告 →</button>
+
+      <div class="note">
+        🔒 你的答案仅用于生成个人报告，不会被分享给任何人<br>
+        ⏱️ 报告将在 24 小时内发送至你的邮箱
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-msg" id="successMsg">
+    <div class="ok-icon">🎉</div>
+    <h3>答案提交成功！</h3>
+    <p>你的答题结果已成功提交，报告将在 <strong style="color:#e8a020;">24 小时内</strong>发送至你的邮箱。<br><br>
+      如有疑问，可添加微信 <strong style="color:#e8a020;">shen-wanshan</strong> 联系。<br><br>
+      <span style="font-size:12px;color:#5678a0;">页面将在 5 秒后自动关闭……</span>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  let currentQ = 1;
+  const totalQ = 12;
+  const answers = {};
+
+  function selectOption(qNum, value, el) {
+    answers[qNum] = value;
+    // Remove selected from siblings
+    const parent = el.closest('.question-card');
+    parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function updateProgress() {
+    const pct = ((currentQ - 1) / totalQ) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `第 ${currentQ} / ${totalQ} 题`;
+  }
+
+  function showQ(qNum) {
+    document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+    const card = document.querySelector(`.question-card[data-q="${qNum}"]`);
+    if (card) card.classList.add('active');
+
+    // Update nav buttons
+    document.getElementById('btnPrev').style.display = qNum === 1 ? 'none' : '';
+    document.getElementById('btnNext').textContent = qNum === totalQ ? '查看结果 →' : '下一题 →';
+    currentQ = qNum;
+    updateProgress();
+  }
+
+  function nextQ() {
+    if (!answers[currentQ]) {
+      alert('请先选择一个答案再继续 🙂');
+      return;
+    }
+    if (currentQ === totalQ) {
+      // Show result section
+      document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('navButtons').style.display = 'none';
+      document.getElementById('resultSection').classList.add('active');
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressText').textContent = '答题完成 ✓';
+      return;
+    }
+    showQ(currentQ + 1);
+  }
+
+  function prevQ() {
+    if (currentQ > 1) showQ(currentQ - 1);
+  }
+
+  // Submit answers - uses formsubmit.co (free, no signup)
+  function submitAnswers() {
+    const email = document.getElementById('userEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('请填写有效的邮箱地址，报告将发送至该邮箱 🙂');
+      return;
+    }
+
+    const wechat = document.getElementById('userWechat').value.trim();
+    const btn = document.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = '提交中...';
+
+    // Build answer text
+    let answerText = 'AI决策体检答题结果\n';
+    answerText += '==================\n\n';
+    for (let i = 1; i <= totalQ; i++) {
+      answerText += `Q${i}: ${answers[i] || '未答'}\n`;
+    }
+    answerText += `\n邮箱: ${email}\n`;
+    answerText += `微信: ${wechat || '未填'}\n`;
+    answerText += `\n提交时间: ${new Date().toLocaleString('zh-CN')}\n`;
+
+    // Use formsubmit.co to send email (free service)
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('wechat', wechat);
+    formData.append('answers', answerText);
+    formData.append('_subject', `AI决策体检新答题 - ${email}`);
+    formData.append('_captcha', 'false');
+
+    fetch('https://formsubmit.co/ajax/shenwanshan@qq.com', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('resultSection').classList.remove('active');
+      document.getElementById('successMsg').classList.add('active');
+      document.getElementById('progressText').textContent = '提交成功 ✓';
+      setTimeout(() => window.close(), 5000);
+    })
+    .catch(err => {
+      // Fallback: use mailto
+      const mailtoBody = encodeURIComponent(answerText);
+      window.location.href = `mailto:shenwanshan@qq.com?subject=AI决策体检答题结果&body=${mailtoBody}`;
+      document.getElementById('resultSection').classList.remove('active');
+      document.getElementById('successMsg').classList.add('active');
+      btn.disabled = false;
+      btn.textContent = '提交答案，获取报告 →';
+    });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'Enter') nextQ();
+    if (e.key === 'ArrowLeft') prevQ();
+  });
+</script>
+
+</body>
+</html>
