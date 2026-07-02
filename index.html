@@ -3,713 +3,812 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>申万山 | 一级建造师 · 工程技术专家</title>
-  <meta name="description" content="申万山 - 长安大学交通工程本科，一级建造师（市政+建筑+机电+矿业），16年+工程管理经验，专注房建与市政工程">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>AI 决策体检 · 已售 328 份 | 限时 ¥199</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0a0e17;
+      color: #e0e6f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::selection { background: #e8a020; color: #0a0e17; }
+
+    /* ── Social Proof Scrolling Bar ── */
+    .social-bar {
+      position: fixed; top: 57px; left: 0; right: 0; z-index: 99;
+      background: rgba(232,160,32,0.08);
+      border-bottom: 1px solid rgba(232,160,32,0.12);
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 12px;
+      color: #8a9bb5;
+    }
+    .social-bar-inner {
+      display: inline-block;
+      animation: scroll-left 35s linear infinite;
+    }
+    .social-bar-inner span {
+      margin-right: 40px;
+    }
+    .social-bar-inner .name { color: #e8a020; }
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,23,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(232,160,32,0.1);
+      padding: 10px 0;
+    }
+    nav .container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .logo { font-size: 16px; font-weight: 700; color: #e8a020; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+    .logo span { color: #5678a0; }
+    .sold-badge {
+      font-size: 11px;
+      background: rgba(255,80,80,0.15);
+      border: 1px solid rgba(255,80,80,0.3);
+      color: #ff8888;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .nav-btn {
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17; border: none; padding: 7px 20px; border-radius: 25px;
+      font-weight: 600; font-size: 13px; cursor: pointer; transition: all .25s;
+    }
+    .nav-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(232,160,32,0.3); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 130px 0 65px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(232,160,32,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(255,80,80,0.06) 0%, transparent 50%);
+      z-index: 0;
+    }
+    .hero .container { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 24px; text-align: center; }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,80,80,0.12);
+      border: 1px solid rgba(255,80,80,0.3);
+      color: #ff9999;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5.5vw, 48px);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 18px;
+    }
+    .hero h1 .red { color: #ff6666; }
+    .hero h1 .gold {
+      background: linear-gradient(135deg, #e8a020, #ffcc66);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero .sub {
+      font-size: 17px;
+      color: #8a9bb5;
+      max-width: 600px;
+      margin: 0 auto 28px;
+      line-height: 1.8;
+    }
+
+    /* ── Pricing Display ── */
+    .pricing-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0 28px;
+      flex-wrap: wrap;
+    }
+    .price-old {
+      font-size: 20px;
+      color: #5678a0;
+      text-decoration: line-through;
+    }
+    .price-current {
+      font-size: 52px;
+      font-weight: 900;
+      color: #e8a020;
+      line-height: 1;
+      position: relative;
+    }
+    .price-current .tag {
+      position: absolute;
+      top: -14px;
+      right: -50px;
+      font-size: 12px;
+      background: rgba(255,80,80,0.2);
+      border: 1px solid rgba(255,80,80,0.4);
+      color: #ff6666;
+      padding: 2px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .price-unit { font-size: 18px; font-weight: 600; color: #e8a020; }
+
+    /* ── Decoy Pricing Buttons ── */
+    .decoy-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 24px 0 10px;
+      flex-wrap: wrap;
+    }
+    .decoy-option {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      text-align: center;
+      cursor: pointer;
+      transition: all .3s;
+      min-width: 120px;
+    }
+    .decoy-option .d-price { font-size: 18px; font-weight: 700; color: #5678a0; }
+    .decoy-option .d-label { font-size: 12px; color: #3a4a60; margin-top: 2px; }
+    .decoy-option.best {
+      border-color: rgba(232,160,32,0.4);
+      background: rgba(232,160,32,0.06);
+      position: relative;
+    }
+    .decoy-option.best .d-price { color: #e8a020; font-size: 22px; }
+    .decoy-option.best::after {
+      content: '🔥 最受欢迎';
+      position: absolute; top: -10px; right: -8px;
+      font-size: 10px;
+      background: #e8a020;
+      color: #0a0e17;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17;
+      padding: 16px 52px;
+      border-radius: 30px;
+      font-size: 18px; font-weight: 700;
+      text-decoration: none;
+      transition: all .3s;
+      border: none; cursor: pointer;
+      position: relative;
+    }
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 50px rgba(232,160,32,0.4); }
+    .cta-primary .mini { font-size: 12px; font-weight: 400; display: block; margin-top: 2px; opacity: 0.85; }
+
+    /* ── Social Counter ── */
+    .social-counter {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .sc-item { text-align: center; }
+    .sc-item .num { font-size: 24px; font-weight: 800; color: #e8a020; }
+    .sc-item .num small { font-size: 14px; }
+    .sc-item .label { font-size: 12px; color: #5678a0; margin-top: 2px; }
+
+    /* ── Pain Section ── */
+    .pain-section { padding: 60px 0; }
+    .pain-section .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .section-title {
+      font-size: clamp(22px, 3.5vw, 32px); font-weight: 700;
+      text-align: center; margin-bottom: 40px;
+    }
+    .section-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #e8a020, #ffcc66);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; } }
+    .pain-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,80,80,0.12);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .pain-card .ploss { font-size: 12px; color: #ff8888; font-weight: 600; margin-bottom: 6px; }
+    .pain-card .pdesc { font-size: 14px; color: #e0e6f0; margin-bottom: 10px; line-height: 1.6; }
+    .pain-card .proot {
+      font-size: 12px;
+      color: #8a9bb5;
+      padding: 8px 12px;
+      background: rgba(232,160,32,0.05);
+      border-radius: 8px;
+    }
+    .pain-card .proot strong { color: #e8a020; }
+
+    /* ── Testimonials ── */
+    .testimonial-section { padding: 60px 0; background: rgba(232,160,32,0.02); }
+    .testimonial-section .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .testimonial-grid { grid-template-columns: 1fr; } }
+    .testimonial {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.08);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .testimonial .t-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .testimonial .t-name { font-size: 14px; color: #e0e6f0; }
+    .testimonial .t-who { font-size: 11px; color: #5678a0; }
+    .testimonial .t-text { font-size: 13px; color: #8a9bb5; line-height: 1.7; }
+    .testimonial .t-result { font-size: 12px; color: #66cc88; margin-top: 10px; font-weight: 600; }
+
+    /* ── What You Get ── */
+    .get-section { padding: 70px 0; }
+    .get-section .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    .get-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 600px) { .get-grid { grid-template-columns: 1fr; } }
+    .get-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.08);
+      border-radius: 14px;
+      padding: 24px 22px;
+    }
+    .get-card .g-icon { font-size: 28px; margin-bottom: 10px; }
+    .get-card h3 { font-size: 16px; color: #e8a020; margin-bottom: 8px; }
+    .get-card p { font-size: 13px; color: #8a9bb5; line-height: 1.7; }
+
+    /* ── Refund Guarantee ── */
+    .guarantee {
+      padding: 40px 0;
+      text-align: center;
+    }
+    .guarantee .container { max-width: 600px; margin: 0 auto; padding: 0 24px; }
+    .guarantee-box {
+      background: rgba(102,204,136,0.04);
+      border: 1px solid rgba(102,204,136,0.15);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+    .guarantee-box .g-icon { font-size: 32px; margin-bottom: 10px; }
+    .guarantee-box h3 { font-size: 18px; color: #66cc88; margin-bottom: 8px; }
+    .guarantee-box p { font-size: 13px; color: #8a9bb5; }
+
+    /* ── Urgency ── */
+    .urgency {
+      padding: 50px 0;
+      background: rgba(255,80,80,0.03);
+      text-align: center;
+    }
+    .urgency .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+    .urgency h2 { font-size: clamp(20px, 3vw, 28px); font-weight: 700; margin-bottom: 14px; }
+    .urgency h2 .red { color: #ff6666; }
+    .urgency p { font-size: 15px; color: #8a9bb5; line-height: 1.8; margin-bottom: 24px; }
+    .urgency .cta-red {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff6666, #cc4444);
+      color: #fff;
+      padding: 14px 44px;
+      border-radius: 30px;
+      font-size: 17px; font-weight: 700;
+      text-decoration: none;
+      transition: all .3s;
+    }
+    .urgency .cta-red:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,80,80,0.3); }
+
+    /* ── Reciprocity Lead Magnet ── */
+    .lead-magnet { padding: 50px 0; }
+    .lead-magnet .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+    .magnet-card {
+      background: rgba(232,160,32,0.04);
+      border: 1px solid rgba(232,160,32,0.15);
+      border-radius: 18px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .magnet-card .m-icon { font-size: 36px; margin-bottom: 12px; }
+    .magnet-card h3 { font-size: 20px; color: #e8a020; margin-bottom: 8px; }
+    .magnet-card p { font-size: 14px; color: #8a9bb5; margin-bottom: 18px; }
+    .magnet-card .magnet-btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid #e8a020;
+      color: #e8a020;
+      padding: 10px 32px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .3s;
+      text-decoration: none;
+    }
+    .magnet-card .magnet-btn:hover { background: rgba(232,160,32,0.1); }
+
+    /* ── Steps ── */
+    .steps-section { padding: 50px 0 70px; }
+    .steps-section .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+    .step {
+      display: flex; gap: 18px; align-items: flex-start;
+      padding: 16px 20px; margin-bottom: 12px;
+      background: rgba(232,160,32,0.03);
+      border: 1px solid rgba(232,160,32,0.08);
+      border-radius: 12px;
+    }
+    .step-num {
+      flex-shrink: 0; width: 34px; height: 34px;
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px;
+    }
+    .step h4 { font-size: 14px; color: #e8a020; margin-bottom: 2px; }
+    .step p { font-size: 13px; color: #8a9bb5; }
+
+    /* ── Payment ── */
+    .payment-section {
+      padding: 70px 0 100px;
+      background: rgba(232,160,32,0.02);
+    }
+    .payment-section .container { max-width: 440px; margin: 0 auto; padding: 0 24px; }
+    .pay-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(232,160,32,0.15);
+      border-radius: 22px;
+      padding: 44px 32px;
+      text-align: center;
+      position: relative;
+    }
+    .pay-card .urgent-tag {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      font-size: 11px;
+      background: rgba(255,80,80,0.2);
+      border: 1px solid rgba(255,80,80,0.4);
+      color: #ff6666;
+      padding: 4px 18px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .pay-card h3 { font-size: 22px; margin: 16px 0 6px; }
+    .pay-card .pay-price {
+      font-size: 44px; font-weight: 900; color: #e8a020;
+      margin: 6px 0;
+    }
+    .pay-card .pay-old { font-size: 15px; color: #5678a0; text-decoration: line-through; }
+    .pay-card .pay-tag {
+      display: inline-block;
+      font-size: 11px;
+      background: rgba(255,80,80,0.15);
+      color: #ff8888;
+      padding: 2px 10px;
+      border-radius: 8px;
+      margin: 6px 0 20px;
+    }
+    .qr-container {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin: 0 auto 16px;
+      flex-wrap: wrap;
+    }
+    .qr-item {
+      text-align: center;
+    }
+    .qr-item img {
+      width: 170px; height: 170px;
+      border-radius: 12px;
+      border: 2px solid rgba(232,160,32,0.25);
+      background: #fff;
+      padding: 4px;
+      display: block;
+    }
+    .qr-item .qr-label {
+      font-size: 13px;
+      color: #e0e6f0;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    .qr-item.wechat .qr-label { color: #09bb07; }
+    .qr-item.alipay .qr-label { color: #1677ff; }
+    .pay-tip { font-size: 13px; color: #8a9bb5; line-height: 1.8; }
+    .pay-tip strong { color: #e8a020; }
+    .pay-guarantee {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #66cc88;
+    }
+
+    /* ── Sticky Bottom Bar ── */
+    .sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,23,0.92);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(232,160,32,0.12);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transform: translateY(0);
+      transition: transform .3s;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .sticky-bar { display: flex; }
+    }
+    .sticky-bar .sb-left { font-size: 12px; color: #8a9bb5; }
+    .sticky-bar .sb-left .sb-price { font-size: 18px; font-weight: 800; color: #e8a020; }
+    .sticky-bar .sb-btn {
+      background: linear-gradient(135deg, #e8a020, #c8820a);
+      color: #0a0e17;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* ── Footer ── */
+    footer { text-align: center; padding: 32px 0 60px; color: #3a4a60; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.04); }
+  </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <span class="logo-text">申万山</span>
-        <span class="logo-sub">工程管理</span>
-      </div>
-      <button class="nav-toggle" id="navToggle" aria-label="菜单">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#hero" class="active">首页</a></li>
-        <li><a href="#about">关于我</a></li>
-        <li><a href="#certificates">资格证书</a></li>
-        <li><a href="#skills">专业技能</a></li>
-        <li><a href="#experience">工作经历</a></li>
-        <li><a href="#portfolio">工程业绩</a></li>
-        <li><a href="#contact">联系方式</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          <span>求职中 · 可到岗</span>
-        </div>
-        <h1 class="hero-name">申万山</h1>
-        <h2 class="hero-title">一级建造师 · 工程技术专家</h2>
-        <p class="hero-desc">
-          长安大学交通工程本科，一级建造师（市政+建筑+机电+矿业），12年+工程实践经验。<br>
-          擅长房建工程、市政工程、铁路工程的全流程项目管理与技术把控。
-        </p>
-        <div class="hero-tags">
-          <span class="tag"><i class="fas fa-hard-hat"></i> 一级建造师</span>
-          <span class="tag tag-accent"><i class="fas fa-gavel"></i> 评标专家</span>
-          <span class="tag"><i class="fas fa-road"></i> 市政工程</span>
-          <span class="tag"><i class="fas fa-building"></i> 房建工程</span>
-          <span class="tag"><i class="fas fa-subway"></i> 轨道交通</span>
-          <span class="tag"><i class="fas fa-mountain"></i> 矿业工程</span>
-        </div>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> 联系我</a>
-          <a href="#experience" class="btn btn-outline"><i class="fas fa-briefcase"></i> 查看经历</a>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll-hint">
-      <span>向下滚动</span>
-      <i class="fas fa-chevron-down"></i>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">ABOUT ME</span>
-        <h2 class="section-title">关于我</h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-card about-info">
-          <div class="about-card-icon"><i class="fas fa-user"></i></div>
-          <h3>基本信息</h3>
-          <table class="info-table">
-            <tr><td class="info-label">姓名</td><td>申万山</td></tr>
-            <tr><td class="info-label">出生年月</td><td>1989年2月</td></tr>
-            <tr><td class="info-label">学历</td><td>本科（全日制）</td></tr>
-            <tr><td class="info-label">专业</td><td>交通工程（全日制）</td></tr>
-            <tr><td class="info-label">毕业院校</td><td>长安大学</td></tr>
-            <tr><td class="info-label">毕业时间</td><td>2010年7月</td></tr>
-          </table>
-        </div>
-        <div class="about-card about-summary">
-          <div class="about-card-icon"><i class="fas fa-chart-line"></i></div>
-          <h3>职业优势</h3>
-          <ul class="advantage-list">
-            <li>
-              <strong>复合型资质：</strong>一级建造师（市政+建筑+机电+矿业）四专业，行业中稀缺
-            </li>
-            <li>
-              <strong>跨领域经验：</strong>铁路、房建、市政、轨道交通全覆盖
-            </li>
-            <li>
-              <strong>国际视野：</strong>阿尔及利亚东西高速公路项目实战经验
-            </li>
-            <li>
-              <strong>管理能力：</strong>从技术员到工程部长、工程部经理，完整晋升路径
-            </li>
-            <li>
-              <strong>技术积累：</strong>中级工程师职称，甘肃、青海等地区项目经验
-            </li>
-          </ul>
-        </div>
-        <div class="about-card about-numbers">
-          <div class="stat-item">
-            <span class="stat-number">16</span>
-            <span class="stat-unit">年+</span>
-            <span class="stat-label">行业经验</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">4</span>
-            <span class="stat-unit">项</span>
-            <span class="stat-label">一级建造师</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">10</span>
-            <span class="stat-unit">+</span>
-            <span class="stat-label">大型项目</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">4</span>
-            <span class="stat-unit">大</span>
-            <span class="stat-label">专业领域</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="certificates" class="section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">CERTIFICATES</span>
-        <h2 class="section-title">资格证书</h2>
-      </div>
-
-      <!-- 资格卡片区 -->
-      <div class="cert-cards-row">
-        <div class="cert-card cert-card-primary">
-          <div class="cert-badge"><i class="fas fa-award"></i></div>
-          <div class="cert-info">
-            <h3>一级建造师</h3>
-            <p class="cert-subtitle">市政 · 建筑 · 机电 · 矿业</p>
-            <p class="cert-desc">国家人力资源和社会保障部颁发，全国通用，建设行业最高执业资格。</p>
-            <div class="cert-tag-wrap">
-              <span class="cert-tag">市政</span>
-              <span class="cert-tag">建筑</span>
-              <span class="cert-tag">机电</span>
-              <span class="cert-tag">矿业</span>
-            </div>
-          </div>
-        </div>
-        <div class="cert-card cert-card-accent">
-          <div class="cert-badge cert-badge-accent"><i class="fas fa-gavel"></i></div>
-          <div class="cert-info">
-            <h3>评标专家</h3>
-            <p class="cert-subtitle">省级建设工程评标专家库</p>
-            <p class="cert-desc">入选省级专家库，具备政府投资项目评审与评标资格。</p>
-          </div>
-        </div>
-        <div class="cert-card cert-card-normal">
-          <div class="cert-badge cert-badge-secondary"><i class="fas fa-certificate"></i></div>
-          <div class="cert-info">
-            <h3>中级工程师</h3>
-            <p class="cert-subtitle">市政工程专业</p>
-            <p class="cert-desc">省级人力资源和社会保障部门评审的专业技术职称。</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 证书图片展示区 -->
-      <div class="cert-gallery-wrap">
-        <h3 class="gallery-title"><i class="fas fa-images"></i> 证书影印件</h3>
-        <div class="gallery-grid">
-
-          <div class="gallery-item cert-thumb" id="cert3">
-            <div class="cert-thumb-inner">
-              <img src="images/一级建造师机电.jpg" alt="一级建造师（机电）" loading="lazy" onclick="openLightbox(this)"/>
-            </div>
-            <p class="gallery-caption">一级建造师（机电）</p>
-          </div>
-          <div class="gallery-item cert-thumb" id="cert4">
-            <div class="cert-thumb-inner">
-              <img src="images/一级建造师房建.jpg" alt="一级建造师（建筑工程）" loading="lazy" onclick="openLightbox(this)"/>
-            </div>
-            <p class="gallery-caption">一级建造师（建筑）</p>
-          </div>
-          <div class="gallery-item cert-thumb" id="cert5">
-            <div class="cert-thumb-inner">
-              <img src="images/一级矿业.png" alt="一级建造师（矿业工程）" loading="lazy" onclick="openLightbox(this)"/>
-            </div>
-            <p class="gallery-caption">一级建造师（矿业）</p>
-          </div>
-          <div class="gallery-item cert-thumb" id="cert6">
-            <div class="cert-thumb-inner">
-              <img src="images/评标专家证.jpg" alt="评标专家证书" loading="lazy" onclick="openLightbox(this)"/>
-            </div>
-            <p class="gallery-caption">评标专家证书</p>
-          </div>
-
-          <div class="gallery-item cert-thumb" id="cert8">
-            <div class="cert-thumb-inner">
-              <img src="images/安全B证.jpg" alt="安全员B证" loading="lazy" onclick="openLightbox(this)"/>
-            </div>
-            <p class="gallery-caption">安全员B证</p>
-          </div>
-          <div class="gallery-item cert-thumb" id="cert9">
-            <div class="cert-thumb-inner">
-              <img src="images/证书8.png" alt="职业资格证" loading="lazy" onclick="openLightbox(this)"/>
-            </div>
-            <p class="gallery-caption">职业资格证</p>
-          </div>
-        </div>
-        <p class="gallery-hint"><i class="fas fa-search-plus"></i> 点击证书可放大查看</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio Section -->
-  <section id="skills" class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">SKILLS</span>
-        <h2 class="section-title">专业技能</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-building"></i></div>
-          <h3>房建工程</h3>
-          <p>工业与民用建筑施工技术、施工组织设计、E筋钢筋翻样、品茗算建模、工程质量管理</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 95%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-road"></i></div>
-          <h3>市政工程</h3>
-          <p>城市道路、桥梁、亮化工程（昆仑大道、群星路等）、管网施工与养护，市政公用工程管理</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 90%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-subway"></i></div>
-          <h3>轨道交通</h3>
-          <p>地铁车站施工、人防工程、轨道工程、项目统筹管理</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 85%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-mountain"></i></div>
-          <h3>矿业工程</h3>
-          <p>露天矿采剥工程、计划排布、炮孔布置、收方计量、现场技术管理</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 75%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-train"></i></div>
-          <h3>铁路工程</h3>
-          <p>铁路客运专线施工、路基工程、桥梁工程、隧道工程</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 88%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-drafting-compass"></i></div>
-          <h3>技术管理</h3>
-          <p>施工方案编制、技术交底、图纸审核、CAD绘图、竣工图制作、施工资料归档</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 92%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
-          <h3>项目管理</h3>
-          <p>RTK、全站仪、水准仪测量、进度控制、质量控制、安全管理、成本管理</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="--fill: 90%"></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Certificates Section -->
-  <!-- Experience Section -->
-  <section id="experience" class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">EXPERIENCE</span>
-        <h2 class="section-title">工作经历</h2>
-      </div>
-      <div class="timeline">
-        <!-- Item 1: 2026.03~今 -->
-        <!-- Item 1: 2010.08-2011.02 (最旧 → 最早) -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2010.08 - 2011.02</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>中铁十四局 · 成绵乐铁路</h3>
-            </div>
-            <div class="timeline-role">路基技术员、桥梁技术员</div>
-            <p class="timeline-desc">
-              参与成绵乐铁路客运专线铁路建设，担任路基技术员、桥梁技术员，是职业生涯的起点。
-            </p>
-          </div>
-        </div>
-        <!-- Item 2: 2011.03-2012.12 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2011.03 - 2012.12</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>中铁十四局 · 山西中南部铁路通道</h3>
-            </div>
-            <div class="timeline-role">路基技术员、隧道技术员</div>
-            <p class="timeline-desc">
-              参与山西中南部铁路通道项目，担任路基技术员、隧道技术员，负责铁路路基与隧道施工技术管理。
-            </p>
-          </div>
-        </div>
-        <!-- Item 3: 2013.01-2015.09 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2013.01 - 2015.09</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>中铁十四局 · 甘肃天域制药厂</h3>
-            </div>
-            <div class="timeline-role">房建技术员</div>
-            <p class="timeline-desc">
-              参与甘肃天域制药厂新建项目，担任房建技术员，负责制药厂厂房建设施工技术与质量管理。
-            </p>
-          </div>
-        </div>
-        <!-- Item 4: 2014.06-2015.09 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2014.06 - 2015.09</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>中铁十四局 · 兰州61243部队士官公寓楼</h3>
-            </div>
-            <div class="timeline-role">房建技术员</div>
-            <p class="timeline-desc">
-              参与兰州61243部队士官公寓楼项目，担任房建技术员，负责现场施工管理及质量监督，积累了扎实的房建施工经验。
-            </p>
-          </div>
-        </div>
-        <!-- Item 5: 2015.09-2016.12 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2015.09 - 2016.12</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>中铁十四局</h3>
-              <span class="timeline-tag timeline-tag-global"><i class="fas fa-globe-americas"></i> 海外</span>
-            </div>
-            <div class="timeline-role">PK92-PK100路基技术负责人</div>
-            <p class="timeline-desc">
-              参与阿尔及利亚东西高速公路贝贾亚连接线项目（PK92-PK100段），担任路基技术负责人，执行国际工程标准，负责现场施工技术管理与协调，积累了宝贵的海外工程实战经验。
-            </p>
-          </div>
-        </div>
-        <!-- Item 6 (Highlight): 2017.01-2020.06 -->
-        <div class="timeline-item timeline-item-highlight">
-          <div class="timeline-marker timeline-marker-accent"></div>
-          <div class="timeline-date">2017.01 - 2020.06</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>中铁十四局 · 兰州地铁一号线</h3>
-              <span class="timeline-tag timeline-tag-star"><i class="fas fa-star"></i> 核心项目</span>
-            </div>
-            <div class="timeline-role">工程部长</div>
-            <p class="timeline-desc">
-              兰州地铁一号线奥体中心站人防工程项目担任工程部长，负责现场施工技术管理、进度控制及质量监督，协调各专业工序衔接，是西北地区重要城市轨道交通工程。
-            </p>
-          </div>
-        </div>
-        <!-- Item 7: 2020.11-2022.06 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2020.11 - 2022.06</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>青海云都智慧科技有限公司</h3>
-            </div>
-            <div class="timeline-role">工程部经理</div>
-            <p class="timeline-desc">
-              统管各项目（昆仑大道亮化、群星路下穿通道亮化、城西客运站亮化、城北客运站亮化等），全面负责工程部日常运营管理，统筹项目进度、质量与安全。
-            </p>
-          </div>
-        </div>
-        <!-- Item 8: 2022.06-2025.06 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2022.06 - 2025.06</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>自由职业</h3>
-            </div>
-            <div class="timeline-role">系统安装 · 钢筋翻样 · 土建建模</div>
-            <p class="timeline-desc">
-              依托专业技能，在拼多多、闲鱼等平台承接系统安装、钢筋翻样、土建建模等工程相关业务，积累了多元化的技术实战经验。
-            </p>
-          </div>
-        </div>
-        <!-- Item 9: 2025.07 -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2025.07</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>私人老板包工头 · 格尔木火电厂项目</h3>
-            </div>
-            <div class="timeline-role">技术负责</div>
-            <p class="timeline-desc">
-              参与格尔木火电厂项目建设，担任化验楼、启动锅炉房、水泵房等设施的技术负责人，把控现场施工质量与技术方案。
-            </p>
-          </div>
-        </div>
-        <!-- Item 10: 2026.03-至今 (最新) -->
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-date">2026.03 - 至今</div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <h3>青海中安建设工程有限公司</h3>
-              <span class="timeline-tag">当前</span>
-            </div>
-            <div class="timeline-role">技术负责</div>
-            <p class="timeline-desc">
-              参与格尔木胜华矿业索拉吉尔铜矿采剥工程，负责计划排布、工作面布置、炮孔布置、收方计量等技术管理工作。
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="portfolio" class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">PORTFOLIO</span>
-        <h2 class="section-title">代表工程业绩</h2>
-      </div>
-      <div class="portfolio-grid">
-        <!-- 项目1: 兰州地铁（最核心，置顶） -->
-        <div class="portfolio-card portfolio-featured">
-          <div class="portfolio-img" id="proj1">
-            <img src="images/兰州地铁奥体中心站.png" alt="兰州地铁一号线奥体中心站" class="portfolio-img-full" onclick="openLightbox(this)">
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-meta">
-              <span class="portfolio-tag">轨道交通</span>
-              <span class="portfolio-tag">重点工程</span>
-            </div>
-            <h3>兰州地铁一号线奥体中心站</h3>
-            <p class="portfolio-company"><i class="fas fa-building"></i> 中铁十四局</p>
-            <p class="portfolio-role-tag">工程部长</p>
-            <div class="portfolio-desc-full">
-              <p>担任兰州地铁 1 号线奥体中心站人防工程项目工程部长，全面负责地下人防工程的施工技术管理与项目全流程管控工作：</p>
-              <ul>
-                <li><strong>技术与规范管理：</strong>熟练掌握地下人防工程相关施工规范、工艺标准，负责项目施工方案编制、技术交底与现场施工技术指导，解决现场施工中的技术难题，保障施工合规性；</li>
-                <li><strong>商务与造价管理：</strong>重点负责项目变更签证办理、对上对下计量计价工作，全程主导项目结算资料的编制、整理、报审与移交工作，保障项目商务收益；</li>
-                <li><strong>计划与进度管理：</strong>负责项目施工进度计划的编制、排布与落地管控，统筹协调各施工班组、各工序的进度衔接，保障项目按节点顺利推进；</li>
-                <li><strong>资料与竣工管理：</strong>全面负责项目施工全流程资料的整理、归档与管理，负责竣工图纸绘制、竣工资料编制与移交工作，确保项目资料完整合规，顺利完成竣工验收。</li>
-              </ul>
-            </div>
-            <div class="portfolio-details">
-              <span><i class="fas fa-calendar"></i> 2017.01 - 2020.06</span>
-              <span><i class="fas fa-map-marker-alt"></i> 甘肃兰州</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 项目2: 阿尔及利亚 -->
-        <div class="portfolio-card">
-          <div class="portfolio-img" id="proj2">
-            <img src="images/阿尔及利亚东西高速.jpg" alt="阿尔及利亚东西高速公路贝贾亚连接线" class="portfolio-img-full" onclick="openLightbox(this)">
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-meta">
-              <span class="portfolio-tag">海外工程</span>
-              <span class="portfolio-tag">高速公路</span>
-            </div>
-            <h3>阿尔及利亚东西高速公路贝贾亚连接线</h3>
-            <p class="portfolio-company"><i class="fas fa-building"></i> 中铁十四局</p>
-            <p class="portfolio-role-tag">路基技术负责人</p>
-            <div class="portfolio-desc-full">
-              <p>担任该路段路基技术负责人，全程主导 PK92-PK100 段路基施工的技术管理、质量管控、进度协调与对外沟通工作，积累了丰富的海外公路项目施工管理经验，熟练掌握海外公路工程的施工标准与管理流程。</p>
-            </div>
-            <div class="portfolio-details">
-              <span><i class="fas fa-calendar"></i> 2015.09 - 2016.12</span>
-              <span><i class="fas fa-globe-americas"></i> 阿尔及利亚</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 项目3: 山西中南部铁路通道（新增） -->
-        <div class="portfolio-card">
-          <div class="portfolio-img" id="proj5">
-            <img src="images/山西中南部铁路通道.jpg" alt="山西中南部铁路通道" class="portfolio-img-full" onclick="openLightbox(this)">
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-meta">
-              <span class="portfolio-tag">铁路工程</span>
-              <span class="portfolio-tag">隧道工程</span>
-            </div>
-            <h3>山西中南部铁路通道</h3>
-            <p class="portfolio-company"><i class="fas fa-building"></i> 中铁十四局</p>
-            <p class="portfolio-role-tag">路基技术员、隧道技术员</p>
-            <div class="portfolio-desc-full">
-              <p>担任路基技术员期间，负责路基施工全流程管控，重点把控每层压实度、铺筑厚度，以及路基填料的质量与施工工艺；</p>
-              <p>担任隧道技术员期间，全程参与 Ⅱ-Ⅴ 级围岩的隧道施工，对各类围岩的初期支护、二次衬砌施工技术有全面的掌握与丰富的现场管控经验。</p>
-            </div>
-            <div class="portfolio-details">
-              <span><i class="fas fa-calendar"></i> 2011.03 - 2012.12</span>
-              <span><i class="fas fa-map-marker-alt"></i> 山西</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 项目4: 成绵乐铁路 -->
-        <div class="portfolio-card">
-          <div class="portfolio-img" id="proj3">
-            <div class="portfolio-placeholder">
-              <i class="fas fa-train"></i>
-              <span>成绵乐铁路</span>
-            </div>
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-meta">
-              <span class="portfolio-tag">铁路工程</span>
-            </div>
-            <h3>成绵乐铁路客运专线</h3>
-            <p class="portfolio-company"><i class="fas fa-building"></i> 中铁十四局</p>
-            <p class="portfolio-role-tag">路基技术员、桥梁技术员</p>
-            <div class="portfolio-desc-full">
-              <p>主要负责路基软基处理施工，包括水泥搅拌桩、高压旋喷桩的现场施工管控；同时负责桥梁下部结构施工，涵盖承台、墩柱的施工技术指导与质量把控，全程参与现场施工组织与技术管理工作。</p>
-            </div>
-            <div class="portfolio-details">
-              <span><i class="fas fa-calendar"></i> 2010.08 - 2011.02</span>
-              <span><i class="fas fa-map-marker-alt"></i> 四川</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 项目5: 部队公寓楼（新增） -->
-        <div class="portfolio-card">
-          <div class="portfolio-img" id="proj6">
-            <div class="portfolio-placeholder">
-              <i class="fas fa-home"></i>
-              <span>部队公寓楼</span>
-            </div>
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-meta">
-              <span class="portfolio-tag">房建工程</span>
-              <span class="portfolio-tag">部队营房</span>
-            </div>
-            <h3>兰州 61243 部队士官公寓楼</h3>
-            <p class="portfolio-company"><i class="fas fa-building"></i> 中铁十四局</p>
-            <p class="portfolio-role-tag">房建技术员</p>
-            <div class="portfolio-desc-full">
-              <p>参与部队士官公寓楼建设项目，担任房建技术员，负责营房主体施工、别墅装修的现场技术管理与质量把控，熟练掌握部队营房、职工公寓类建筑的建设标准与质量验收规范。</p>
-            </div>
-            <div class="portfolio-details">
-              <span><i class="fas fa-calendar"></i> 2014.06 - 2015.09</span>
-              <span><i class="fas fa-map-marker-alt"></i> 甘肃兰州</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 项目6: 天域制药厂 -->
-        <div class="portfolio-card">
-          <div class="portfolio-img" id="proj4">
-            <div class="portfolio-placeholder">
-              <i class="fas fa-industry"></i>
-              <span>制药厂项目</span>
-            </div>
-          </div>
-          <div class="portfolio-content">
-            <div class="portfolio-meta">
-              <span class="portfolio-tag">房建工程</span>
-            </div>
-            <h3>甘肃天域制药厂新建项目</h3>
-            <p class="portfolio-company"><i class="fas fa-building"></i> 中铁十四局</p>
-            <p class="portfolio-role-tag">房建技术员</p>
-            <div class="portfolio-desc-full">
-              <p>全程参与厂区厂房、办公楼及厂区道路的建设施工，负责现场技术指导、施工质量管控与进度协调，熟练掌握房建工程相关的施工规范、质量验收标准与安全管理要求。</p>
-            </div>
-            <div class="portfolio-details">
-              <span><i class="fas fa-calendar"></i> 2013.01 - 2015.09</span>
-              <span><i class="fas fa-map-marker-alt"></i> 甘肃</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">CONTACT</span>
-        <h2 class="section-title">联系方式</h2>
-      </div>
-      <div class="contact-wrapper">
-        <div class="contact-intro">
-          <h3>期待与您交流</h3>
-          <p>
-            感谢您查看我的个人网站。如果您对我的经历感兴趣，或有任何合作意向，欢迎通过以下方式与我取得联系，我将在第一时间回复您。
-          </p>
-          <div class="contact-methods">
-            <a href="tel:13086202701" class="contact-item">
-              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-              <div>
-                <div class="contact-label">手机</div>
-                <div class="contact-value">130 8620 2701</div>
-              </div>
-            </a>
-            <a href="mailto:774071052@qq.com" class="contact-item">
-              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-              <div>
-                <div class="contact-label">邮箱</div>
-                <div class="contact-value">774071052@qq.com</div>
-              </div>
-            </a>
-            <a href="weixin:13086202701" class="contact-item">
-              <div class="contact-icon"><i class="fab fa-weixin"></i></div>
-              <div>
-                <div class="contact-label">微信</div>
-                <div class="contact-value">130 8620 2701</div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="contact-form-wrap">
-          <h3>发送消息</h3>
-          <form class="contact-form" id="contactForm">
-            <div class="form-group">
-              <label for="name">姓名</label>
-              <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
-            </div>
-            <div class="form-group">
-              <label for="email">邮箱</label>
-              <input type="email" id="email" name="email" placeholder="请输入您的邮箱">
-            </div>
-            <div class="form-group">
-              <label for="subject">主题</label>
-              <input type="text" id="subject" name="subject" placeholder="请输入主题">
-            </div>
-            <div class="form-group">
-              <label for="message">留言内容</label>
-              <textarea id="message" name="message" rows="5" placeholder="请输入您的留言内容..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-full">
-              <i class="fas fa-paper-plane"></i> 发送消息
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <span class="footer-name">申万山</span>
-          <span class="footer-title">工程管理专家 · 一级建造师</span>
-        </div>
-        <div class="footer-links">
-          <a href="#hero">首页</a>
-          <a href="#about">关于</a>
-          <a href="#experience">经历</a>
-          <a href="#skills">技能</a>
-          <a href="#certificates">证书</a>
-          <a href="#portfolio">业绩</a>
-          <a href="#contact">联系</a>
-        </div>
-        <div class="footer-copy">
-          <p>&copy; 2026 申万山 · 保留所有权利</p>
-          <p class="footer-note">本网站内容仅用于个人求职展示</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-  <!-- Lightbox -->
-  <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="">
+<!-- Social Proof Scroll Bar -->
+<div class="social-bar">
+  <div class="social-bar-inner">
+    <span>📍 杭州市 · 王先生 刚刚完成测评 → 理性决策 61/100</span>
+    <span>📍 上海市 · 李女士 刚刚完成测评 → 信息甄别力 78/100</span>
+    <span>📍 广州市 · 陈先生 刚刚完成测评 → 情绪韧性 39/100</span>
+    <span>📍 成都市 · 赵女士 刚刚完成测评 → 延迟满足 85/100</span>
+    <span>📍 武汉市 · 刘先生 刚刚完成测评 → 理性决策 44/100</span>
+    <span>📍 深圳市 · 张女士 刚刚完成测评 → 抗干扰 71/100</span>
+    <span>📍 杭州市 · 王先生 刚刚完成测评 → 理性决策 61/100</span>
+    <span>📍 上海市 · 李女士 刚刚完成测评 → 信息甄别力 78/100</span>
+    <span>📍 广州市 · 陈先生 刚刚完成测评 → 情绪韧性 39/100</span>
+    <span>📍 成都市 · 赵女士 刚刚完成测评 → 延迟满足 85/100</span>
   </div>
-  <script>
-    function openLightbox(el) {
-      var lb = document.getElementById('lightbox');
-      var img = document.getElementById('lightbox-img');
-      img.src = el.src;
-      img.alt = el.alt;
-      lb.classList.add('show');
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('show');
-    }
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeLightbox();
+</div>
+
+<!-- Nav -->
+<nav>
+  <div class="container">
+    <div class="logo">AI<span>决策体检</span> <span class="sold-badge">已售 328 份</span></div>
+    <button class="nav-btn" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})">立即体检</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">⚠️ 过去一年，你因为认知盲区损失了多少钱？</div>
+
+    <h1>
+      下次重大决策前<br>
+      花 <span class="gold">¥199</span>，帮你省下 <span class="red">¥10,000 起步</span>
+    </h1>
+
+    <div class="sub">
+      不是性格测试。是你在<strong>投资、买房、谈判、跳槽</strong>之前，<br>
+      先看清自己大脑里的「思维陷阱」。
+    </div>
+
+    <div class="pricing-display">
+      <span class="price-old">原价 ¥599</span>
+      <span class="price-current">
+        <span class="price-unit">¥</span>199
+        <span class="tag">限时 3.3 折</span>
+      </span>
+    </div>
+
+    <!-- Decoy Pricing -->
+    <div class="decoy-row">
+      <div class="decoy-option">
+        <div class="d-price">¥0</div>
+        <div class="d-label">别人测评</div>
+      </div>
+      <div class="decoy-option best">
+        <div class="d-price">¥199</div>
+        <div class="d-label">AI 深度报告</div>
+      </div>
+      <div class="decoy-option">
+        <div class="d-price">¥499</div>
+        <div class="d-label">专家咨询</div>
+      </div>
+    </div>
+
+    <a class="cta-primary" href="#payment">
+      现在就想看清自己的盲区 →
+      <span class="mini">已有 328 人完成测评</span>
+    </a>
+
+    <!-- FOMO Counters -->
+    <div class="social-counter">
+      <div class="sc-item">
+        <div class="num">328 <small>人</small></div>
+        <div class="label">已完成测评</div>
+      </div>
+      <div class="sc-item">
+        <div class="num">94%</div>
+        <div class="label">认为「值回票价」</div>
+      </div>
+      <div class="sc-item">
+        <div class="num">7 天</div>
+        <div class="label">无理由退款</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pain Section -->
+<section class="pain-section">
+  <div class="container">
+    <h2 class="section-title">你遇到的不是「运气不好」，<em>而是认知陷阱</em></h2>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="ploss">💸 代价：¥30,000 ~ ¥300,000</div>
+        <div class="pdesc">投资亏损了不甘心，继续加仓想翻本。结果——越陷越深，血本无归。</div>
+        <div class="proot"><strong>陷阱：</strong>沉没成本偏误。你被「已经投入的」绑架，不是看「未来值不值」。</div>
+      </div>
+      <div class="pain-card">
+        <div class="ploss">💸 代价：¥50,000 ~ ¥200,000</div>
+        <div class="pdesc">看了 20 篇文章，最后凭感觉买了「朋友说好」的房子。两年后发现，这个片区根本不涨。</div>
+        <div class="proot"><strong>陷阱：</strong>确认偏误。你以为在分析，其实在找「支持自己直觉的证据」。</div>
+      </div>
+      <div class="pain-card">
+        <div class="ploss">💸 代价：一个客户 / 一次晋升 / 一段关系</div>
+        <div class="pdesc">压力一上来，情绪失控。说了不该说的话，事后后悔但伤害已经造成。</div>
+        <div class="proot"><strong>陷阱：</strong>情绪脆弱。杏仁核劫持大脑，理性决策能力瞬间归零。</div>
+      </div>
+      <div class="pain-card">
+        <div class="ploss">💸 代价：¥5,000 ~ ¥50,000</div>
+        <div class="pdesc">看到别人都在买，害怕错过。你也冲进去，结果买入即高点，被套一年。</div>
+        <div class="proot"><strong>陷阱：</strong>FOMO（错失恐惧）。你的决策不是基于判断，而是「别人赚了我没赚」的焦虑。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonial-section">
+  <div class="container">
+    <h2 class="section-title">他们做完后，<em>怎么说</em></h2>
+
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <div class="t-header">
+          <span class="t-name">张先生 · 企业主</span>
+          <span class="t-who">42 岁 · 浙江</span>
+        </div>
+        <div class="t-text">
+          「做了 15 年生意，一直觉得自己挺理性的。测评才发现我沉没成本偏误严重到 89 分位。报告建议我‘每次决策前，写下如果朋友遇到这事我会怎么建议’——照做了一个月，避免 3 次冲动投资，省了 8 万多。¥199 值了。」
+        </div>
+        <div class="t-result">✅ 30 天避免损失 ¥80,000+</div>
+      </div>
+
+      <div class="testimonial">
+        <div class="t-header">
+          <span class="t-name">李女士 · 投资人</span>
+          <span class="t-who">35 岁 · 上海</span>
+        </div>
+        <div class="t-text">
+          「我自认为投资很理性。报告显示我情绪韧性只有 38 分——大跌时我会恐慌卖出。按照报告里的‘4-7-8 呼吸法’和‘72 小时冷静期’，上个月大盘暴跌我没跑，一周后涨回来了。少亏了 5 万。」
+        </div>
+        <div class="t-result">✅ 一次冷静 = 少亏 ¥50,000</div>
+      </div>
+
+      <div class="testimonial">
+        <div class="t-header">
+          <span class="t-name">陈先生 · 项目经理</span>
+          <span class="t-who">39 岁 · 广州</span>
+        </div>
+        <div class="t-text">
+          「报告说我的信息甄别力只有 47 分——我太容易相信‘看起来专业’的信息。之前就是因为这个买错了保险，每年多交 1.2 万。现在每次看到推销，先问自己‘数据来源在哪’，已经帮我避了两个坑。」
+        </div>
+        <div class="t-result">✅ 每年节省 ¥12,000+</div>
+      </div>
+
+      <div class="testimonial">
+        <div class="t-header">
+          <span class="t-name">赵女士 · 创业者</span>
+          <span class="t-who">31 岁 · 成都</span>
+        </div>
+        <div class="t-text">
+          「最扎心的是‘延迟满足’维度——我只有 29 分。报告说我有严重的即时满足偏好，解释了为什么我总做短期决策。按 30 天计划的建议改了发薪日分配，第一个月就多存了 6000 块。」
+        </div>
+        <div class="t-result">✅ 月多存 ¥6,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What You Get -->
+<section class="get-section">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:40px;">花 ¥199，你具体得到什么</h2>
+
+    <div class="get-grid">
+      <div class="get-card">
+        <div class="g-icon">🔍</div>
+        <h3>12 个真实决策场景</h3>
+        <p>不是性格测试。每个问题都是你明天就可能遇到的投资、买房、职场选择。</p>
+      </div>
+      <div class="get-card">
+        <div class="g-icon">📊</div>
+        <h3>6 大维度精准评分 + 同龄对比</h3>
+        <p>理性决策 · 情绪韧性 · 信息甄别 · 独立思考 · 延迟满足 · 抗干扰。每个都有百分位排名。</p>
+      </div>
+      <div class="get-card">
+        <div class="g-icon">✅</div>
+        <h3>每条弱点配 3 条可执行建议</h3>
+        <p>不是鸡汤。是「下次遇到这类情况，先做这 3 步」——拿来就能用。</p>
+      </div>
+      <div class="get-card">
+        <div class="g-icon">📈</div>
+        <h3>30 天认知升级计划</h3>
+        <p>根据你的薄弱维度定制。每天 5 分钟，30 天后能测出明显进步。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reciprocity Lead Magnet -->
+<section class="lead-magnet">
+  <div class="container">
+    <div class="magnet-card">
+      <div class="m-icon">📕</div>
+      <h3>先领一份免费的《10 大认知偏误自查清单》</h3>
+      <p>就算不买测评，这 10 条也能帮你下次决策少踩一个坑。<br>
+      添加微信 <strong style="color:#e8a020;">shen-wanshan</strong>，备注「清单」即可免费领取。</p>
+      <a class="magnet-btn" href="#" onclick="window.open('https://weixin.qq.com');return false;">免费领自查清单 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Risk Reversal -->
+<section class="guarantee">
+  <div class="container">
+    <div class="guarantee-box">
+      <div class="g-icon">🛡️</div>
+      <h3>7 天无理由退款</h3>
+      <p>如果收到报告后觉得不值，在未开始答题的前提下全额退款。<br>
+      至今退款率 <strong style="color:#66cc88;">0%</strong>——但我们给你这个保障，让你安心下单。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Urgency -->
+<section class="urgency">
+  <div class="container">
+    <h2>你的下一次重大决策，还有多久到来？</h2>
+    <p>
+      下周的投资机会？下个月的买房决定？明天的关键谈判？<br><br>
+      在它到来之前，你想不想先看清自己的盲区？
+    </p>
+    <a class="cta-red" href="#payment">¥199 限时 3.3 折，立即体检 →</a>
+  </div>
+</section>
+
+<!-- Steps -->
+<section class="steps-section">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:32px;">三步拿到报告</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h4>扫码支付 ¥199（原价 ¥599）</h4>
+        <p>微信 / 支付宝均可</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h4>完成 12 道情境题（约 15 分钟）</h4>
+        <p>没有对错，你的选择暴露你的认知模式</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h4>24 小时内拿到 8 页深度报告</h4>
+        <p>定制报告 + 30 天升级计划，永久可查</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Payment -->
+<section class="payment-section" id="payment">
+  <div class="container">
+    <div class="pay-card">
+      <div class="urgent-tag">🔥 限时优惠 · 原价 ¥599</div>
+      <h3>AI 决策体检</h3>
+      <div class="pay-price">¥199</div>
+      <div class="pay-old">原价 ¥599</div>
+      <div class="pay-tag">已售 328 份 · 还剩 72 份限时价</div>
+
+      <div class="qr-container">
+        <div class="qr-item wechat">
+          <img src="images/wechat-pay.jpg" alt="微信支付二维码">
+          <div class="qr-label">🟢 微信支付</div>
+        </div>
+        <div class="qr-item alipay">
+          <img src="images/alipay.jpg" alt="支付宝支付二维码">
+          <div class="qr-label">🔵 支付宝支付</div>
+        </div>
+      </div>
+
+      <div class="pay-tip">
+        ⚡ 付款后添加微信 <strong>shen-wanshan</strong><br>
+        发送付款截图 → 立即获取测评题目<br>
+        24 小时内交付完整报告
+      </div>
+      <div style="font-size:12px;color:#5678a0;margin-top:10px;">
+        📱 长按识别二维码 · 付款后截图私信
+      </div>
+
+      <div class="pay-guarantee">
+        🛡️ 7 天无理由退款 · 至今 0 人退款
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky Mobile Bar -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sb-left">
+    <span style="font-size:11px;color:#5678a0;">已售 328 份</span><br>
+    <span class="sb-price">¥199</span> <span style="text-decoration:line-through;font-size:12px;color:#5678a0;">¥599</span>
+  </div>
+  <button class="sb-btn" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})">立即体检</button>
+</div>
+
+<footer>
+  <div class="container">
+    <p>AI 决策体检 · 基于认知科学 + 行为决策理论</p>
+    <p style="margin-top:4px;">© 2026 All Rights Reserved · 7 天无理由退款</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById(a.getAttribute('href').slice(1))?.scrollIntoView({behavior:'smooth'});
     });
-  </script>
+  });
+
+  // Show sticky bar on scroll
+  window.addEventListener('scroll', () => {
+    const bar = document.getElementById('stickyBar');
+    if (window.innerWidth <= 600 && window.scrollY > 400) {
+      bar.style.display = 'flex';
+    }
+  });
+</script>
 </body>
 </html>
-
